@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "feature": "identity-live-provisioning",
+  "mode": "staged",
+  "expected_live_objects": {
+    "users_to_create": 10,
+    "business_premium_users": 8,
+    "unlicensed_emergency_users": 2,
+    "security_groups": 11
+  },
+  "runtime_inputs": {
+    "tenant_domain": {
+      "source": "auto-detected-from-bootstrap-upn",
+      "store_in_repository": false
+    },
+    "usage_location": {
+      "source": "interactive-local-input",
+      "format": "ISO-3166-1-alpha-2",
+      "store_in_repository": false
+    }
+  },
+  "preflight": {
+    "write_operations_allowed": false,
+    "graph_scopes": [
+      "User.ReadBasic.All",
+      "GroupMember.Read.All",
+      "LicenseAssignment.Read.All"
+    ]
+  },
+  "apply": {
+    "directory_wide_permission_allowed": false,
+    "context_scope": "Process",
+    "idempotent": true,
+    "strategy": "staged",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_graph_scopes": [
+      "User.Create",
+      "User.ReadBasic.All",
+      "LicenseAssignment.Read.All",
+      "LicenseAssignment.ReadWrite.All"
+    ],
+    "full_graph_scopes": [
+      "User.Create",
+      "User.ReadBasic.All",
+      "Group.ReadWrite.All",
+      "GroupMember.ReadWrite.All",
+      "LicenseAssignment.Read.All",
+      "LicenseAssignment.ReadWrite.All"
+    ],
+    "full_apply_requires_explicit_confirmation": true
+  },
+  "credentials": {
+    "generated_locally": true,
+    "repository_storage_allowed": false,
+    "local_storage_directory": "local-evidence",
+    "plaintext_console_output_allowed": false
+  },
+  "license": {
+    "sku_part_number": "SPB",
+    "minimum_available_units_before_apply": 8,
+    "usage_location_required": true
+  }
+}
