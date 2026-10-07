@@ -85,8 +85,18 @@ The project follows these principles:
 
 ## Current status
 
-Feature 0 — Repository, intellectual property, security, and governance
-foundation.
+Feature 1 — Organization and Zero Trust architecture.
+
+Completed foundations include:
+
+- Repository security and governance
+- Synthetic organization model
+- Identity personas and privilege classes
+- Zero Trust access-decision architecture
+- Threat model
+- Security control objectives
+- Architecture Decision Records
+- Automated repository and architecture validation
 
 No production Microsoft 365 environment is used by this project.
 

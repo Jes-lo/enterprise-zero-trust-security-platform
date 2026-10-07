@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "organization": {
+    "code": "ZT-LAB",
+    "description": "Synthetic enterprise organization used exclusively for the portfolio security laboratory",
+    "environment_type": "non-production",
+    "data_classification": "synthetic-only"
+  },
+  "departments": [
+    {
+      "code": "EXEC",
+      "name": "Executive"
+    },
+    {
+      "code": "FIN",
+      "name": "Finance"
+    },
+    {
+      "code": "HR",
+      "name": "Human Resources"
+    },
+    {
+      "code": "SALES",
+      "name": "Sales"
+    },
+    {
+      "code": "ENG",
+      "name": "Engineering"
+    },
+    {
+      "code": "ITOPS",
+      "name": "IT Operations"
+    },
+    {
+      "code": "SEC",
+      "name": "Security"
+    }
+  ],
+  "identity_personas": [
+    {
+      "code": "EMPLOYEE",
+      "description": "Standard workforce identity"
+    },
+    {
+      "code": "DEVELOPER",
+      "description": "Engineering identity with development responsibilities"
+    },
+    {
+      "code": "IT_OPERATOR",
+      "description": "Operational identity with limited administrative responsibilities"
+    },
+    {
+      "code": "SECURITY_ENGINEER",
+      "description": "Security operations and security engineering identity"
+    },
+    {
+      "code": "PRIVILEGED_ADMIN",
+      "description": "Dedicated identity used only for privileged administrative operations"
+    },
+    {
+      "code": "EXECUTIVE",
+      "description": "High-value workforce identity"
+    },
+    {
+      "code": "CONTRACTOR",
+      "description": "Time-bounded external workforce identity"
+    },
+    {
+      "code": "GUEST",
+      "description": "External collaboration identity"
+    },
+    {
+      "code": "WORKLOAD",
+      "description": "Non-human application or automation identity"
+    },
+    {
+      "code": "EMERGENCY_ADMIN",
+      "description": "Restricted emergency-access administrative identity"
+    }
+  ],
+  "privilege_classes": [
+    {
+      "code": "PC0",
+      "name": "Emergency",
+      "description": "Emergency-access identities reserved for recovery scenarios"
+    },
+    {
+      "code": "PC1",
+      "name": "Privileged",
+      "description": "High-impact administrative access"
+    },
+    {
+      "code": "PC2",
+      "name": "Operational",
+      "description": "Delegated administrative access with constrained scope"
+    },
+    {
+      "code": "PC3",
+      "name": "Standard",
+      "description": "Normal workforce and collaboration access"
+    }
+  ],
+  "trust_signals": [
+    "identity",
+    "authentication",
+    "privilege",
+    "device",
+    "application",
+    "location_context",
+    "risk",
+    "resource_sensitivity"
+  ]
+}
