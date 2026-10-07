@@ -85,7 +85,7 @@ The project follows these principles:
 
 ## Current status
 
-Feature 1 — Organization and Zero Trust architecture.
+Feature 2 — Tenant bootstrap and licensing validation (in progress).
 
 Completed foundations include:
 
@@ -97,6 +97,10 @@ Completed foundations include:
 - Security control objectives
 - Architecture Decision Records
 - Automated repository and architecture validation
+
+Feature 2 currently includes the offline tenant-bootstrap contract,
+licensing boundaries, trial safeguards, sanitized evidence rules, and
+read-only Microsoft Graph discovery automation.
 
 No production Microsoft 365 environment is used by this project.
 

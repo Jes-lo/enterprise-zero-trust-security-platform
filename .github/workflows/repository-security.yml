@@ -37,10 +37,14 @@ jobs:
         run: |
           bash -n scripts/validate-repository.sh
           bash -n scripts/validate-architecture.sh
+          bash -n scripts/validate-tenant-bootstrap.sh
           bash -n tests/test-repository-validation.sh
 
       - name: Validate Zero Trust architecture
         run: ./scripts/validate-architecture.sh
+
+      - name: Validate tenant bootstrap
+        run: ./scripts/validate-tenant-bootstrap.sh
 
       - name: Run repository security validation
         run: ./scripts/validate-repository.sh
