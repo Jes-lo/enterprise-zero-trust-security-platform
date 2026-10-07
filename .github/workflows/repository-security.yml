@@ -38,6 +38,7 @@ jobs:
           bash -n scripts/validate-repository.sh
           bash -n scripts/validate-architecture.sh
           bash -n scripts/validate-tenant-bootstrap.sh
+          bash -n scripts/validate-identity-foundation.sh
           bash -n tests/test-repository-validation.sh
 
       - name: Validate Zero Trust architecture
@@ -45,6 +46,9 @@ jobs:
 
       - name: Validate tenant bootstrap
         run: ./scripts/validate-tenant-bootstrap.sh
+
+      - name: Validate identity foundation
+        run: ./scripts/validate-identity-foundation.sh
 
       - name: Run repository security validation
         run: ./scripts/validate-repository.sh

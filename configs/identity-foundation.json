@@ -1,0 +1,366 @@
+{
+  "schema_version": "1.0",
+  "model": {
+    "project_internal_code": "ZT-LAB",
+    "shared_tenant_resource_prefix": "PLAB",
+    "shared_tenant_display_name": "Portfolio Project Lab",
+    "environment_type": "non-production",
+    "data_classification": "synthetic-only"
+  },
+  "principles": {
+    "personal_identifiers_allowed": false,
+    "real_customer_data_allowed": false,
+    "real_employer_data_allowed": false,
+    "passwords_allowed_in_repository": false,
+    "tenant_domain_allowed_in_repository": false,
+    "user_principal_names_allowed_in_repository": false,
+    "standard_and_privileged_identity_separation": true,
+    "emergency_accounts_are_cloud_only": true,
+    "role_assignment_managed_in_feature_5": true,
+    "mfa_managed_in_feature_4": true,
+    "conditional_access_managed_in_feature_6": true,
+    "pim_managed_in_feature_7": true
+  },
+  "accounts": [
+    {
+      "id": "BOOTSTRAP_ADMIN",
+      "alias": "bootstrapadmin",
+      "display_name": "Portfolio Lab Bootstrap Administrator",
+      "persona": "PRIVILEGED_ADMIN",
+      "department": "ITOPS",
+      "privilege_class": "PC1",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "existing",
+      "live_creation": false,
+      "license_policy": "preserve-current-until-role-review",
+      "intended_use": "tenant-bootstrap-only"
+    },
+    {
+      "id": "PRIVILEGED_ADMIN_01",
+      "alias": "privilegedadmin01",
+      "display_name": "Portfolio Lab Privileged Administrator 01",
+      "persona": "PRIVILEGED_ADMIN",
+      "department": "ITOPS",
+      "privilege_class": "PC1",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "deferred",
+      "live_creation": false,
+      "license_policy": "deferred-to-feature-5",
+      "intended_use": "permanent-privileged-administration"
+    },
+    {
+      "id": "EMPLOYEE_01",
+      "alias": "employee01",
+      "display_name": "Portfolio Lab Employee 01",
+      "persona": "EMPLOYEE",
+      "department": "HR",
+      "privilege_class": "PC3",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "standard-user-baseline"
+    },
+    {
+      "id": "FINANCE_01",
+      "alias": "finance01",
+      "display_name": "Portfolio Lab Finance User 01",
+      "persona": "EMPLOYEE",
+      "department": "FIN",
+      "privilege_class": "PC3",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "finance-workforce-testing"
+    },
+    {
+      "id": "SALES_01",
+      "alias": "sales01",
+      "display_name": "Portfolio Lab Sales User 01",
+      "persona": "EMPLOYEE",
+      "department": "SALES",
+      "privilege_class": "PC3",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "sales-workforce-testing"
+    },
+    {
+      "id": "DEVELOPER_01",
+      "alias": "developer01",
+      "display_name": "Portfolio Lab Developer 01",
+      "persona": "DEVELOPER",
+      "department": "ENG",
+      "privilege_class": "PC3",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "engineering-access-testing"
+    },
+    {
+      "id": "IT_OPERATOR_01",
+      "alias": "itoperator01",
+      "display_name": "Portfolio Lab IT Operator 01",
+      "persona": "IT_OPERATOR",
+      "department": "ITOPS",
+      "privilege_class": "PC2",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "operational-administration-testing"
+    },
+    {
+      "id": "SECURITY_ENGINEER_01",
+      "alias": "securityengineer01",
+      "display_name": "Portfolio Lab Security Engineer 01",
+      "persona": "SECURITY_ENGINEER",
+      "department": "SEC",
+      "privilege_class": "PC2",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "security-administration-testing"
+    },
+    {
+      "id": "EXECUTIVE_01",
+      "alias": "executive01",
+      "display_name": "Portfolio Lab Executive 01",
+      "persona": "EXECUTIVE",
+      "department": "EXEC",
+      "privilege_class": "PC3",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "high-value-user-testing"
+    },
+    {
+      "id": "CONTRACTOR_01",
+      "alias": "contractor01",
+      "display_name": "Portfolio Lab Contractor 01",
+      "persona": "CONTRACTOR",
+      "department": "ENG",
+      "privilege_class": "PC3",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "business-premium",
+      "intended_use": "restricted-workforce-testing"
+    },
+    {
+      "id": "EMERGENCY_ADMIN_01",
+      "alias": "emergencyadmin01",
+      "display_name": "Portfolio Lab Emergency Administrator 01",
+      "persona": "EMERGENCY_ADMIN",
+      "department": "SEC",
+      "privilege_class": "PC0",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "unlicensed",
+      "intended_use": "emergency-access-only",
+      "cloud_only": true
+    },
+    {
+      "id": "EMERGENCY_ADMIN_02",
+      "alias": "emergencyadmin02",
+      "display_name": "Portfolio Lab Emergency Administrator 02",
+      "persona": "EMERGENCY_ADMIN",
+      "department": "SEC",
+      "privilege_class": "PC0",
+      "identity_kind": "human",
+      "user_type": "Member",
+      "live_state": "planned",
+      "live_creation": true,
+      "license_policy": "unlicensed",
+      "intended_use": "emergency-access-only",
+      "cloud_only": true
+    },
+    {
+      "id": "GUEST_01",
+      "alias": "guest01",
+      "display_name": "Portfolio Lab Guest 01",
+      "persona": "GUEST",
+      "department": "EXTERNAL",
+      "privilege_class": "PC3",
+      "identity_kind": "external-human",
+      "user_type": "Guest",
+      "live_state": "deferred",
+      "live_creation": false,
+      "license_policy": "none",
+      "intended_use": "external-collaboration-testing"
+    },
+    {
+      "id": "WORKLOAD_AUTOMATION_01",
+      "alias": "workloadautomation01",
+      "display_name": "Portfolio Lab Automation Workload 01",
+      "persona": "WORKLOAD",
+      "department": "ITOPS",
+      "privilege_class": "PC2",
+      "identity_kind": "workload",
+      "user_type": "service-principal",
+      "live_state": "deferred",
+      "live_creation": false,
+      "license_policy": "not-applicable",
+      "intended_use": "application-identity-testing"
+    }
+  ],
+  "groups": [
+    {
+      "id": "WORKFORCE",
+      "display_name": "PLAB-Workforce",
+      "mail_nickname": "plab-workforce",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "general-workforce-targeting",
+      "members": [
+        "EMPLOYEE_01",
+        "FINANCE_01",
+        "SALES_01",
+        "DEVELOPER_01",
+        "IT_OPERATOR_01",
+        "SECURITY_ENGINEER_01",
+        "EXECUTIVE_01",
+        "CONTRACTOR_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "HUMAN_RESOURCES",
+      "display_name": "PLAB-Human-Resources",
+      "mail_nickname": "plab-human-resources",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "human-resources-targeting",
+      "members": [
+        "EMPLOYEE_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "FINANCE",
+      "display_name": "PLAB-Finance",
+      "mail_nickname": "plab-finance",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "finance-targeting",
+      "members": [
+        "FINANCE_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "SALES",
+      "display_name": "PLAB-Sales",
+      "mail_nickname": "plab-sales",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "sales-targeting",
+      "members": [
+        "SALES_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "ENGINEERING",
+      "display_name": "PLAB-Engineering",
+      "mail_nickname": "plab-engineering",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "engineering-targeting",
+      "members": [
+        "DEVELOPER_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "IT_OPERATIONS",
+      "display_name": "PLAB-ITOps",
+      "mail_nickname": "plab-itops",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "operations-targeting",
+      "members": [
+        "IT_OPERATOR_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "SECURITY",
+      "display_name": "PLAB-Security",
+      "mail_nickname": "plab-security",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "security-targeting",
+      "members": [
+        "SECURITY_ENGINEER_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "EXECUTIVES",
+      "display_name": "PLAB-Executives",
+      "mail_nickname": "plab-executives",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "executive-targeting",
+      "members": [
+        "EXECUTIVE_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "CONTRACTORS",
+      "display_name": "PLAB-Contractors",
+      "mail_nickname": "plab-contractors",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "contractor-targeting",
+      "members": [
+        "CONTRACTOR_01"
+      ],
+      "membership_managed_in_feature": 3
+    },
+    {
+      "id": "CA_PILOT",
+      "display_name": "PLAB-CA-Pilot",
+      "mail_nickname": "plab-ca-pilot",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "conditional-access-pilot",
+      "members": [],
+      "membership_managed_in_feature": 6
+    },
+    {
+      "id": "DEVICE_PILOT",
+      "display_name": "PLAB-Device-Pilot",
+      "mail_nickname": "plab-device-pilot",
+      "group_type": "security",
+      "membership_type": "assigned",
+      "purpose": "device-management-pilot",
+      "members": [],
+      "membership_managed_in_feature": 8
+    }
+  ],
+  "deferred_identity_ids": [
+    "PRIVILEGED_ADMIN_01",
+    "GUEST_01",
+    "WORKLOAD_AUTOMATION_01"
+  ]
+}

@@ -140,3 +140,24 @@ This is an independent portfolio project.
 
 It is not an official Microsoft product and is not sponsored, endorsed,
 certified, or maintained by Microsoft.
+
+## Feature 3 — Identity Foundation
+
+Status: in progress.
+
+Feature 3 defines the shared synthetic identity foundation for the portfolio
+laboratory.
+
+The current offline model includes:
+
+- neutral Portfolio Lab tenant naming;
+- 14 modeled identities;
+- 8 planned Business Premium workforce identities;
+- separate bootstrap and permanent privileged-administrator personas;
+- two cloud-only emergency-access identities;
+- complete organizational department coverage;
+- 11 security groups with deterministic naming and membership ownership;
+- deferred guest and workload identities;
+- repository privacy and evidence boundaries.
+
+No Feature 3 identities or groups have been created in the live tenant yet.
