@@ -1,0 +1,59 @@
+name: Repository Security
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repository-validation:
+    name: Repository validation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Validate shell syntax
+        run: |
+          bash -n scripts/validate-repository.sh
+          bash -n tests/test-repository-validation.sh
+
+      - name: Run repository security validation
+        run: ./scripts/validate-repository.sh
+
+      - name: Run adversarial validation tests
+        run: ./tests/test-repository-validation.sh
+
+      - name: Verify clean test cleanup
+        run: |
+          if find . \
+            -path './.git' -prune -o \
+            \( -name '.validation-*' -o -path './raw-evidence/*' \) \
+            -print |
+            grep -q .; then
+
+            echo "FAIL: adversarial-test artifacts remain after cleanup."
+            exit 1
+          fi
+
+          echo "PASS: no adversarial-test artifacts remain."

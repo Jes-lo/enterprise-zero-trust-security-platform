@@ -31,3 +31,18 @@ material.
 Vendor documentation may be referenced for interoperability and
 implementation guidance without copying protected documentation into this
 repository.
+
+## GitHub Actions dependencies
+
+### actions/checkout
+
+- Component: `actions/checkout`
+- Version: `v7.0.1`
+- Pinned commit: `3d3c42e5aac5ba805825da76410c181273ba90b1`
+- Provider: GitHub
+- Purpose: Repository checkout in CI
+- License: MIT
+- Source: https://github.com/actions/checkout
+
+The action is referenced as an external CI dependency and is not vendored,
+copied, or redistributed as project source code.
