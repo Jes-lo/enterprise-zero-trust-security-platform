@@ -85,7 +85,7 @@ The project follows these principles:
 
 ## Current status
 
-Feature 2 — Tenant bootstrap and licensing validation (in progress).
+Feature 2 — Tenant bootstrap and licensing validation.
 
 Completed foundations include:
 
@@ -98,9 +98,14 @@ Completed foundations include:
 - Architecture Decision Records
 - Automated repository and architecture validation
 
-Feature 2 currently includes the offline tenant-bootstrap contract,
-licensing boundaries, trial safeguards, sanitized evidence rules, and
-read-only Microsoft Graph discovery automation.
+Feature 2 includes the tenant-bootstrap contract, licensing boundaries,
+trial safeguards, least-privilege Microsoft Graph discovery automation,
+live Business Premium capability validation, and sanitized repository
+evidence.
+
+The live laboratory validated Microsoft Entra ID P1, Microsoft Intune
+Plan 1, Microsoft Defender for Business, and Microsoft Defender for
+Office 365 Plan 1 without publishing tenant identifiers.
 
 No production Microsoft 365 environment is used by this project.
 

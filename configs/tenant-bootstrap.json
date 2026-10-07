@@ -16,7 +16,12 @@
     "product": "Microsoft 365 Business Premium",
     "activation_phase": "feature-2",
     "expected_trial_duration_days": 30,
-    "recurring_billing_must_be_disabled": true
+    "billing_protection": {
+      "required": true,
+      "preferred_strategy": "recurring_billing_off",
+      "fallback_strategy": "manual_cancel_before_expiration",
+      "cancel_before_expiration_days": 1
+    }
   },
   "expected_base_capabilities": [
     {

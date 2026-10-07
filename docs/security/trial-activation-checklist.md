@@ -20,8 +20,10 @@ preparation to the live laboratory tenant.
 
 - [ ] Record the trial start date locally.
 - [ ] Record the trial expiration date locally.
-- [ ] Disable recurring billing.
-- [ ] Confirm that future automatic billing is disabled.
+- [ ] Attempt to disable recurring billing without terminating the active trial.
+- [ ] If only immediate cancellation is available, do not terminate the trial early.
+- [ ] Document a manual cancellation plan before expiration.
+- [ ] Maintain at least a one-day cancellation safety margin.
 - [ ] Confirm the administrative account can sign in.
 - [ ] Preserve emergency access planning before restrictive controls are introduced.
 - [ ] Do not publish the initial tenant domain.
@@ -73,7 +75,8 @@ Keep only outside Git:
 Feature 2 can be considered complete only when:
 
 1. The tenant is active.
-2. Recurring billing has been disabled.
+2. A billing-protection strategy has been documented: recurring billing
+   disabled or manual cancellation before expiration.
 3. The base subscription is discoverable through read-only automation.
 4. Required base capabilities have been verified.
 5. Raw evidence remains outside Git.

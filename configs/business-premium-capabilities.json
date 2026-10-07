@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "product": {
+    "display_name": "Microsoft 365 Business Premium",
+    "sku_part_number": "SPB"
+  },
+  "required_capabilities": [
+    {
+      "id": "ENTRA_ID_P1",
+      "display_name": "Microsoft Entra ID P1",
+      "service_plan_name": "AAD_PREMIUM",
+      "required_status": "Success"
+    },
+    {
+      "id": "INTUNE_PLAN_1",
+      "display_name": "Microsoft Intune Plan 1",
+      "service_plan_name": "INTUNE_A",
+      "required_status": "Success"
+    },
+    {
+      "id": "DEFENDER_FOR_BUSINESS",
+      "display_name": "Microsoft Defender for Business",
+      "service_plan_name": "MDE_SMB",
+      "required_status": "Success"
+    },
+    {
+      "id": "DEFENDER_FOR_OFFICE_365_P1",
+      "display_name": "Microsoft Defender for Office 365 Plan 1",
+      "service_plan_name": "ATP_ENTERPRISE",
+      "required_status": "Success"
+    }
+  ]
+}

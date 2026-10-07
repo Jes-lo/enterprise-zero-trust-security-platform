@@ -33,9 +33,12 @@ Immediately after activation:
 
 1. Confirm access to the Microsoft 365 admin center.
 2. Confirm the trial expiration date.
-3. Disable recurring billing.
-4. Record subscription state only in local evidence.
-5. Do not publish billing or payment information.
+3. Attempt to disable recurring billing without terminating the active trial.
+4. If the tenant offers only immediate cancellation, preserve the active
+   laboratory period and document manual cancellation before expiration.
+5. Maintain at least a one-day cancellation safety margin.
+6. Record subscription state only in local evidence.
+7. Do not publish billing or payment information.
 
 ### Phase C — Capability discovery
 
@@ -119,3 +122,25 @@ Feature 2 does not use automation to modify:
 
 Configuration changes belong to later features with their own tests and
 approval boundaries.
+
+## Microsoft Graph authentication boundary
+
+The tenant-readiness collector uses delegated Microsoft Graph
+authentication with `LicenseAssignment.Read.All`.
+
+This permission is limited to the licensing information required by the
+tenant-readiness workflow.
+
+`Directory.Read.All` and `Organization.Read.All` are intentionally not
+requested by the collector.
+
+The collector uses `ContextScope Process`, limiting the Microsoft Graph
+authentication context to the current PowerShell process rather than
+persisting that context for future PowerShell sessions.
+
+This process scope does not restrict Microsoft Entra identities, roles, or
+future laboratory personas. Other users can authenticate independently with
+permissions appropriate to their own test scenario.
+
+The collector explicitly disconnects from Microsoft Graph when execution
+finishes.

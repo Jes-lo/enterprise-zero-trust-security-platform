@@ -23,25 +23,19 @@ Import-Module Microsoft.Graph.Authentication
 Import-Module Microsoft.Graph.Identity.DirectoryManagement
 
 $requiredScopes = @(
-    "Organization.Read.All",
-    "Directory.Read.All"
+    "LicenseAssignment.Read.All"
 )
 
 try {
     Connect-MgGraph `
         -Scopes $requiredScopes `
+        -ContextScope Process `
         -NoWelcome
 
     $context = Get-MgContext
 
     if ($null -eq $context) {
         throw "Microsoft Graph authentication context is unavailable."
-    }
-
-    $organization = Get-MgOrganization | Select-Object -First 1
-
-    if ($null -eq $organization) {
-        throw "Microsoft Graph did not return an organization."
     }
 
     $skus = @(
@@ -78,7 +72,6 @@ try {
         collector = "Get-TenantReadiness.ps1"
         tenant_summary = [ordered]@{
             subscribed_sku_count = $skus.Count
-            verified_domain_count = @($organization.VerifiedDomains).Count
         }
         graph_context = [ordered]@{
             authentication_type = [string]$context.AuthType
