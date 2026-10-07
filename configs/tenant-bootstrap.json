@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "laboratory": {
+    "code": "ZT-LAB",
+    "environment_type": "non-production",
+    "data_classification": "synthetic-only"
+  },
+  "tenant": {
+    "purpose": "Microsoft 365 security portfolio laboratory",
+    "production_use_allowed": false,
+    "real_customer_data_allowed": false,
+    "real_employer_data_allowed": false,
+    "raw_tenant_identifiers_allowed_in_repository": false
+  },
+  "base_subscription": {
+    "product": "Microsoft 365 Business Premium",
+    "activation_phase": "feature-2",
+    "expected_trial_duration_days": 30,
+    "billing_protection": {
+      "required": true,
+      "preferred_strategy": "recurring_billing_off",
+      "fallback_strategy": "manual_cancel_before_expiration",
+      "cancel_before_expiration_days": 1
+    }
+  },
+  "expected_base_capabilities": [
+    {
+      "id": "ENTRA_ID_P1",
+      "name": "Microsoft Entra ID P1",
+      "required": true
+    },
+    {
+      "id": "INTUNE_PLAN_1",
+      "name": "Microsoft Intune Plan 1",
+      "required": true
+    },
+    {
+      "id": "DEFENDER_FOR_BUSINESS",
+      "name": "Microsoft Defender for Business",
+      "required": true
+    },
+    {
+      "id": "DEFENDER_FOR_OFFICE_365_P1",
+      "name": "Microsoft Defender for Office 365 Plan 1",
+      "required": true
+    }
+  ],
+  "deferred_capabilities": [
+    {
+      "id": "ENTRA_ID_P2",
+      "name": "Microsoft Entra ID P2",
+      "planned_phase": "feature-7",
+      "reason": "Required for planned Privileged Identity Management and Identity Protection exercises"
+    },
+    {
+      "id": "DEFENDER_FOR_OFFICE_365_P2",
+      "name": "Microsoft Defender for Office 365 Plan 2",
+      "planned_phase": "separate-security-operations-project",
+      "reason": "Advanced SOC, investigation, hunting, and response capabilities are intentionally deferred"
+    }
+  ],
+  "evidence": {
+    "raw_output_directory": "local-evidence",
+    "repository_evidence_directory": "docs/evidence",
+    "raw_output_must_not_be_committed": true,
+    "tenant_ids_must_not_be_published": true,
+    "domains_must_not_be_published": true,
+    "user_principal_names_must_not_be_published": true
+  }
+}

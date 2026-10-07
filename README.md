@@ -85,7 +85,7 @@ The project follows these principles:
 
 ## Current status
 
-Feature 1 — Organization and Zero Trust architecture.
+Feature 2 — Tenant bootstrap and licensing validation.
 
 Completed foundations include:
 
@@ -97,6 +97,15 @@ Completed foundations include:
 - Security control objectives
 - Architecture Decision Records
 - Automated repository and architecture validation
+
+Feature 2 includes the tenant-bootstrap contract, licensing boundaries,
+trial safeguards, least-privilege Microsoft Graph discovery automation,
+live Business Premium capability validation, and sanitized repository
+evidence.
+
+The live laboratory validated Microsoft Entra ID P1, Microsoft Intune
+Plan 1, Microsoft Defender for Business, and Microsoft Defender for
+Office 365 Plan 1 without publishing tenant identifiers.
 
 No production Microsoft 365 environment is used by this project.
 
