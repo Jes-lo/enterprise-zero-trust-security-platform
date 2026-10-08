@@ -128,6 +128,14 @@ if emergency["target_count"] != 2:
 if len(emergency["logical_ids"]) != 2:
     fail("exactly two emergency logical IDs are required")
 
+expected_emergency_ids = {
+    "EMERGENCY_ADMIN_01",
+    "EMERGENCY_ADMIN_02",
+}
+
+if set(emergency["logical_ids"]) != expected_emergency_ids:
+    fail("emergency logical IDs must align with identity foundation")
+
 if emergency["target_role"] != "Global Administrator":
     fail("emergency target role must remain Global Administrator")
 

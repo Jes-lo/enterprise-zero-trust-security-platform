@@ -50,16 +50,27 @@
     },
     "emergency_access": {
       "logical_ids": [
-        "EMERGENCY_ACCESS_01",
-        "EMERGENCY_ACCESS_02"
+        "EMERGENCY_ADMIN_01",
+        "EMERGENCY_ADMIN_02"
       ],
       "target_count": 2,
-      "current_operational_state": "not-yet-operational",
+      "current_operational_state": "created-disabled-unlicensed-unprivileged-auth-pending",
       "target_account_class": "cloud-only-emergency",
       "target_role": "Global Administrator",
       "routine_use": false,
       "live_changes_in_phase_5B": false,
-      "requires_separate_explicit_gate": true
+      "requires_separate_explicit_gate": true,
+      "current_account_enabled_count": 0,
+      "current_directory_role_assignment_count": 0,
+      "current_group_membership_count": 0,
+      "current_license_count": 0,
+      "strong_authentication_state": "pending-emergency-onboarding",
+      "target_role_assignment_model": "permanent-active-emergency",
+      "pim_target_state": "permanent-active-not-eligible",
+      "authentication_requirement": "phishing-resistant-independent-from-routine-admin",
+      "normal_admin_authentication_dependency_allowed": false,
+      "conditional_access_exclusion_owner_feature": 6,
+      "validation_interval_days": 90
     }
   },
   "role_strategy": {

@@ -101,3 +101,24 @@ A failed precondition blocks the write.
 Raw role-assignment exports remain local-only.
 
 Tracked artifacts must not contain tenant-specific identifiers, full UPNs, passwords, tokens, login codes or raw principal records.
+
+## Emergency-access operational standard
+
+Emergency-access identities are recovery principals rather than routine administrator accounts.
+
+The platform requires two independent cloud-only emergency identities.
+
+Each emergency identity must:
+
+- remain separate from productivity and routine administration;
+- remain unlicensed unless a documented technical requirement changes that decision;
+- remain outside ordinary workforce and application groups;
+- use phishing-resistant authentication that does not depend on the routine administrator's normal authentication path;
+- hold `Global Administrator` only as a permanent active emergency assignment;
+- never depend on an eligible PIM activation step for recovery;
+- be excluded from blocking or restrictive Conditional Access policies when Feature 6 implements those controls;
+- have credentials stored independently and securely;
+- be used only for recovery or scheduled validation;
+- be functionally tested at least every 90 days.
+
+Bootstrap privilege must not be reduced until both emergency identities are operational and a recovery test has succeeded.

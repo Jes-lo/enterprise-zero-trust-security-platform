@@ -208,3 +208,40 @@ The resulting privileged-administration state is:
 - Security Defaults: enabled.
 
 The original bootstrap Global Administrator remains unchanged at this stage. Emergency-access governance and any later bootstrap privilege reduction require separate validation and authorization.
+
+## Feature 5D1 emergency-access baseline
+
+Feature 5D1 reconciles the emergency-access RBAC contract with the authoritative identity foundation.
+
+The identity foundation uses:
+
+- `EMERGENCY_ADMIN_01`
+- `EMERGENCY_ADMIN_02`
+
+An earlier RBAC design artifact used the logical labels `EMERGENCY_ACCESS_01` and `EMERGENCY_ACCESS_02`. This was a repository contract naming drift only; no tenant objects were renamed or recreated.
+
+Read-only tenant validation confirmed the two real emergency identities remain:
+
+- cloud-only Member identities;
+- disabled;
+- unlicensed;
+- outside groups;
+- without directory roles;
+- without validated strong-authentication methods;
+- reserved exclusively for emergency recovery.
+
+The accounts are therefore present but not yet operational emergency-access paths.
+
+The intended operational target is:
+
+- two enabled emergency identities;
+- phishing-resistant authentication independent from the routine privileged-administrator authentication path;
+- permanent active `Global Administrator` assignments;
+- no routine use;
+- no productivity license;
+- no ordinary group membership;
+- no dependency on eligible PIM activation;
+- Conditional Access exception treatment owned by Feature 6;
+- periodic recovery-path testing every 90 days.
+
+No emergency account was enabled or modified during Feature 5D1.

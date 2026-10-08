@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "feature": "5",
+  "phase": "5D1",
+  "evidence_type": "emergency-access-baseline-validation-sanitized",
+  "collection_mode": "operator-entra-admin-center-read-only-plus-protected-local-provisioning-metadata",
+
+  "contract_correction": {
+    "historical_rbac_logical_ids": [
+      "EMERGENCY_ACCESS_01",
+      "EMERGENCY_ACCESS_02"
+    ],
+    "authoritative_identity_foundation_logical_ids": [
+      "EMERGENCY_ADMIN_01",
+      "EMERGENCY_ADMIN_02"
+    ],
+    "tenant_objects_changed_by_correction": false
+  },
+
+  "emergency_access": {
+    "principal_count": 2,
+    "logical_ids": [
+      "EMERGENCY_ADMIN_01",
+      "EMERGENCY_ADMIN_02"
+    ],
+    "account_class": "cloud-only-emergency",
+    "intended_use": "emergency-access-only",
+
+    "current_state": {
+      "existing_identity_count": 2,
+      "enabled_identity_count": 0,
+      "member_user_type_count": 2,
+      "directory_role_assignment_count": 0,
+      "group_membership_count": 0,
+      "license_count": 0,
+      "registered_strong_authentication_identity_count": 0
+    },
+
+    "protected_local_credentials": {
+      "credential_record_count": 2,
+      "force_change_on_first_sign_in_count": 2,
+      "initially_disabled_record_count": 2,
+      "credential_values_exposed": false,
+      "credential_values_tracked": false
+    },
+
+    "target_state": {
+      "enabled_identity_count": 2,
+      "target_role": "Global Administrator",
+      "target_role_assignment_model": "permanent-active-emergency",
+      "pim_eligible_assignment": false,
+      "authentication_requirement": "phishing-resistant-independent-from-routine-admin",
+      "routine_use": false,
+      "license_count": 0,
+      "group_membership_count": 0,
+      "conditional_access_exclusion_owner_feature": 6,
+      "validation_interval_days": 90
+    }
+  },
+
+  "tenant_baseline": {
+    "global_administrator_assignment_count": 1,
+    "security_defaults_enabled": true
+  },
+
+  "feature_boundaries": {
+    "emergency_accounts_enabled_during_5d1": false,
+    "passwords_changed_during_5d1": false,
+    "authentication_methods_registered_during_5d1": false,
+    "roles_assigned_during_5d1": false,
+    "groups_modified_during_5d1": false,
+    "licenses_modified_during_5d1": false,
+    "conditional_access_modified_during_5d1": false,
+    "pim_modified_during_5d1": false,
+    "bootstrap_admin_modified_during_5d1": false
+  },
+
+  "authorization": {
+    "feature5d2_emergency_operationalization_authorized": false,
+    "global_administrator_assignment_authorized": false,
+    "bootstrap_reduction_authorized": false
+  },
+
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "role_assignment_id_present": false,
+    "authentication_method_id_present": false,
+    "credential_value_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}
