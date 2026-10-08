@@ -47,13 +47,22 @@
       "LicenseAssignment.Read.All",
       "LicenseAssignment.ReadWrite.All"
     ],
-    "full_apply_requires_explicit_confirmation": true
+    "full_apply_requires_explicit_confirmation": true,
+    "pilot_confirmation": "CREATE-EMPLOYEE_01",
+    "pilot_creates_groups": false,
+    "pilot_creates_memberships": false,
+    "pilot_creates_exactly_one_user": true,
+    "pilot_assigns_at_most_one_license": true
   },
   "credentials": {
     "generated_locally": true,
     "repository_storage_allowed": false,
     "local_storage_directory": "local-evidence",
-    "plaintext_console_output_allowed": false
+    "plaintext_console_output_allowed": false,
+    "force_change_password_next_sign_in": true,
+    "local_directory_mode": "0700",
+    "local_file_mode": "0600",
+    "password_length": 28
   },
   "license": {
     "sku_part_number": "SPB",
