@@ -122,3 +122,44 @@ Feature 4B does not:
 
 Any user-interactive registration belongs to a later controlled checkpoint
 after this evidence has been reviewed.
+
+## Feature 4C — Controlled Microsoft Authenticator pilot
+
+Feature 4C performs the first user-interactive authentication-method
+registration.
+
+The controlled pilot remains `EMPLOYEE_01`, a standard `PC3` workforce
+identity.
+
+Microsoft Authenticator is selected because:
+
+- Authentication Methods Policy already permits it for all users;
+- Security Defaults remains enabled;
+- the Feature 4B report showed that the pilot has no MFA method registered;
+- registration can be performed by the user without an administrator writing
+  an authentication method into the account.
+
+Feature 4C does not modify tenant authentication policy.
+
+The pilot signs in interactively, completes the mandatory first-password
+change when requested, and registers Microsoft Authenticator through Security
+Info.
+
+Post-registration validation uses only the signed-in pilot's own
+authentication-method collection.
+
+The verification request is:
+
+`GET /me/authentication/methods`
+
+No administrator-wide user-authentication-method read permission is required
+by the design.
+
+Feature 4C still does not:
+
+- disable Security Defaults;
+- change Authentication Methods Policy;
+- create Conditional Access;
+- assign privileged roles;
+- activate emergency identities;
+- publish authentication secrets.

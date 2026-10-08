@@ -112,5 +112,25 @@
     "conditional_access_change_allowed": false,
     "emergency_identity_use_allowed": false,
     "next_checkpoint_requires_readiness_review": true
+  },
+  "pilot_registration": {
+    "phase": "feature4c",
+    "mode": "user_interactive",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_privilege_class": "PC3",
+    "target_method": "microsoft_authenticator",
+    "policy_change_required": false,
+    "security_defaults_change_allowed": false,
+    "authentication_policy_change_allowed": false,
+    "conditional_access_change_allowed": false,
+    "emergency_identity_use_allowed": false,
+    "verification": {
+      "mode": "signed_in_user_self_read",
+      "delegated_scopes": [
+        "UserAuthenticationMethod.Read"
+      ],
+      "resource": "/me/authentication/methods",
+      "resource_writes_allowed": false
+    }
   }
 }
