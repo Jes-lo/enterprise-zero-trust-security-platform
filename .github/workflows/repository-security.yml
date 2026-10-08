@@ -40,6 +40,8 @@ jobs:
           bash -n scripts/validate-tenant-bootstrap.sh
           bash -n scripts/validate-identity-foundation.sh
           bash -n scripts/validate-identity-provisioning.sh
+          bash -n scripts/validate-identity-full-apply.sh
+          bash -n tests/test-identity-full-apply-semantics.sh
           bash -n tests/test-repository-validation.sh
 
       - name: Validate Zero Trust architecture
@@ -53,6 +55,9 @@ jobs:
 
       - name: Validate identity provisioning
         run: ./scripts/validate-identity-provisioning.sh
+
+      - name: Validate identity full apply
+        run: ./scripts/validate-identity-full-apply.sh
 
       - name: Run repository security validation
         run: ./scripts/validate-repository.sh

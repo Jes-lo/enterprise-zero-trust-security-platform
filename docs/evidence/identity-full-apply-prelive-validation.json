@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "identity-full-provisioning-prelive-validation",
+  "validation_date": "2026-10-08",
+  "feature": "identity-foundation",
+  "phase": "pre-live-checkpoint",
+  "full_apply_executed": false,
+  "tenant_authentication_performed_during_hardening": false,
+  "approved_delta": {
+    "existing_planned_identities": 1,
+    "users_to_create": 9,
+    "licenses_to_assign": 7,
+    "groups_to_create": 11,
+    "memberships_to_add": 16
+  },
+  "identity_policy": {
+    "live_creation_identities": 10,
+    "business_premium_identities": 8,
+    "emergency_identities": 2,
+    "emergency_initially_enabled": false,
+    "emergency_license_policy": "unlicensed"
+  },
+  "permission_boundary": {
+    "full_apply_scopes": [
+      "Group.ReadWrite.All",
+      "GroupMember.ReadWrite.All",
+      "LicenseAssignment.Read.All",
+      "LicenseAssignment.ReadWrite.All",
+      "User.Create",
+      "User.Read.All"
+    ],
+    "directory_readwrite_all": false,
+    "directory_read_all": false,
+    "user_readwrite_all": false
+  },
+  "write_surface": {
+    "post_call_sites": 4,
+    "patch_call_sites": 0,
+    "put_call_sites": 0,
+    "delete_call_sites": 0,
+    "purposes": [
+      "user-create",
+      "group-create",
+      "license-assign",
+      "group-membership-add"
+    ]
+  },
+  "safety_controls": {
+    "explicit_confirmation": true,
+    "authoritative_plan_required": true,
+    "exact_plan_delta_required": true,
+    "authoritative_plan_hash_pinned": true,
+    "identity_contract_hash_pinned": true,
+    "provisioning_contract_hash_pinned": true,
+    "atomic_local_evidence": true,
+    "single_process_lock": true,
+    "uncertain_post_reconciliation": true,
+    "pending_state_blocks_completion": true,
+    "credential_reuse_validation": true,
+    "final_object_verification": true,
+    "final_membership_exact_equality": true,
+    "final_account_enabled_verification": true,
+    "final_usage_location_verification": true,
+    "final_user_type_verification": true,
+    "automatic_destructive_rollback": false
+  },
+  "privacy": {
+    "tenant_domain_in_artifact": false,
+    "complete_upn_in_artifact": false,
+    "graph_object_id_in_artifact": false,
+    "credential_in_artifact": false
+  }
+}
