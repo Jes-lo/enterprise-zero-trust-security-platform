@@ -245,3 +245,40 @@ The intended operational target is:
 - periodic recovery-path testing every 90 days.
 
 No emergency account was enabled or modified during Feature 5D1.
+
+## Feature 5D2-D emergency operationalization deferral
+
+The emergency-access architecture remains part of the platform design, but its live operationalization is intentionally deferred in this lab implementation.
+
+The lab does not currently have independent phishing-resistant emergency credentials available. Physical FIDO2 security credentials are not available, a Windows-hosted passkey path was deliberately not selected, and certificate-based authentication was not introduced solely to bypass that limitation.
+
+The implementation therefore does not substitute a weaker authentication method simply to mark the feature complete.
+
+Current emergency-access state remains:
+
+- two cloud-only emergency identities exist;
+- both identities remain disabled;
+- both remain unlicensed;
+- both remain outside groups;
+- neither has a directory role;
+- neither is claimed to have a validated emergency authentication method;
+- no live emergency recovery path is claimed to be operational.
+
+The production architecture still requires two operational emergency identities using independent phishing-resistant credentials and permanent active `Global Administrator`.
+
+Until that control is implemented and tested, the bootstrap Global Administrator is retained and its privilege must not be reduced.
+
+This is an explicit implementation limitation rather than a security control represented as complete.
+
+### Possible future phishing-resistant implementation
+
+The current project does not operationalize an emergency-account phishing-resistant credential.
+
+The following mechanisms are retained only as possible future implementations:
+
+- an external physical FIDO2/WebAuthn security key;
+- a device-bound passkey backed by an appropriate platform authenticator.
+
+Neither option is selected or applied in the current project. They are documented as future implementation paths only.
+
+Any future adoption requires a fresh security review, tenant-state validation, controlled enrollment, functional recovery testing, and an explicit write authorization before an emergency identity receives `Global Administrator`.

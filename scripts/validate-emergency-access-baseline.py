@@ -85,10 +85,14 @@ if set(emergency["logical_ids"]) != expected_ids:
 if emergency["target_count"] != 2:
     fail("emergency target count must be two")
 
-if (
-    emergency["current_operational_state"]
-    != "created-disabled-unlicensed-unprivileged-auth-pending"
-):
+current_operational_state = emergency["current_operational_state"]
+
+allowed_current_operational_states = {
+    "created-disabled-unlicensed-unprivileged-auth-pending",
+    "created-disabled-unlicensed-unprivileged-auth-deferred",
+}
+
+if current_operational_state not in allowed_current_operational_states:
     fail("unexpected current emergency operational state")
 
 if emergency["current_account_enabled_count"] != 0:
@@ -103,11 +107,40 @@ if emergency["current_group_membership_count"] != 0:
 if emergency["current_license_count"] != 0:
     fail("emergency identities unexpectedly licensed")
 
+strong_authentication_state = emergency[
+    "strong_authentication_state"
+]
+
 if (
-    emergency["strong_authentication_state"]
-    != "pending-emergency-onboarding"
+    current_operational_state
+    == "created-disabled-unlicensed-unprivileged-auth-pending"
 ):
-    fail("unexpected emergency authentication state")
+    if strong_authentication_state != "pending-emergency-onboarding":
+        fail("pending emergency authentication state invalid")
+
+elif (
+    current_operational_state
+    == "created-disabled-unlicensed-unprivileged-auth-deferred"
+):
+    if (
+        strong_authentication_state
+        != "deferred-no-independent-phishing-resistant-credential"
+    ):
+        fail("deferred emergency authentication state invalid")
+
+    if emergency.get("operationalization_status") != "deferred":
+        fail("deferred emergency operationalization status invalid")
+
+    if (
+        emergency.get(
+            "weaker_authentication_substitution_allowed"
+        )
+        is not False
+    ):
+        fail("deferred emergency state allows weak authentication")
+
+    if emergency.get("bootstrap_reduction_blocked") is not True:
+        fail("deferred emergency state must block bootstrap reduction")
 
 if emergency["target_role"] != "Global Administrator":
     fail("emergency recovery role must remain Global Administrator")
@@ -311,7 +344,10 @@ print("PASS: both currently disabled.")
 print("PASS: current emergency roles = 0.")
 print("PASS: current emergency groups = 0.")
 print("PASS: current emergency licenses = 0.")
-print("PASS: emergency strong authentication remains pending.")
+print(
+    "PASS: historical Feature 5D1 strong-auth state remains pending."
+)
+print("PASS: current emergency progression state is valid.")
 print("PASS: target role = Global Administrator.")
 print("PASS: target assignment = permanent active emergency.")
 print("PASS: eligible PIM dependency = false.")

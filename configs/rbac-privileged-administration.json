@@ -54,7 +54,7 @@
         "EMERGENCY_ADMIN_02"
       ],
       "target_count": 2,
-      "current_operational_state": "created-disabled-unlicensed-unprivileged-auth-pending",
+      "current_operational_state": "created-disabled-unlicensed-unprivileged-auth-deferred",
       "target_account_class": "cloud-only-emergency",
       "target_role": "Global Administrator",
       "routine_use": false,
@@ -64,13 +64,30 @@
       "current_directory_role_assignment_count": 0,
       "current_group_membership_count": 0,
       "current_license_count": 0,
-      "strong_authentication_state": "pending-emergency-onboarding",
+      "strong_authentication_state": "deferred-no-independent-phishing-resistant-credential",
       "target_role_assignment_model": "permanent-active-emergency",
       "pim_target_state": "permanent-active-not-eligible",
       "authentication_requirement": "phishing-resistant-independent-from-routine-admin",
       "normal_admin_authentication_dependency_allowed": false,
       "conditional_access_exclusion_owner_feature": 6,
-      "validation_interval_days": 90
+      "validation_interval_days": 90,
+      "operationalization_status": "deferred",
+      "operationalization_deferred_reason": "independent-phishing-resistant-credential-unavailable",
+      "weaker_authentication_substitution_allowed": false,
+      "bootstrap_reduction_blocked": true,
+      "future_resume_requirements": [
+        "independent-phishing-resistant-credential-available",
+        "fresh-emergency-account-read-back",
+        "fresh-global-administrator-baseline-read-back",
+        "explicit-pre-write-authorization"
+      ],
+      "future_authentication_options": [
+        "physical-fido2-security-key",
+        "device-bound-passkey"
+      ],
+      "future_authentication_option_status": "documented-for-possible-future-implementation",
+      "future_authentication_selected_for_current_project": null,
+      "future_authentication_implemented_in_current_project": false
     }
   },
   "role_strategy": {

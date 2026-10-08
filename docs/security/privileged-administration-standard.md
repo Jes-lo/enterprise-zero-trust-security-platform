@@ -122,3 +122,32 @@ Each emergency identity must:
 - be functionally tested at least every 90 days.
 
 Bootstrap privilege must not be reduced until both emergency identities are operational and a recovery test has succeeded.
+
+## Deferred emergency-access implementation
+
+A lab environment may defer operational emergency-access accounts when the required independent phishing-resistant credentials are not available.
+
+Deferral does not authorize weakening the emergency-access standard.
+
+While deferred:
+
+- emergency identities remain disabled and unprivileged;
+- no emergency identity receives `Global Administrator`;
+- password-only authentication is not accepted as the final emergency design;
+- TOTP, SMS, or routine-administrator authentication is not substituted for the production phishing-resistant requirement;
+- the platform must not claim that a tested live break-glass path exists;
+- the existing bootstrap Global Administrator must be retained;
+- bootstrap privilege reduction remains prohibited.
+
+Future operationalization requires independent phishing-resistant credentials, fresh tenant validation, a controlled onboarding sequence, successful recovery-path testing, and a new explicit write authorization.
+
+### Future phishing-resistant credential options
+
+Possible future implementations for the emergency identities include:
+
+- physical FIDO2/WebAuthn security credentials;
+- device-bound passkeys.
+
+These mechanisms are architectural options only. They are not selected, registered, enabled, or validated in the current project.
+
+Their presence in the design must never be interpreted as evidence that a live break-glass authentication path exists.
