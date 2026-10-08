@@ -72,3 +72,26 @@ It must not:
 - modify privileged roles;
 - activate emergency identities;
 - publish authentication secrets.
+
+## Feature 4D controlled passkey pilot
+
+The first phishing-resistant pilot uses a device-bound passkey associated
+with Microsoft Authenticator for the existing `EMPLOYEE_01` standard-user
+pilot.
+
+The pilot is intentionally additive.
+
+Microsoft Authenticator MFA and the existing Software OATH fallback are
+retained while the phishing-resistant credential is validated.
+
+Passkey registration is user-interactive and must not be implemented through
+an administrative Graph write.
+
+The pilot must be verified with signed-user self-read permissions and must
+fail closed when the authenticated identity does not match the expected
+pilot.
+
+A successful pilot does not authorize workforce-wide deployment. Broader
+rollout requires a separate reviewed checkpoint.
+
+Conditional Access enforcement remains outside Feature 4.

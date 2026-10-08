@@ -68,6 +68,9 @@ jobs:
       - name: Validate Authenticator pilot registration
         run: ./scripts/validate-authentication-pilot-registration.sh
 
+      - name: Validate passkey pilot
+        run: ./scripts/validate-authentication-passkey-pilot.sh
+
       - name: Run repository security validation
         run: ./scripts/validate-repository.sh
 

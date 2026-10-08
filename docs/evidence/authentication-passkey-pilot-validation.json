@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "authentication-passkey-pilot-validation",
+  "validation_date": "2026-10-08",
+  "feature": "authentication-mfa-foundation",
+  "phase": "feature4d",
+  "policy": {
+    "state": "enabled",
+    "self_service_registration_allowed": true,
+    "all_users_targeted": true,
+    "explicit_group_target_count": 0,
+    "exclude_target_count": 0,
+    "passkey_profile_count": 1,
+    "default_passkey_profile_present": true,
+    "supported_passkey_types": [
+      "deviceBound",
+      "synced"
+    ],
+    "attestation_enforcement": [
+      "disabled"
+    ],
+    "key_restrictions_enforced": false
+  },
+  "pilot": {
+    "account_id": "EMPLOYEE_01",
+    "privilege_class": "PC3",
+    "authenticated_account_matches_expected": true,
+    "phishing_resistant_credential_present": true,
+    "provider": "microsoft_authenticator",
+    "target_passkey_type": "deviceBound",
+    "total_passkey_count": 1,
+    "device_bound_count": 1,
+    "synced_count": 0,
+    "microsoft_authenticator_passkey_count": 1,
+    "authentication_method_count": 4,
+    "method_types": [
+      "fido2AuthenticationMethod",
+      "microsoftAuthenticatorAuthenticationMethod",
+      "passwordAuthenticationMethod",
+      "softwareOathAuthenticationMethod"
+    ],
+    "microsoft_authenticator_mfa_present": true,
+    "software_oath_present": true
+  },
+  "graph": {
+    "policy": {
+      "requested_scopes": [
+        "Policy.Read.AuthenticationMethod"
+      ],
+      "resource": "/policies/authenticationMethodsPolicy/authenticationMethodConfigurations/fido2",
+      "resource_get_count": 1,
+      "resource_write_count": 0
+    },
+    "pilot": {
+      "requested_scopes": [
+        "UserAuthMethod-Passkey.Read",
+        "UserAuthenticationMethod.Read"
+      ],
+      "resources": [
+        "/me/authentication/fido2Methods",
+        "/me/authentication/methods"
+      ],
+      "resource_get_count": 2,
+      "resource_write_count": 0
+    },
+    "total_get_count": 3,
+    "total_write_count": 0
+  },
+  "tenant_controls": {
+    "security_defaults_modified": false,
+    "authentication_methods_policy_modified": false,
+    "fido2_passkey_policy_modified": false,
+    "conditional_access_modified": false,
+    "privileged_roles_modified": false,
+    "emergency_identity_state_modified": false
+  },
+  "privacy": {
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "complete_upn_present": false,
+    "graph_object_id_present": false,
+    "passkey_credential_id_present": false,
+    "aaguid_present": false,
+    "credential_secret_present": false,
+    "registration_secret_present": false,
+    "qr_payload_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}

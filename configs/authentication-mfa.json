@@ -132,5 +132,43 @@
       "resource": "/me/authentication/methods",
       "resource_writes_allowed": false
     }
+  },
+  "passkey_pilot": {
+    "phase": "feature4d",
+    "mode": "controlled_user_interactive",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_privilege_class": "PC3",
+    "target_method": "microsoft_authenticator_passkey",
+    "target_passkey_type": "deviceBound",
+    "phishing_resistant_target": true,
+    "registration_user_interactive": true,
+    "policy_change_required": false,
+    "security_defaults_change_allowed": false,
+    "authentication_policy_change_allowed": false,
+    "conditional_access_change_allowed": false,
+    "privileged_role_change_allowed": false,
+    "emergency_identity_use_allowed": false,
+    "existing_mfa_removal_allowed": false,
+    "existing_fallback_removal_allowed": false,
+    "policy_assessment": {
+      "mode": "read_only",
+      "delegated_scopes": [
+        "Policy.Read.AuthenticationMethod"
+      ],
+      "resource": "/policies/authenticationMethodsPolicy/authenticationMethodConfigurations/fido2",
+      "resource_writes_allowed": false
+    },
+    "verification": {
+      "mode": "signed_in_user_self_read",
+      "delegated_scopes": [
+        "UserAuthMethod-Passkey.Read",
+        "UserAuthenticationMethod.Read"
+      ],
+      "resources": [
+        "/me/authentication/fido2Methods",
+        "/me/authentication/methods"
+      ],
+      "resource_writes_allowed": false
+    }
   }
 }

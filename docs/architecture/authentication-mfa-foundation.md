@@ -163,3 +163,58 @@ Feature 4C still does not:
 - assign privileged roles;
 - activate emergency identities;
 - publish authentication secrets.
+
+## Feature 4D — Controlled phishing-resistant passkey pilot
+
+Feature 4D validates the phishing-resistant authentication direction defined
+earlier in Feature 4.
+
+The existing standard-user pilot remains `EMPLOYEE_01`, privilege class
+`PC3`.
+
+The tenant FIDO2/passkey policy is assessed before evidence is accepted. The
+assessment is read-only and confirms whether registration is enabled,
+self-service registration is available, and the current passkey profile
+permits the required credential class.
+
+The pilot credential is a device-bound passkey registered through Microsoft
+Authenticator.
+
+Feature 4D does not modify tenant authentication policy. Registration remains
+a user-interactive action performed by the pilot.
+
+Post-registration validation is split across two least-privilege read
+boundaries.
+
+Tenant policy validation uses:
+
+`GET /policies/authenticationMethodsPolicy/authenticationMethodConfigurations/fido2`
+
+with delegated `Policy.Read.AuthenticationMethod`.
+
+Pilot validation uses:
+
+`GET /me/authentication/fido2Methods`
+
+and:
+
+`GET /me/authentication/methods`
+
+with delegated self-read permissions only.
+
+The pilot verifier fails closed if the signed-in user is not the expected
+pilot identity.
+
+The validation must prove that the device-bound Microsoft Authenticator
+passkey exists while Microsoft Authenticator MFA and the existing Software
+OATH fallback remain registered.
+
+Feature 4D still does not:
+
+- disable Security Defaults;
+- modify Authentication Methods Policy;
+- modify Conditional Access;
+- assign privileged roles;
+- activate emergency identities;
+- delete existing authentication methods;
+- broaden passkey registration beyond the controlled pilot.
