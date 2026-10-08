@@ -382,6 +382,36 @@ fi
 echo "PASS: no automatic destructive rollback."
 
 echo
+echo "===== SKU COLLECTION SHAPE ====="
+
+python3 - <<'PY_SKU_ARRAY'
+import re
+from pathlib import Path
+
+text = Path(
+    "automation/powershell/"
+    "Invoke-IdentityFullProvisioning.ps1"
+).read_text()
+
+unwrapped = re.findall(
+    r'(?m)^\s*\$SkuIds\s*=\s*'
+    r'Get-UserSkuIds\s*`',
+    text,
+)
+
+wrapped = re.findall(
+    r'(?ms)^\s*\$SkuIds\s*=\s*@\(\s*'
+    r'Get-UserSkuIds\s*`',
+    text,
+)
+
+assert not unwrapped
+assert len(wrapped) == 4
+
+print("PASS: all SKU-ID call results are array-wrapped.")
+PY_SKU_ARRAY
+
+echo
 echo "===== PRIVACY ====="
 
 if grep -Ein \

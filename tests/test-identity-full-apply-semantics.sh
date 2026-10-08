@@ -150,25 +150,132 @@ POST_COUNT="$(
 echo "PASS: exactly four POST call sites."
 echo "PASS: no PATCH/PUT/DELETE."
 
-if [[ -e \
-  local-evidence/identity-full-provisioning-operation.json
-]]; then
-  echo "FAIL: Full Apply has already started."
-  exit 1
-fi
+python3 - <<'PY_SKU_ARRAY'
+import re
+from pathlib import Path
 
-if [[ -d local-evidence/full-credentials ]] &&
-   find \
-     local-evidence/full-credentials \
-     -type f \
-     -print -quit |
-   grep -q .
-then
-  echo "FAIL: Full Apply credentials already exist."
-  exit 1
-fi
+text = Path(
+    "automation/powershell/"
+    "Invoke-IdentityFullProvisioning.ps1"
+).read_text()
 
-echo "PASS: no Full Apply execution artifacts exist."
+unwrapped = re.findall(
+    r'(?m)^\s*\$SkuIds\s*=\s*'
+    r'Get-UserSkuIds\s*`',
+    text,
+)
+
+wrapped = re.findall(
+    r'(?ms)^\s*\$SkuIds\s*=\s*@\(\s*'
+    r'Get-UserSkuIds\s*`',
+    text,
+)
+
+assert not unwrapped
+assert len(wrapped) == 4
+
+print("PASS: SKU-ID zero/one/many result shape guarded.")
+PY_SKU_ARRAY
+
+RECOVERY_MODE="${ALLOW_FULL_APPLY_RECOVERY_STATE:-0}"
+
+if [[ "$RECOVERY_MODE" == "1" ]]; then
+  OPERATION="$ROOT/local-evidence/identity-full-provisioning-operation.json"
+  CREDENTIAL_DIR="$ROOT/local-evidence/full-credentials"
+
+  if [[ ! -s "$OPERATION" ]]; then
+    echo "FAIL: recovery mode requires an operation ledger."
+    exit 1
+  fi
+
+  if [[ ! -d "$CREDENTIAL_DIR" ]]; then
+    echo "FAIL: recovery mode requires credential evidence."
+    exit 1
+  fi
+
+  python3 - <<'PY_RECOVERY'
+import json
+from pathlib import Path
+
+data = json.loads(
+    Path(
+        "local-evidence/"
+        "identity-full-provisioning-operation.json"
+    ).read_text()
+)
+
+assert data["status"] == "failed"
+assert data["failed_stage"] == "verification"
+
+assert len(data["accounts"]) == 9
+assert len(data["groups"]) == 11
+assert len(data["licenses"]) == 8
+assert len(data["memberships"]) == 16
+
+pending = []
+
+for category in (
+    "accounts",
+    "groups",
+    "licenses",
+    "memberships",
+):
+    for key, value in data[category].items():
+        status = str(value.get("status", ""))
+
+        if "pending" in status:
+            pending.append(
+                f"{category}:{key}:{status}"
+            )
+
+if pending:
+    raise SystemExit(
+        "FAIL: recovery ledger contains pending write state."
+    )
+
+print("PASS: explicit failed-verification recovery state validated.")
+PY_RECOVERY
+
+  CREDENTIAL_COUNT="$(
+    find "$CREDENTIAL_DIR" \
+      -maxdepth 1 \
+      -type f \
+      -name '*.json' |
+    wc -l
+  )"
+
+  if [[ "$CREDENTIAL_COUNT" -ne 9 ]]; then
+    echo "FAIL: recovery mode expected 9 credential records."
+    exit 1
+  fi
+
+  git check-ignore -q "$OPERATION"
+
+  echo "PASS: recovery ledger is ignored by Git."
+  echo "PASS: recovery credential records=9."
+  echo "PASS: recovery-mode execution artifacts accepted explicitly."
+
+else
+  if [[ -e \
+    local-evidence/identity-full-provisioning-operation.json
+  ]]; then
+    echo "FAIL: Full Apply has already started."
+    exit 1
+  fi
+
+  if [[ -d local-evidence/full-credentials ]] &&
+     find \
+       local-evidence/full-credentials \
+       -type f \
+       -print -quit |
+     grep -q .
+  then
+    echo "FAIL: Full Apply credentials already exist."
+    exit 1
+  fi
+
+  echo "PASS: no Full Apply execution artifacts exist."
+fi
 
 echo "=================================================="
 echo "IDENTITY FULL APPLY SEMANTIC TESTS PASSED"

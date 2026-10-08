@@ -1159,8 +1159,10 @@ try {
             $Account.license_policy -eq
             "business-premium"
         ) {
-            $SkuIds = Get-UserSkuIds `
-                -UserId ([string]$ExactUser.id)
+            $SkuIds = @(
+                Get-UserSkuIds `
+                    -UserId ([string]$ExactUser.id)
+            )
 
             if ($SpbSkuId -in $SkuIds) {
                 if (
@@ -1195,8 +1197,10 @@ try {
             $Account.license_policy -eq
             "unlicensed"
         ) {
-            $SkuIds = Get-UserSkuIds `
-                -UserId ([string]$ExactUser.id)
+            $SkuIds = @(
+                Get-UserSkuIds `
+                    -UserId ([string]$ExactUser.id)
+            )
 
             if ($SkuIds.Count -gt 0) {
                 $Conflicts += (
@@ -1799,8 +1803,10 @@ try {
             throw "Licensed account has no resolved object ID."
         }
 
-        $SkuIds = Get-UserSkuIds `
-            -UserId $UserId
+        $SkuIds = @(
+            Get-UserSkuIds `
+                -UserId $UserId
+        )
 
         if ($SpbSkuId -in $SkuIds) {
             if (
@@ -2141,8 +2147,10 @@ try {
 
         $VerifiedUsers++
 
-        $SkuIds = Get-UserSkuIds `
-            -UserId ([string]$FinalUser.id)
+        $SkuIds = @(
+            Get-UserSkuIds `
+                -UserId ([string]$FinalUser.id)
+        )
 
         if (
             $Account.license_policy -eq
