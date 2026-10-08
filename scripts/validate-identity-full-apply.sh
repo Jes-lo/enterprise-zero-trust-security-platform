@@ -523,6 +523,119 @@ else
   echo "INFO: post-live evidence not present yet."
 fi
 
+echo
+echo "===== ZERO-DELTA IDEMPOTENCY EVIDENCE ====="
+
+IDEMPOTENCY_EVIDENCE="docs/evidence/identity-full-apply-idempotency-validation.json"
+
+if [[ -e "$IDEMPOTENCY_EVIDENCE" ]]; then
+  python3 - <<'PY_IDEMPOTENCY'
+import json
+import re
+from pathlib import Path
+
+raw = Path(
+    "docs/evidence/"
+    "identity-full-apply-idempotency-validation.json"
+).read_text()
+
+lower = raw.lower()
+data = json.loads(raw)
+
+assert data["schema_version"] == "1.0"
+assert data["proof_result"] == "passed"
+
+assert data["observed_zero_delta"] == {
+    "users_to_create": 0,
+    "licenses_to_assign": 0,
+    "groups_to_create": 0,
+    "memberships_to_add": 0,
+    "conflicts": 0,
+}
+
+assert data["verified_state"] == {
+    "planned_live_identities": 10,
+    "business_premium_identities": 8,
+    "emergency_unlicensed_identities": 2,
+    "security_groups": 11,
+    "feature3_memberships": 16,
+}
+
+method = data["execution_method"]
+
+assert method["temporary_git_worktree"] is True
+assert method["copied_runtime_evidence"] is True
+assert method["full_apply_source_modified"] is False
+assert method["preauthenticated_process_context"] is True
+assert (
+    method[
+        "connect_command_intercepted_for_context_reuse"
+    ]
+    is True
+)
+assert (
+    method["powershell_dotnet_cwd_synchronized"]
+    is True
+)
+assert (
+    method["canonical_operation_ledger_modified"]
+    is False
+)
+assert (
+    method["canonical_credentials_modified"]
+    is False
+)
+
+guard = data["graph_guard"]
+
+assert guard["get_requests_observed"] > 0
+assert guard["non_get_attempts_observed"] == 0
+
+for key in (
+    "post_allowed",
+    "patch_allowed",
+    "put_allowed",
+    "delete_allowed",
+):
+    assert guard[key] is False
+
+assert all(
+    value is False
+    for value in data["privacy"].values()
+)
+
+for forbidden in (
+    "onmicrosoft.com",
+    "temporary" + "_password",
+    "client" + "_secret",
+    "access" + "_token",
+    "refresh" + "_token",
+):
+    assert forbidden not in lower
+
+assert re.search(
+    r"[A-Za-z0-9._%+-]+@"
+    r"[A-Za-z0-9.-]+\.[A-Za-z]{2,}",
+    raw,
+) is None
+
+assert re.search(
+    r"\b"
+    r"[0-9a-fA-F]{8}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{12}"
+    r"\b",
+    raw,
+) is None
+
+print("PASS: zero-delta evidence validated.")
+PY_IDEMPOTENCY
+else
+  echo "INFO: zero-delta idempotency evidence not present yet."
+fi
+
 echo "=================================================="
 echo "IDENTITY FULL APPLY STATIC VALIDATION PASSED"
 echo "=================================================="

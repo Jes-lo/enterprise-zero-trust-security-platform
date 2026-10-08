@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "identity-full-provisioning-idempotency-validation",
+  "validation_date": "2026-10-08",
+  "feature": "identity-foundation",
+  "phase": "zero-delta-idempotency-proof",
+  "source_checkpoint_sha": "c084526a1240257860c2cdbe4318f5e8343967a3",
+  "proof_result": "passed",
+  "execution_method": {
+    "temporary_git_worktree": true,
+    "copied_runtime_evidence": true,
+    "full_apply_source_modified": false,
+    "preauthenticated_process_context": true,
+    "connect_command_intercepted_for_context_reuse": true,
+    "powershell_dotnet_cwd_synchronized": true,
+    "canonical_operation_ledger_modified": false,
+    "canonical_credentials_modified": false
+  },
+  "graph_guard": {
+    "get_requests_observed": 60,
+    "non_get_attempts_observed": 0,
+    "post_allowed": false,
+    "patch_allowed": false,
+    "put_allowed": false,
+    "delete_allowed": false
+  },
+  "observed_zero_delta": {
+    "users_to_create": 0,
+    "licenses_to_assign": 0,
+    "groups_to_create": 0,
+    "memberships_to_add": 0,
+    "conflicts": 0
+  },
+  "verified_state": {
+    "planned_live_identities": 10,
+    "business_premium_identities": 8,
+    "emergency_unlicensed_identities": 2,
+    "security_groups": 11,
+    "feature3_memberships": 16
+  },
+  "idempotency_assertions": {
+    "full_apply_completed_under_write_deny_guard": true,
+    "write_attempts_observed": 0,
+    "zero_delta_required": true,
+    "final_verification_completed": true,
+    "isolated_execution_lock_released": true
+  },
+  "privacy": {
+    "tenant_domain_present": false,
+    "complete_upn_present": false,
+    "graph_object_id_present": false,
+    "credential_secret_value_present": false,
+    "oauth_bearer_value_present": false,
+    "device_login_code_present": false
+  }
+}
