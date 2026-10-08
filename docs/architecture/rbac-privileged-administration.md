@@ -112,3 +112,25 @@ Tracked evidence must contain only sanitized aggregate state and must exclude:
 No privileged identity is removed merely because a replacement has been created.
 
 Replacement access must first be proven usable, strongly authenticated and recoverable.
+
+## Feature 5C2 implementation status
+
+`PRIVILEGED_ADMIN_01` has been provisioned as a dedicated cloud-only administrative identity.
+
+Its current implementation state is deliberately unprivileged:
+
+- Account enabled.
+- User type `Member`.
+- No license.
+- No group memberships.
+- No Microsoft Entra directory-role assignments.
+- No PIM configuration.
+- Initial privileged role assignment has not occurred.
+- Strong-authentication registration remains pending.
+- Initial sign-in remains pending.
+
+The existing bootstrap `Global Administrator` assignment remains unchanged.
+
+The identity must not receive `Privileged Role Administrator` until its first-sign-in flow and strong-authentication readiness are completed and independently validated.
+
+Feature 5C2 does not authorize Feature 5C3, 5C4 or 5C5.
