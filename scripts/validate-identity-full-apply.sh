@@ -426,6 +426,103 @@ fi
 echo "PASS: tenant domain remains runtime-derived."
 
 echo
+echo
+echo "===== POST-LIVE SANITIZED EVIDENCE ====="
+
+POSTLIVE_EVIDENCE="docs/evidence/identity-full-apply-live-validation.json"
+
+if [[ -e "$POSTLIVE_EVIDENCE" ]]; then
+  python3 - <<'PY_POSTLIVE'
+import json
+import re
+from pathlib import Path
+
+path = Path(
+    "docs/evidence/"
+    "identity-full-apply-live-validation.json"
+)
+
+raw = path.read_text()
+lower = raw.lower()
+data = json.loads(raw)
+
+assert data["schema_version"] == "1.0"
+assert data["operation_result"] == "completed"
+assert data["recovery_path_used"] is True
+assert data["initial_failure_stage"] == "verification"
+
+verified = data["verified_state"]
+
+assert verified["planned_live_identities"] == 10
+assert verified["business_premium_identities"] == 8
+assert verified["emergency_unlicensed_identities"] == 2
+assert verified["security_groups"] == 11
+assert verified["feature3_memberships"] == 16
+
+writes = data["write_operation_summary"]
+
+assert writes["users_created"] == 9
+assert writes["groups_created"] == 11
+assert writes["business_premium_assignments_created"] == 7
+assert writes["pilot_business_premium_assignment_preexisting"] == 1
+assert writes["memberships_added"] == 16
+
+controls = data["recovery_controls"]
+
+assert controls["pending_write_states_before_resume"] == 0
+assert controls["final_verification_completed"] is True
+
+privacy = data["privacy"]
+
+assert privacy == {
+    "tenant_domain_present": False,
+    "complete_upn_present": False,
+    "graph_object_id_present": False,
+    "credential_secret_value_present": False,
+    "oauth_bearer_value_present": False,
+}
+
+assert all(
+    value is False
+    for value in privacy.values()
+)
+
+forbidden_terms = (
+    "onmicrosoft.com",
+    "temporary" + "_password",
+    "client" + "_secret",
+    "access" + "_token",
+    "refresh" + "_token",
+)
+
+for term in forbidden_terms:
+    assert term not in lower
+
+email_pattern = re.compile(
+    r"[A-Za-z0-9._%+-]+@"
+    r"[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
+)
+
+assert email_pattern.search(raw) is None
+
+guid_pattern = re.compile(
+    r"\b"
+    r"[0-9a-fA-F]{8}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{12}"
+    r"\b"
+)
+
+assert guid_pattern.search(raw) is None
+
+print("PASS: sanitized post-live evidence validated.")
+PY_POSTLIVE
+else
+  echo "INFO: post-live evidence not present yet."
+fi
+
 echo "=================================================="
 echo "IDENTITY FULL APPLY STATIC VALIDATION PASSED"
 echo "=================================================="

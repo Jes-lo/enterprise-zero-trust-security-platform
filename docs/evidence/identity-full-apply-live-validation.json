@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "identity-full-provisioning-live-validation",
+  "validation_date": "2026-10-08",
+  "feature": "identity-foundation",
+  "phase": "post-live-validation",
+  "operation_result": "completed",
+  "recovery_path_used": true,
+  "initial_failure_stage": "verification",
+  "initial_failure_class": "powershell-collection-shape",
+  "recovery_hotfix_validated": true,
+  "verified_state": {
+    "planned_live_identities": 10,
+    "business_premium_identities": 8,
+    "emergency_unlicensed_identities": 2,
+    "security_groups": 11,
+    "feature3_memberships": 16
+  },
+  "write_operation_summary": {
+    "users_created": 9,
+    "groups_created": 11,
+    "business_premium_assignments_created": 7,
+    "pilot_business_premium_assignment_preexisting": 1,
+    "memberships_added": 16
+  },
+  "recovery_controls": {
+    "operation_ledger_preserved": true,
+    "credentials_preserved": true,
+    "contract_hashes_verified": true,
+    "authoritative_plan_hash_verified": true,
+    "pending_write_states_before_resume": 0,
+    "zero_license_collection_shape_fixed": true,
+    "recovery_mode_explicit": true,
+    "exclusive_process_lock": true,
+    "final_verification_completed": true
+  },
+  "security_state": {
+    "business_premium_users_verified": 8,
+    "emergency_users_verified_unlicensed": 2,
+    "emergency_users_expected_disabled": 2,
+    "directory_readwrite_all_used": false,
+    "user_readwrite_all_used": false
+  },
+  "privacy": {
+    "tenant_domain_present": false,
+    "complete_upn_present": false,
+    "graph_object_id_present": false,
+    "credential_secret_value_present": false,
+    "oauth_bearer_value_present": false
+  }
+}
