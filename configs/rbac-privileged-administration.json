@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "feature": "5",
+  "phase": "5B",
+  "name": "RBAC and Privileged Administration Foundation",
+  "mode": "design-only",
+  "baseline": {
+    "source": "feature5a-authoritative-all-roles-export",
+    "active_role_assignment_count": 1,
+    "active_role_types": {
+      "Global Administrator": 1
+    },
+    "unknown_or_custom_role_assignment_count": 0
+  },
+  "feature_boundaries": {
+    "conditional_access_owner_feature": 6,
+    "pim_owner_feature": 7,
+    "identity_protection_owner_feature": 7,
+    "security_defaults_preserved": true,
+    "conditional_access_changes_allowed": false,
+    "pim_changes_allowed": false,
+    "identity_protection_changes_allowed": false,
+    "tenant_writes_allowed_in_phase_5B": false
+  },
+  "principals": {
+    "bootstrap_admin": {
+      "logical_id": "BOOTSTRAP_ADMIN",
+      "account_class": "cloud-only-administrative",
+      "current_role": "Global Administrator",
+      "state": "transitional",
+      "routine_use_target": false,
+      "remove_or_reduce_role_now": false
+    },
+    "privileged_admin_01": {
+      "logical_id": "PRIVILEGED_ADMIN_01",
+      "account_class": "cloud-only-dedicated-administrative",
+      "routine_workforce_identity": false,
+      "provisioning_state": "created-privileged-auth-ready",
+      "initial_feature5_role": "Privileged Role Administrator",
+      "assignment_mode": "active-static-interim",
+      "pim_conversion_owner_feature": 7,
+      "requires_explicit_pre_write_gate": true,
+      "requires_strong_authentication_before_use": true,
+      "current_directory_role": "Privileged Role Administrator",
+      "strong_authentication_state": "validated-authenticator-and-device-bound-passkey",
+      "initial_sign_in_complete": true,
+      "current_role_assignment_model": "active-static-interim",
+      "current_role_scope": "tenant",
+      "pim_configured": false
+    },
+    "emergency_access": {
+      "logical_ids": [
+        "EMERGENCY_ADMIN_01",
+        "EMERGENCY_ADMIN_02"
+      ],
+      "target_count": 2,
+      "current_operational_state": "created-disabled-unlicensed-unprivileged-auth-deferred",
+      "target_account_class": "cloud-only-emergency",
+      "target_role": "Global Administrator",
+      "routine_use": false,
+      "live_changes_in_phase_5B": false,
+      "requires_separate_explicit_gate": true,
+      "current_account_enabled_count": 0,
+      "current_directory_role_assignment_count": 0,
+      "current_group_membership_count": 0,
+      "current_license_count": 0,
+      "strong_authentication_state": "deferred-no-independent-phishing-resistant-credential",
+      "target_role_assignment_model": "permanent-active-emergency",
+      "pim_target_state": "permanent-active-not-eligible",
+      "authentication_requirement": "phishing-resistant-independent-from-routine-admin",
+      "normal_admin_authentication_dependency_allowed": false,
+      "conditional_access_exclusion_owner_feature": 6,
+      "validation_interval_days": 90,
+      "operationalization_status": "deferred",
+      "operationalization_deferred_reason": "independent-phishing-resistant-credential-unavailable",
+      "weaker_authentication_substitution_allowed": false,
+      "bootstrap_reduction_blocked": true,
+      "future_resume_requirements": [
+        "independent-phishing-resistant-credential-available",
+        "fresh-emergency-account-read-back",
+        "fresh-global-administrator-baseline-read-back",
+        "explicit-pre-write-authorization"
+      ],
+      "future_authentication_options": [
+        "physical-fido2-security-key",
+        "device-bound-passkey"
+      ],
+      "future_authentication_option_status": "documented-for-possible-future-implementation",
+      "future_authentication_selected_for_current_project": null,
+      "future_authentication_implemented_in_current_project": false
+    }
+  },
+  "role_strategy": {
+    "least_privilege_required": true,
+    "global_administrator_for_routine_admin": false,
+    "privileged_role_administrator_initial_assignment": true,
+    "future_service_roles_added_only_for_documented_tasks": true,
+    "role_expansion_requires_new_validation": true
+  },
+  "authentication": {
+    "privileged_accounts_require_strong_authentication": true,
+    "phishing_resistant_method_preferred": true,
+    "password_only_privileged_operation_allowed": false,
+    "shared_credentials_allowed": false
+  },
+  "bootstrap_reduction_gate": {
+    "all_conditions_required": true,
+    "conditions": [
+      "PRIVILEGED_ADMIN_01 exists as a dedicated cloud-only administrative identity",
+      "strong authentication for PRIVILEGED_ADMIN_01 is registered and validated",
+      "its intended privileged role assignment is validated",
+      "an operational emergency-access recovery path exists",
+      "recovery and rollback procedures are documented and tested",
+      "removing or reducing bootstrap privilege does not create a tenant lockout path"
+    ]
+  },
+  "evidence_policy": {
+    "raw_principal_exports_tracked": false,
+    "tenant_specific_ids_tracked": false,
+    "tenant_domain_tracked": false,
+    "complete_upns_tracked": false,
+    "sanitized_evidence_only": true
+  },
+  "next_live_phase": {
+    "phase": "5C",
+    "description": "Controlled provisioning and privileged role assignment",
+    "authorized_by_this_file": false,
+    "explicit_user_gate_required": true
+  }
+}

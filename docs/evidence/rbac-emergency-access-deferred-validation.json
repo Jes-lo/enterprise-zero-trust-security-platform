@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "feature": "5",
+  "phase": "5D2-D",
+  "evidence_type": "emergency-access-operationalization-deferred-sanitized",
+  "decision": {
+    "emergency_operationalization_completed": false,
+    "emergency_operationalization_deferred": true,
+    "physical_fido2_security_keys_available": false,
+    "windows_passkey_selected": false,
+    "certificate_based_authentication_selected": false,
+    "weaker_authentication_substitution_selected": false,
+    "possible_future_implementations": [
+      "physical-fido2-security-key",
+      "device-bound-passkey"
+    ],
+    "future_implementation_documented": true,
+    "selected_for_current_project": null,
+    "implemented_in_current_project": false,
+    "future_options_only": true
+  },
+  "security_rationale": {
+    "phishing_resistant_authentication_required_by_design": true,
+    "routine_admin_authentication_reuse_allowed": false,
+    "password_only_allowed": false,
+    "totp_as_final_emergency_method_allowed": false,
+    "sms_as_final_emergency_method_allowed": false,
+    "emergency_global_administrator_without_validated_strong_auth_allowed": false
+  },
+  "current_tenant_state": {
+    "emergency_identity_count": 2,
+    "enabled_emergency_identity_count": 0,
+    "emergency_directory_role_assignment_count": 0,
+    "emergency_group_membership_count": 0,
+    "emergency_license_count": 0,
+    "emergency_strong_authentication_ready_count": 0,
+    "global_administrator_assignment_count": 1,
+    "security_defaults_enabled": true
+  },
+  "feature5_end_state": {
+    "dedicated_privileged_admin_operational": true,
+    "dedicated_privileged_admin_role": "Privileged Role Administrator",
+    "emergency_access_governance_defined": true,
+    "emergency_access_live_recovery_path_operational": false,
+    "bootstrap_global_administrator_retained": true,
+    "bootstrap_reduction_permitted": false
+  },
+  "future_resume_gate": {
+    "independent_phishing_resistant_credential_required": true,
+    "fresh_tenant_validation_required": true,
+    "explicit_authorization_required": true
+  },
+  "tenant_changes": {
+    "accounts_enabled": 0,
+    "passwords_changed": 0,
+    "authentication_methods_registered": 0,
+    "roles_assigned": 0,
+    "groups_modified": 0,
+    "licenses_modified": 0,
+    "conditional_access_modified": false,
+    "pim_modified": false,
+    "bootstrap_admin_modified": false
+  },
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "role_assignment_id_present": false,
+    "authentication_method_id_present": false,
+    "credential_value_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  },
+  "future_implementation_note": {
+    "status": "documented-not-implemented",
+    "possible_methods": [
+      "physical-fido2-security-key",
+      "device-bound-passkey"
+    ],
+    "physical_fido2_key_applied": false,
+    "device_bound_passkey_applied": false,
+    "current_project_will_not_operationalize_these_methods": true
+  }
+}

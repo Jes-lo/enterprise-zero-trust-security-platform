@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "feature": "5",
+  "phase": "5C2",
+  "evidence_type": "privileged-admin-identity-provisioning-sanitized",
+  "collection_mode": "entra-admin-center-operator-verified",
+  "principal": {
+    "logical_id": "PRIVILEGED_ADMIN_01",
+    "account_class": "cloud-only-dedicated-administrative",
+    "user_type": "Member",
+    "account_enabled": true,
+    "routine_workforce_identity": false
+  },
+  "provisioning": {
+    "identity_created": true,
+    "read_back_complete": true,
+    "license_count": 0,
+    "group_membership_count": 0,
+    "directory_role_assignment_count": 0,
+    "initial_sign_in_completed": false,
+    "strong_authentication_state": "pending-first-sign-in-registration"
+  },
+  "role_guardrail": {
+    "planned_future_role": "Privileged Role Administrator",
+    "role_assigned_during_5c2": false,
+    "global_administrator_assigned_to_new_identity": false,
+    "pim_configured": false
+  },
+  "baseline_after": {
+    "global_administrator_assignment_count": 1,
+    "bootstrap_global_administrator_changed": false
+  },
+  "unchanged_controls": {
+    "emergency_access_accounts_changed": false,
+    "security_defaults_changed": false,
+    "conditional_access_changed": false,
+    "authentication_method_policy_changed": false,
+    "pim_changed": false,
+    "identity_protection_changed": false
+  },
+  "credential_handling": {
+    "temporary_password_in_repository": false,
+    "temporary_password_in_evidence": false,
+    "temporary_password_in_terminal_output": false,
+    "temporary_password_in_chat": false,
+    "password_manager_used": true
+  },
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "role_assignment_id_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}

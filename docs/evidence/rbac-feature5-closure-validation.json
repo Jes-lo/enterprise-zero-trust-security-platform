@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "feature": "5",
+  "phase": "5E",
+  "evidence_type": "rbac-privileged-administration-feature-closure-sanitized",
+
+  "feature_status": {
+    "complete": true,
+    "completion_class": "complete-with-explicit-emergency-operationalization-deferral"
+  },
+
+  "privileged_administrator": {
+    "logical_id": "PRIVILEGED_ADMIN_01",
+    "operational": true,
+    "directory_role_assignment_count": 1,
+    "directory_role": "Privileged Role Administrator",
+    "role_scope": "tenant",
+    "assignment_model": "active-static-interim",
+    "pim_configured": false,
+    "group_membership_count": 0,
+    "license_count": 0,
+    "microsoft_authenticator_present": true,
+    "device_bound_passkey_present": true,
+    "fresh_passkey_sign_in_validated": true,
+    "global_administrator_assigned": false,
+    "privileged_role_read_test_validated": true,
+    "functional_test_administrative_writes": 0
+  },
+
+  "tenant_protected_baseline": {
+    "global_administrator_assignment_count": 1,
+    "security_defaults_enabled": true
+  },
+
+  "emergency_access": {
+    "identity_count": 2,
+    "enabled_identity_count": 0,
+    "directory_role_assignment_count": 0,
+    "group_membership_count": 0,
+    "license_count": 0,
+    "live_recovery_path_operational": false,
+    "governance_defined": true,
+    "operationalization_status": "deferred",
+    "possible_future_authentication_options": [
+      "physical-fido2-security-key",
+      "device-bound-passkey"
+    ],
+    "future_authentication_option_selected": null,
+    "future_authentication_option_implemented": false
+  },
+
+  "bootstrap_administrator": {
+    "global_administrator_retained": true,
+    "privilege_reduction_permitted": false,
+    "reduction_blocked_by_missing_operational_emergency_path": true
+  },
+
+  "feature_boundaries": {
+    "conditional_access_owner_feature": 6,
+    "pim_owner_feature": 7,
+    "identity_protection_owner_feature": 7,
+    "emergency_phishing_resistant_authentication_implemented": false,
+    "bootstrap_reduction_implemented": false
+  },
+
+  "closure_activity": {
+    "tenant_writes": 0,
+    "role_assignments": 0,
+    "group_changes": 0,
+    "license_changes": 0,
+    "authentication_method_changes": 0,
+    "conditional_access_changes": 0,
+    "pim_changes": 0
+  },
+
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "role_assignment_id_present": false,
+    "authentication_method_id_present": false,
+    "credential_value_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}
