@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "feature": "6",
+  "phase": "6A",
+  "evidence_type": "conditional-access-baseline-read-only-sanitized",
+  "collection_mode": "operator-entra-admin-center-read-only",
+
+  "tenant_state": {
+    "security_defaults_enabled": true,
+    "conditional_access_capability_available": true,
+    "conditional_access_policy_count": 0,
+    "ca_pilot_group_member_count": 0,
+    "bootstrap_mfa_capable_method_present": true
+  },
+
+  "privileged_administration_state": {
+    "dedicated_privileged_admin_role": "Privileged Role Administrator",
+    "dedicated_privileged_admin_role_count": 1,
+    "dedicated_privileged_admin_group_count": 0,
+    "dedicated_privileged_admin_license_count": 0,
+    "dedicated_privileged_admin_global_administrator": false,
+    "global_administrator_assignment_count": 1,
+    "bootstrap_global_administrator_retained": true
+  },
+
+  "emergency_access_state": {
+    "identity_count": 2,
+    "enabled_identity_count": 0,
+    "directory_role_assignment_count": 0,
+    "group_membership_count": 0,
+    "license_count": 0,
+    "live_recovery_path_operational": false
+  },
+
+  "feature6a_activity": {
+    "tenant_writes": 0,
+    "conditional_access_policies_created": 0,
+    "conditional_access_policies_modified": 0,
+    "conditional_access_policies_enabled": 0,
+    "security_defaults_modified": false,
+    "group_memberships_modified": 0,
+    "roles_modified": 0,
+    "authentication_methods_modified": 0,
+    "licenses_modified": 0
+  },
+
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "group_id_present": false,
+    "conditional_access_policy_id_present": false,
+    "authentication_method_id_present": false,
+    "credential_value_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}

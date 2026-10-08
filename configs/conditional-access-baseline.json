@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "feature": "6",
+  "phase": "6A",
+  "name": "Conditional Access Baseline Foundation",
+
+  "current_state": {
+    "security_defaults_enabled": true,
+    "conditional_access_policy_count": 0,
+    "conditional_access_capability_available": true,
+    "license_basis": "Microsoft 365 Business Premium / Microsoft Entra ID P1",
+    "ca_pilot_group": "PLAB-CA-Pilot",
+    "ca_pilot_group_member_count": 0,
+    "bootstrap_global_administrator_retained": true,
+    "bootstrap_mfa_capable_method_present": true,
+    "privileged_admin_role": "Privileged Role Administrator",
+    "privileged_admin_group_membership_count": 0,
+    "privileged_admin_license_count": 0,
+    "emergency_access_operational": false
+  },
+
+  "migration_principles": {
+    "report_only_first": true,
+    "security_defaults_preserved_during_design": true,
+    "security_defaults_preserved_during_initial_report_only_staging": true,
+    "conditional_access_enforcement_while_security_defaults_enabled": false,
+    "security_defaults_cutover_requires_separate_explicit_gate": true,
+    "replacement_baseline_must_be_ready_before_security_defaults_disable": true,
+    "enable_replacement_baseline_immediately_after_security_defaults_disable": true,
+    "lockout_prevention_required": true,
+    "what_if_validation_required": true,
+    "sign_in_log_validation_required": true,
+    "bootstrap_reduction_allowed": false
+  },
+
+  "planned_policies": [
+    {
+      "id": "CA-001",
+      "name": "Require MFA for all users",
+      "purpose": "replace the broad MFA protection provided by Security Defaults",
+      "planned_initial_mode": "report-only",
+      "target": "all-users",
+      "exclude_logical_principals": [
+        "EMERGENCY_ADMIN_01",
+        "EMERGENCY_ADMIN_02"
+      ],
+      "grant_control": "require-multifactor-authentication",
+      "created": false,
+      "enabled": false
+    },
+    {
+      "id": "CA-002",
+      "name": "Require MFA for privileged administration",
+      "purpose": "provide explicit MFA protection for current privileged directory roles",
+      "planned_initial_mode": "report-only",
+      "target_directory_roles": [
+        "Global Administrator",
+        "Privileged Role Administrator"
+      ],
+      "exclude_logical_principals": [
+        "EMERGENCY_ADMIN_01",
+        "EMERGENCY_ADMIN_02"
+      ],
+      "grant_control": "require-multifactor-authentication",
+      "created": false,
+      "enabled": false
+    },
+    {
+      "id": "CA-003",
+      "name": "Block legacy authentication",
+      "purpose": "prevent legacy client authentication paths",
+      "planned_initial_mode": "report-only",
+      "target": "all-users",
+      "exclude_logical_principals": [
+        "EMERGENCY_ADMIN_01",
+        "EMERGENCY_ADMIN_02"
+      ],
+      "client_app_condition": "legacy-authentication-clients",
+      "grant_control": "block",
+      "created": false,
+      "enabled": false
+    },
+    {
+      "id": "CA-004",
+      "name": "Require MFA for Azure management",
+      "purpose": "protect Azure and Microsoft administrative management surfaces",
+      "planned_initial_mode": "report-only",
+      "target": "all-users",
+      "exclude_logical_principals": [
+        "EMERGENCY_ADMIN_01",
+        "EMERGENCY_ADMIN_02"
+      ],
+      "target_resource": "microsoft-azure-management",
+      "grant_control": "require-multifactor-authentication",
+      "created": false,
+      "enabled": false
+    }
+  ],
+
+  "pilot_strategy": {
+    "pilot_group": "PLAB-CA-Pilot",
+    "current_member_count": 0,
+    "planned_first_pilot_principal": "EMPLOYEE_01",
+    "pilot_membership_change_authorized": false,
+    "report_only_policy_creation_authorized": false,
+    "policy_enforcement_authorized": false
+  },
+
+  "feature_boundaries": {
+    "device_compliance_enforcement_owner_feature": 9,
+    "endpoint_defender_owner_feature": 10,
+    "pim_owner_feature": 7,
+    "identity_protection_owner_feature": 7,
+    "risk_based_conditional_access_owner_feature": 7,
+    "emergency_access_phishing_resistant_authentication_implemented": false
+  },
+
+  "authorization": {
+    "feature6a_tenant_writes_authorized": false,
+    "conditional_access_policy_creation_authorized": false,
+    "conditional_access_policy_enablement_authorized": false,
+    "security_defaults_disable_authorized": false,
+    "pilot_group_membership_change_authorized": false,
+    "bootstrap_admin_change_authorized": false
+  }
+}
