@@ -36,31 +36,30 @@ principal = config["principals"]["privileged_admin_01"]
 if principal["logical_id"] != "PRIVILEGED_ADMIN_01":
     fail("unexpected logical identity")
 
-if principal["current_directory_role"] is not None:
-    fail(
-        "privileged identity has a directory role before "
-        "Feature 5 role-assignment gate"
-    )
+current_role = principal["current_directory_role"]
+state = principal["provisioning_state"]
+auth_state = principal["strong_authentication_state"]
+initial_sign_in = principal["initial_sign_in_complete"]
 
 if (
     principal["initial_feature5_role"]
     != "Privileged Role Administrator"
 ):
-    fail("future target role changed unexpectedly")
-
-state = principal["provisioning_state"]
-auth_state = principal["strong_authentication_state"]
-initial_sign_in = principal["initial_sign_in_complete"]
+    fail("planned Feature 5 role changed unexpectedly")
 
 allowed_states = {
     "created-unprivileged-auth-pending",
     "created-unprivileged-auth-ready",
+    "created-privileged-auth-ready",
 }
 
 if state not in allowed_states:
     fail("unexpected privileged-admin provisioning state")
 
 if state == "created-unprivileged-auth-pending":
+    if current_role is not None:
+        fail("pending identity cannot have a directory role")
+
     if auth_state != "pending-first-sign-in-registration":
         fail("pending provisioning/authentication state mismatch")
 
@@ -68,6 +67,9 @@ if state == "created-unprivileged-auth-pending":
         fail("pending identity cannot have completed initial sign-in")
 
 if state == "created-unprivileged-auth-ready":
+    if current_role is not None:
+        fail("unprivileged auth-ready identity cannot have a role")
+
     if (
         auth_state
         != "validated-authenticator-and-device-bound-passkey"
@@ -76,6 +78,19 @@ if state == "created-unprivileged-auth-ready":
 
     if initial_sign_in is not True:
         fail("ready identity must have completed initial sign-in")
+
+if state == "created-privileged-auth-ready":
+    if current_role != "Privileged Role Administrator":
+        fail("privileged state requires exactly PRA")
+
+    if (
+        auth_state
+        != "validated-authenticator-and-device-bound-passkey"
+    ):
+        fail("privileged authentication state mismatch")
+
+    if initial_sign_in is not True:
+        fail("privileged identity must have completed sign-in")
 
 if evidence["feature"] != "5":
     fail("unexpected evidence feature")
@@ -183,7 +198,7 @@ for name, raw in (
 
 print("PASS: Feature 5C2 historical provisioning evidence valid.")
 print("PASS: current privileged-admin progression state is valid.")
-print("PASS: current directory role remains none.")
+print("PASS: current progression state and role are valid.")
 print("PASS: Feature 5C2 historical role count remains zero.")
 print("PASS: Feature 5C2 Global Administrator baseline remains one.")
 print("PASS: no tenant identifier or secret detected.")

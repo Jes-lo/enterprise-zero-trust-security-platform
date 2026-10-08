@@ -55,7 +55,10 @@ mutation = sys.argv[7]
 
 principal = config["principals"]["privileged_admin_01"]
 
-if mutation == "membership-remains":
+if mutation == "wrong-current-role":
+    principal["current_directory_role"] = "Global Administrator"
+
+elif mutation == "membership-remains":
     evidence[
         "post_remediation_state"
     ][
@@ -147,6 +150,10 @@ expect_reject() {
 
   echo "PASS: validator rejected forbidden fixture."
 }
+
+expect_reject \
+  "wrong-current-role" \
+  "Unexpected current privileged role"
 
 expect_reject \
   "membership-remains" \

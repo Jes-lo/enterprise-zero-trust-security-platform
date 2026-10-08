@@ -48,10 +48,11 @@ mutation = sys.argv[5]
 
 principal = config["principals"]["privileged_admin_01"]
 
-if mutation == "premature-role":
-    principal["current_directory_role"] = (
-        "Privileged Role Administrator"
-    )
+if mutation == "wrong-current-role":
+    principal["current_directory_role"] = "Global Administrator"
+
+elif mutation == "planned-role-changed":
+    principal["initial_feature5_role"] = "Global Administrator"
 
 elif mutation == "evidence-role":
     evidence[
@@ -113,8 +114,12 @@ expect_reject() {
 }
 
 expect_reject \
-  "premature-role" \
-  "Directory role assigned before Feature 5 role gate"
+  "wrong-current-role" \
+  "Unexpected current privileged role"
+
+expect_reject \
+  "planned-role-changed" \
+  "Planned Feature 5 role changed unexpectedly"
 
 expect_reject \
   "evidence-role" \

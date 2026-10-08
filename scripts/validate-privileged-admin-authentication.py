@@ -38,12 +38,15 @@ if principal["logical_id"] != "PRIVILEGED_ADMIN_01":
 
 if (
     principal["provisioning_state"]
-    != "created-unprivileged-auth-ready"
+    != "created-privileged-auth-ready"
 ):
-    fail("privileged admin is not in auth-ready state")
+    fail("privileged admin is not in privileged auth-ready state")
 
-if principal["current_directory_role"] is not None:
-    fail("directory role assigned before Feature 5C5")
+if (
+    principal["current_directory_role"]
+    != "Privileged Role Administrator"
+):
+    fail("current privileged role is not PRA")
 
 if (
     principal["strong_authentication_state"]
@@ -209,7 +212,7 @@ print("PASS: temporary password transition complete.")
 print("PASS: Microsoft Authenticator registered.")
 print("PASS: device-bound passkey registered.")
 print("PASS: passwordless passkey sign-in successfully tested.")
-print("PASS: current directory roles remain zero.")
+print("PASS: current role = Privileged Role Administrator.")
 print("PASS: historical group discrepancy is explicitly corrected.")
 print("PASS: historical group count = 1 before remediation.")
 print("PASS: historical license count remains zero.")

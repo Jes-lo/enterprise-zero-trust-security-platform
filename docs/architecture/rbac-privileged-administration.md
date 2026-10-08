@@ -184,3 +184,27 @@ Post-remediation validation confirmed:
 - Security Defaults remains enabled.
 
 No role assignment was performed as part of this remediation. Feature 5C5 remains a separate authorization gate.
+
+## Feature 5C5/5C6 role-assignment status
+
+`PRIVILEGED_ADMIN_01` received its first Microsoft Entra directory role only after the dedicated administrative identity completed strong-authentication onboarding and the unexpected collaboration-group membership was remediated.
+
+The resulting privileged-administration state is:
+
+- Current role: `Privileged Role Administrator`.
+- Role count: one.
+- Assignment scope: tenant/directory.
+- Assignment model: active static interim.
+- PIM: not configured; conversion remains owned by Feature 7.
+- Global Administrator: not assigned to `PRIVILEGED_ADMIN_01`.
+- Group memberships: zero.
+- Licenses: zero.
+- Microsoft Authenticator: retained.
+- Device-bound passkey: retained.
+- Fresh passkey sign-in: successfully validated.
+- Privileged role-management read access: successfully validated.
+- Administrative writes during the functional privilege test: zero.
+- Existing Global Administrator assignment baseline: one.
+- Security Defaults: enabled.
+
+The original bootstrap Global Administrator remains unchanged at this stage. Emergency-access governance and any later bootstrap privilege reduction require separate validation and authorization.

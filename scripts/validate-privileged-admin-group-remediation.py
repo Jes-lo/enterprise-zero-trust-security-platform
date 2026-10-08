@@ -46,12 +46,15 @@ if principal["logical_id"] != "PRIVILEGED_ADMIN_01":
 
 if (
     principal["provisioning_state"]
-    != "created-unprivileged-auth-ready"
+    != "created-privileged-auth-ready"
 ):
-    fail("privileged identity is not auth-ready")
+    fail("privileged identity is not in current privileged state")
 
-if principal["current_directory_role"] is not None:
-    fail("directory role assigned before Feature 5C5")
+if (
+    principal["current_directory_role"]
+    != "Privileged Role Administrator"
+):
+    fail("current privileged role is not PRA")
 
 if (
     principal["strong_authentication_state"]
@@ -211,7 +214,8 @@ print("PASS: pre-remediation privileged-admin groups = 1.")
 print("PASS: post-remediation privileged-admin groups = 0.")
 print("PASS: group member count changed 10 -> 9.")
 print("PASS: exactly one membership-removal write recorded.")
-print("PASS: directory roles remain zero.")
+print("PASS: historical post-remediation role count = 0.")
+print("PASS: current role progression = Privileged Role Administrator.")
 print("PASS: licenses remain zero.")
 print("PASS: strong authentication remains intact.")
 print("PASS: Global Administrator baseline remains one.")

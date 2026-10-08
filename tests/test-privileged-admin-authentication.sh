@@ -45,10 +45,8 @@ mutation = sys.argv[5]
 
 principal = config["principals"]["privileged_admin_01"]
 
-if mutation == "premature-role":
-    principal["current_directory_role"] = (
-        "Privileged Role Administrator"
-    )
+if mutation == "wrong-current-role":
+    principal["current_directory_role"] = "Global Administrator"
 
 elif mutation == "no-authenticator":
     evidence[
@@ -129,8 +127,8 @@ expect_reject() {
 }
 
 expect_reject \
-  "premature-role" \
-  "PRA assigned before Feature 5C5"
+  "wrong-current-role" \
+  "Unexpected current privileged role"
 
 expect_reject \
   "no-authenticator" \
