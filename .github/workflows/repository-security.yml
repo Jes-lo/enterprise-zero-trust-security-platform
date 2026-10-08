@@ -59,6 +59,18 @@ jobs:
       - name: Validate identity full apply
         run: ./scripts/validate-identity-full-apply.sh
 
+      - name: Validate authentication and MFA foundation
+        run: ./scripts/validate-authentication-mfa.sh
+
+      - name: Validate authentication registration readiness
+        run: ./scripts/validate-authentication-registration-readiness.sh
+
+      - name: Validate Authenticator pilot registration
+        run: ./scripts/validate-authentication-pilot-registration.sh
+
+      - name: Validate passkey pilot
+        run: ./scripts/validate-authentication-passkey-pilot.sh
+
       - name: Run repository security validation
         run: ./scripts/validate-repository.sh
 

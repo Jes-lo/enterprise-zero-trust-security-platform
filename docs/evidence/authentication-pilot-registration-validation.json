@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "authentication-pilot-registration-validation",
+  "validation_date": "2026-10-08",
+  "feature": "authentication-mfa-foundation",
+  "phase": "feature4c",
+  "pilot": {
+    "account_id": "EMPLOYEE_01",
+    "privilege_class": "PC3",
+    "authenticated_account_matches_expected": true,
+    "microsoft_authenticator_registered": true,
+    "authentication_method_count": 3,
+    "method_types": [
+      "microsoftAuthenticatorAuthenticationMethod",
+      "passwordAuthenticationMethod",
+      "softwareOathAuthenticationMethod"
+    ]
+  },
+  "graph": {
+    "requested_scopes": [
+      "UserAuthenticationMethod.Read"
+    ],
+    "resource": "/me/authentication/methods",
+    "resource_get_count": 1,
+    "resource_write_count": 0
+  },
+  "tenant_controls": {
+    "security_defaults_modified": false,
+    "authentication_methods_policy_modified": false,
+    "conditional_access_modified": false,
+    "privileged_roles_modified": false,
+    "emergency_identity_state_modified": false
+  },
+  "privacy": {
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "complete_upn_present": false,
+    "graph_object_id_present": false,
+    "credential_secret_present": false,
+    "registration_secret_present": false,
+    "qr_payload_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}

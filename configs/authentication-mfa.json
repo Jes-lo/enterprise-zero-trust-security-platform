@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0",
+  "feature": "authentication-mfa-foundation",
+  "control_family": "ZT-AUTH",
+  "rollout_model": "observe_then_pilot_then_expand",
+  "feature_boundaries": {
+    "authentication_method_policy": "feature4",
+    "mfa_registration_foundation": "feature4",
+    "privileged_role_assignment": "feature5",
+    "conditional_access_enforcement": "feature6",
+    "pim_and_identity_protection": "feature7",
+    "device_compliance": "feature9"
+  },
+  "readiness": {
+    "mode": "read_only",
+    "graph_scopes": [
+      "Policy.Read.All"
+    ],
+    "graph_requests": [
+      {
+        "method": "GET",
+        "resource": "/policies/authenticationMethodsPolicy"
+      },
+      {
+        "method": "GET",
+        "resource": "/policies/identitySecurityDefaultsEnforcementPolicy"
+      }
+    ],
+    "expected_resource_get_count": 2,
+    "resource_writes_allowed": false
+  },
+  "security_defaults": {
+    "feature4a_action": "observe_only",
+    "disable_in_feature4a": false,
+    "preserve_until_replacement_controls_are_validated": true
+  },
+  "method_strategy": {
+    "microsoft_authenticator": {
+      "target_state": "enabled",
+      "rollout": "pilot_then_workforce",
+      "purpose": [
+        "mfa",
+        "passwordless"
+      ]
+    },
+    "fido2_passkeys": {
+      "target_state": "enabled",
+      "rollout": "pilot_then_workforce",
+      "purpose": [
+        "phishing_resistant_authentication",
+        "passwordless"
+      ]
+    },
+    "temporary_access_pass": {
+      "target_state": "enabled_restricted",
+      "rollout": "controlled_onboarding_and_recovery",
+      "preferred_default_lifetime_minutes": 60,
+      "preferred_default_length": 12,
+      "preferred_one_time_use": true
+    },
+    "software_oath": {
+      "target_state": "evaluate_as_fallback",
+      "rollout": "not_changed_in_feature4a"
+    },
+    "sms": {
+      "target_state": "remove_as_primary_mfa",
+      "rollout": "do_not_disable_before_registration_readiness"
+    },
+    "voice": {
+      "target_state": "disabled",
+      "rollout": "do_not_change_in_feature4a"
+    }
+  },
+  "emergency_identity_policy": {
+    "current_feature3_state": "disabled_and_unlicensed",
+    "automatic_enablement_in_feature4": false,
+    "ordinary_workforce_rollout_target": false
+  },
+  "safety": {
+    "no_authentication_policy_writes_in_feature4a": true,
+    "no_security_defaults_changes_in_feature4a": true,
+    "no_conditional_access_changes_in_feature4a": true,
+    "no_role_assignment_changes_in_feature4a": true,
+    "no_user_authentication_method_deletion_in_feature4a": true
+  },
+  "registration_readiness": {
+    "phase": "feature4b",
+    "mode": "read_only",
+    "graph_scopes": [
+      "AuditLog.Read.All",
+      "Policy.Read.AuthenticationMethod"
+    ],
+    "managed_workforce_selector": {
+      "live_creation": true,
+      "license_policy": "business-premium"
+    },
+    "expected_managed_workforce_count": 8,
+    "disabled_emergency_accounts_excluded": true,
+    "expected_disabled_emergency_count": 2,
+    "registration_report_resource": "/reports/authenticationMethods/userRegistrationDetails",
+    "authentication_policy_resource": "/policies/authenticationMethodsPolicy",
+    "resource_writes_allowed": false
+  },
+  "controlled_pilot": {
+    "phase": "feature4b-plan-only",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_privilege_class": "PC3",
+    "selection_reason": "existing-standard-user-baseline",
+    "authentication_policy_write_allowed": false,
+    "user_method_write_allowed": false,
+    "security_defaults_change_allowed": false,
+    "conditional_access_change_allowed": false,
+    "emergency_identity_use_allowed": false,
+    "next_checkpoint_requires_readiness_review": true
+  },
+  "pilot_registration": {
+    "phase": "feature4c",
+    "mode": "user_interactive",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_privilege_class": "PC3",
+    "target_method": "microsoft_authenticator",
+    "policy_change_required": false,
+    "security_defaults_change_allowed": false,
+    "authentication_policy_change_allowed": false,
+    "conditional_access_change_allowed": false,
+    "emergency_identity_use_allowed": false,
+    "verification": {
+      "mode": "signed_in_user_self_read",
+      "delegated_scopes": [
+        "UserAuthenticationMethod.Read"
+      ],
+      "resource": "/me/authentication/methods",
+      "resource_writes_allowed": false
+    }
+  },
+  "passkey_pilot": {
+    "phase": "feature4d",
+    "mode": "controlled_user_interactive",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_privilege_class": "PC3",
+    "target_method": "microsoft_authenticator_passkey",
+    "target_passkey_type": "deviceBound",
+    "phishing_resistant_target": true,
+    "registration_user_interactive": true,
+    "policy_change_required": false,
+    "security_defaults_change_allowed": false,
+    "authentication_policy_change_allowed": false,
+    "conditional_access_change_allowed": false,
+    "privileged_role_change_allowed": false,
+    "emergency_identity_use_allowed": false,
+    "existing_mfa_removal_allowed": false,
+    "existing_fallback_removal_allowed": false,
+    "policy_assessment": {
+      "mode": "read_only",
+      "delegated_scopes": [
+        "Policy.Read.AuthenticationMethod"
+      ],
+      "resource": "/policies/authenticationMethodsPolicy/authenticationMethodConfigurations/fido2",
+      "resource_writes_allowed": false
+    },
+    "verification": {
+      "mode": "signed_in_user_self_read",
+      "delegated_scopes": [
+        "UserAuthMethod-Passkey.Read",
+        "UserAuthenticationMethod.Read"
+      ],
+      "resources": [
+        "/me/authentication/fido2Methods",
+        "/me/authentication/methods"
+      ],
+      "resource_writes_allowed": false
+    }
+  }
+}

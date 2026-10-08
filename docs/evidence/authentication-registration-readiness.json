@@ -1,0 +1,256 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "authentication-registration-readiness",
+  "validation_date": "2026-10-08",
+  "feature": "authentication-mfa-foundation",
+  "phase": "feature4b",
+  "collection_mode": "read_only",
+  "graph": {
+    "requested_scopes": [
+      "AuditLog.Read.All",
+      "Policy.Read.AuthenticationMethod"
+    ],
+    "resource_get_count": 2,
+    "resource_write_count": 0
+  },
+  "population": {
+    "managed_workforce_expected": 8,
+    "managed_workforce_report_present": 8,
+    "disabled_emergency_excluded": 2
+  },
+  "readiness_summary": {
+    "mfa_registered": 0,
+    "mfa_capable": 0,
+    "passwordless_capable": 0
+  },
+  "managed_workforce": [
+    {
+      "account_id": "CONTRACTOR_01",
+      "privilege_class": "PC3",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    },
+    {
+      "account_id": "DEVELOPER_01",
+      "privilege_class": "PC3",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    },
+    {
+      "account_id": "EMPLOYEE_01",
+      "privilege_class": "PC3",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    },
+    {
+      "account_id": "EXECUTIVE_01",
+      "privilege_class": "PC3",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    },
+    {
+      "account_id": "FINANCE_01",
+      "privilege_class": "PC3",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    },
+    {
+      "account_id": "IT_OPERATOR_01",
+      "privilege_class": "PC2",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    },
+    {
+      "account_id": "SALES_01",
+      "privilege_class": "PC3",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    },
+    {
+      "account_id": "SECURITY_ENGINEER_01",
+      "privilege_class": "PC2",
+      "report_present": true,
+      "is_mfa_registered": false,
+      "is_mfa_capable": false,
+      "is_passwordless_capable": false,
+      "is_sspr_registered": false,
+      "is_sspr_capable": false,
+      "system_preferred_enabled": true,
+      "methods_registered": [],
+      "system_preferred_methods": [],
+      "preferred_secondary_method": "none"
+    }
+  ],
+  "authentication_method_targeting": [
+    {
+      "configuration_type": "fido2AuthenticationMethodConfiguration",
+      "state": "enabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "microsoftAuthenticatorAuthenticationMethodConfiguration",
+      "state": "enabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "smsAuthenticationMethodConfiguration",
+      "state": "disabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "temporaryAccessPassAuthenticationMethodConfiguration",
+      "state": "enabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "softwareOathAuthenticationMethodConfiguration",
+      "state": "enabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "voiceAuthenticationMethodConfiguration",
+      "state": "disabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "emailAuthenticationMethodConfiguration",
+      "state": "enabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "x509CertificateAuthenticationMethodConfiguration",
+      "state": "disabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    },
+    {
+      "configuration_type": "verifiableCredentialsAuthenticationMethodConfiguration",
+      "state": "disabled",
+      "include_target_count": 0,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": []
+    },
+    {
+      "configuration_type": "qrCodePinAuthenticationMethodConfiguration",
+      "state": "disabled",
+      "include_target_count": 1,
+      "exclude_target_count": 0,
+      "include_target_scope_classes": [
+        "all_users"
+      ]
+    }
+  ],
+  "pilot": {
+    "account_id": "EMPLOYEE_01",
+    "privilege_class": "PC3",
+    "readiness_status": "ready-for-controlled-strong-method-registration",
+    "report_present": true,
+    "is_mfa_registered": false,
+    "is_mfa_capable": false,
+    "is_passwordless_capable": false,
+    "methods_registered": []
+  },
+  "feature4b_assertions": {
+    "authentication_policy_modified": false,
+    "security_defaults_modified": false,
+    "conditional_access_modified": false,
+    "user_authentication_methods_modified": false,
+    "emergency_identity_state_modified": false
+  },
+  "privacy": {
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "complete_upn_present": false,
+    "graph_object_id_present": false,
+    "credential_secret_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}
