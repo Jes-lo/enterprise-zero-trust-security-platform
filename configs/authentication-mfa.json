@@ -82,5 +82,35 @@
     "no_conditional_access_changes_in_feature4a": true,
     "no_role_assignment_changes_in_feature4a": true,
     "no_user_authentication_method_deletion_in_feature4a": true
+  },
+  "registration_readiness": {
+    "phase": "feature4b",
+    "mode": "read_only",
+    "graph_scopes": [
+      "AuditLog.Read.All",
+      "Policy.Read.AuthenticationMethod"
+    ],
+    "managed_workforce_selector": {
+      "live_creation": true,
+      "license_policy": "business-premium"
+    },
+    "expected_managed_workforce_count": 8,
+    "disabled_emergency_accounts_excluded": true,
+    "expected_disabled_emergency_count": 2,
+    "registration_report_resource": "/reports/authenticationMethods/userRegistrationDetails",
+    "authentication_policy_resource": "/policies/authenticationMethodsPolicy",
+    "resource_writes_allowed": false
+  },
+  "controlled_pilot": {
+    "phase": "feature4b-plan-only",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_privilege_class": "PC3",
+    "selection_reason": "existing-standard-user-baseline",
+    "authentication_policy_write_allowed": false,
+    "user_method_write_allowed": false,
+    "security_defaults_change_allowed": false,
+    "conditional_access_change_allowed": false,
+    "emergency_identity_use_allowed": false,
+    "next_checkpoint_requires_readiness_review": true
   }
 }

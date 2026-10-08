@@ -62,6 +62,9 @@ jobs:
       - name: Validate authentication and MFA foundation
         run: ./scripts/validate-authentication-mfa.sh
 
+      - name: Validate authentication registration readiness
+        run: ./scripts/validate-authentication-registration-readiness.sh
+
       - name: Run repository security validation
         run: ./scripts/validate-repository.sh
 

@@ -89,3 +89,36 @@ Tracked evidence contains only non-identifying state information such as:
 
 Tenant identifiers, user principal names, object IDs and credentials are not
 published.
+
+## Feature 4B — Registration readiness
+
+Feature 4B measures registration readiness before any authentication-method
+policy change.
+
+The managed readiness population is the eight enabled Feature 3 workforce
+identities licensed with Microsoft 365 Business Premium.
+
+The two emergency identities remain disabled and are intentionally excluded
+from registration-report readiness calculations. Their absence from the
+registration report must not be interpreted as a failure.
+
+Feature 4B uses only read operations to:
+
+- collect workforce authentication registration state;
+- determine MFA and passwordless readiness;
+- identify registered method categories;
+- classify authentication-method policy targeting without publishing target
+  object identifiers;
+- assess `EMPLOYEE_01` as the controlled standard-user pilot candidate.
+
+Feature 4B does not:
+
+- register an authentication method;
+- remove an authentication method;
+- modify Authentication Methods Policy;
+- disable Security Defaults;
+- modify Conditional Access;
+- activate emergency identities.
+
+Any user-interactive registration belongs to a later controlled checkpoint
+after this evidence has been reviewed.
