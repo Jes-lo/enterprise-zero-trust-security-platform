@@ -71,6 +71,16 @@ elif mutation == "passkey-not-tested":
         "passwordless_passkey_test_successful"
     ] = False
 
+elif mutation == "historical-group-count":
+    evidence[
+        "tenant_state_after"
+    ][
+        "group_membership_count"
+    ] = 0
+
+elif mutation == "missing-correction":
+    evidence.pop("correction_notice", None)
+
 elif mutation == "ga-baseline":
     evidence[
         "tenant_state_after"
@@ -133,6 +143,14 @@ expect_reject \
 expect_reject \
   "passkey-not-tested" \
   "Passkey registered but passwordless sign-in not proven"
+
+expect_reject \
+  "historical-group-count" \
+  "Corrected historical group count reverted to zero"
+
+expect_reject \
+  "missing-correction" \
+  "Feature 5C4-R1 correction metadata removed"
 
 expect_reject \
   "ga-baseline" \

@@ -25,7 +25,7 @@
     "pim_configured": false
   },
   "tenant_state_after": {
-    "group_membership_count": 0,
+    "group_membership_count": 1,
     "license_count": 0,
     "global_administrator_assignment_count": 1,
     "security_defaults_enabled": true
@@ -60,5 +60,19 @@
     "password_present": false,
     "oauth_token_present": false,
     "device_login_code_present": false
+  },
+  "correction_notice": {
+    "status": "corrected-by-feature-5C4-R1",
+    "original_recorded_group_membership_count": 0,
+    "correct_historical_group_membership_count": 1,
+    "discovered_after_original_commit": true,
+    "membership": {
+      "group_display_name": "Portfolio Project Lab",
+      "group_type": "Microsoft 365",
+      "membership_type": "Assigned",
+      "source": "Cloud"
+    },
+    "impact": "Authentication readiness remained valid, but the dedicated privileged identity had one unnecessary collaboration-group membership.",
+    "remediation_evidence": "rbac-privileged-admin-group-remediation-validation.json"
   }
 }

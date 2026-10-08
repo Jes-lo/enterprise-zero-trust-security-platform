@@ -118,8 +118,39 @@ if authorization["pim_configured"] is not False:
 
 tenant = evidence["tenant_state_after"]
 
-if tenant["group_membership_count"] != 0:
-    fail("unexpected group membership")
+if tenant["group_membership_count"] != 1:
+    fail("corrected historical group-membership count must be one")
+
+correction = evidence.get("correction_notice")
+
+if not isinstance(correction, dict):
+    fail("Feature 5C4-R1 correction notice missing")
+
+if correction["status"] != "corrected-by-feature-5C4-R1":
+    fail("unexpected correction status")
+
+if correction["original_recorded_group_membership_count"] != 0:
+    fail("original inaccurate group count not preserved")
+
+if correction["correct_historical_group_membership_count"] != 1:
+    fail("correct historical group count must be one")
+
+if correction["discovered_after_original_commit"] is not True:
+    fail("correction provenance missing")
+
+membership = correction["membership"]
+
+if membership["group_display_name"] != "Portfolio Project Lab":
+    fail("unexpected corrected group")
+
+if membership["group_type"] != "Microsoft 365":
+    fail("unexpected corrected group type")
+
+if membership["membership_type"] != "Assigned":
+    fail("unexpected corrected membership type")
+
+if membership["source"] != "Cloud":
+    fail("unexpected corrected group source")
 
 if tenant["license_count"] != 0:
     fail("unexpected license")
@@ -179,7 +210,9 @@ print("PASS: Microsoft Authenticator registered.")
 print("PASS: device-bound passkey registered.")
 print("PASS: passwordless passkey sign-in successfully tested.")
 print("PASS: current directory roles remain zero.")
-print("PASS: groups and licenses remain zero.")
+print("PASS: historical group discrepancy is explicitly corrected.")
+print("PASS: historical group count = 1 before remediation.")
+print("PASS: historical license count remains zero.")
 print("PASS: Global Administrator baseline remains one.")
 print("PASS: Security Defaults remains enabled.")
 print("PASS: no tenant identifier or secret detected.")

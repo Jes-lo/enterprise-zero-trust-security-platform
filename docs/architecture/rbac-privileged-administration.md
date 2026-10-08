@@ -156,3 +156,31 @@ Strong-authentication readiness was established before any directory role assign
 The identity is now authentication-ready but remains intentionally unprivileged.
 
 `Privileged Role Administrator` must not be assigned until the separate Feature 5C5 authorization gate is approved.
+
+## Feature 5C4-R1 group-membership correction
+
+A post-validation review identified that `PRIVILEGED_ADMIN_01` had one direct membership in the cloud `Portfolio Project Lab` Microsoft 365 group.
+
+The original Feature 5C3/5C4 sanitized evidence incorrectly recorded zero group memberships. The historical evidence was corrected rather than silently rewritten:
+
+- Correct historical membership count before remediation: one.
+- Group type: Microsoft 365.
+- Membership type: Assigned.
+- Source: Cloud.
+- Group member count before remediation: ten.
+- The membership was not required for the dedicated privileged-administration identity.
+
+Feature 5C4-R1 removed only `PRIVILEGED_ADMIN_01` from that collaboration group.
+
+Post-remediation validation confirmed:
+
+- Privileged-admin group memberships: zero.
+- Group member count: nine.
+- Directory-role assignments: zero.
+- Licenses: zero.
+- Microsoft Authenticator remains registered.
+- Device-bound passkey remains registered.
+- Global Administrator assignment baseline remains one.
+- Security Defaults remains enabled.
+
+No role assignment was performed as part of this remediation. Feature 5C5 remains a separate authorization gate.

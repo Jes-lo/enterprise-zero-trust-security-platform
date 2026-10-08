@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "feature": "5",
+  "phase": "5C4-R1",
+  "evidence_type": "privileged-admin-group-membership-remediation-validation-sanitized",
+  "collection_mode": "operator-entra-admin-center-controlled-remediation-and-read-back",
+
+  "principal": {
+    "logical_id": "PRIVILEGED_ADMIN_01",
+    "account_class": "cloud-only-dedicated-administrative"
+  },
+
+  "discovered_discrepancy": {
+    "historical_recorded_group_membership_count": 0,
+    "correct_historical_group_membership_count": 1,
+    "group_display_name": "Portfolio Project Lab",
+    "group_type": "Microsoft 365",
+    "membership_type": "Assigned",
+    "source": "Cloud",
+    "group_member_count_before": 10
+  },
+
+  "remediation": {
+    "authorized_write_count": 1,
+    "operation": "remove-user-from-group",
+    "target_principal": "PRIVILEGED_ADMIN_01",
+    "target_group": "Portfolio Project Lab",
+    "completed": true,
+    "other_group_members_modified": false,
+    "group_deleted_or_modified": false
+  },
+
+  "post_remediation_state": {
+    "principal_group_membership_count": 0,
+    "group_member_count_after": 9,
+    "directory_role_assignment_count": 0,
+    "license_count": 0,
+    "microsoft_authenticator_present": true,
+    "device_bound_passkey_present": true,
+    "global_administrator_assignment_count": 1,
+    "security_defaults_enabled": true
+  },
+
+  "unchanged_controls": {
+    "bootstrap_global_administrator_changed": false,
+    "emergency_access_accounts_changed": false,
+    "conditional_access_changed": false,
+    "authentication_method_policy_changed": false,
+    "pim_changed": false,
+    "identity_protection_changed": false
+  },
+
+  "authorization_state_after": {
+    "feature5c4_r1_consumed": true,
+    "feature5c5_role_assignment_authorized": false,
+    "bootstrap_reduction_authorized": false
+  },
+
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "group_id_present": false,
+    "authentication_method_id_present": false,
+    "passkey_credential_id_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}
