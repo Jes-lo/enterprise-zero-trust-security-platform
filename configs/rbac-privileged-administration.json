@@ -35,15 +35,15 @@
       "logical_id": "PRIVILEGED_ADMIN_01",
       "account_class": "cloud-only-dedicated-administrative",
       "routine_workforce_identity": false,
-      "provisioning_state": "created-unprivileged-auth-pending",
+      "provisioning_state": "created-unprivileged-auth-ready",
       "initial_feature5_role": "Privileged Role Administrator",
       "assignment_mode": "active-static-interim",
       "pim_conversion_owner_feature": 7,
       "requires_explicit_pre_write_gate": true,
       "requires_strong_authentication_before_use": true,
       "current_directory_role": null,
-      "strong_authentication_state": "pending-first-sign-in-registration",
-      "initial_sign_in_complete": false
+      "strong_authentication_state": "validated-authenticator-and-device-bound-passkey",
+      "initial_sign_in_complete": true
     },
     "emergency_access": {
       "logical_ids": [

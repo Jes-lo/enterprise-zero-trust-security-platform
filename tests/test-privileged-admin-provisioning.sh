@@ -39,30 +39,19 @@ import json
 import sys
 from pathlib import Path
 
-config_source = Path(sys.argv[1])
-evidence_source = Path(sys.argv[2])
+config = json.loads(Path(sys.argv[1]).read_text())
+evidence = json.loads(Path(sys.argv[2]).read_text())
 
-config_target = Path(sys.argv[3])
-evidence_target = Path(sys.argv[4])
-
+config_out = Path(sys.argv[3])
+evidence_out = Path(sys.argv[4])
 mutation = sys.argv[5]
 
-config = json.loads(
-    config_source.read_text()
-)
-
-evidence = json.loads(
-    evidence_source.read_text()
-)
+principal = config["principals"]["privileged_admin_01"]
 
 if mutation == "premature-role":
-    config[
-        "principals"
-    ][
-        "privileged_admin_01"
-    ][
-        "current_directory_role"
-    ] = "Privileged Role Administrator"
+    principal["current_directory_role"] = (
+        "Privileged Role Administrator"
+    )
 
 elif mutation == "evidence-role":
     evidence[
@@ -72,11 +61,7 @@ elif mutation == "evidence-role":
     ] = 1
 
 elif mutation == "license":
-    evidence[
-        "provisioning"
-    ][
-        "license_count"
-    ] = 1
+    evidence["provisioning"]["license_count"] = 1
 
 elif mutation == "ga-baseline":
     evidence[
@@ -85,32 +70,24 @@ elif mutation == "ga-baseline":
         "global_administrator_assignment_count"
     ] = 2
 
-elif mutation == "premature-auth":
-    config[
-        "principals"
-    ][
-        "privileged_admin_01"
-    ][
-        "strong_authentication_state"
-    ] = "validated"
+elif mutation == "state-mismatch":
+    principal["provisioning_state"] = (
+        "created-unprivileged-auth-ready"
+    )
+    principal["strong_authentication_state"] = (
+        "pending-first-sign-in-registration"
+    )
+    principal["initial_sign_in_complete"] = False
 
 else:
     raise SystemExit("unknown mutation")
 
-config_target.write_text(
-    json.dumps(
-        config,
-        indent=2,
-    )
-    + "\n"
+config_out.write_text(
+    json.dumps(config, indent=2) + "\n"
 )
 
-evidence_target.write_text(
-    json.dumps(
-        evidence,
-        indent=2,
-    )
-    + "\n"
+evidence_out.write_text(
+    json.dumps(evidence, indent=2) + "\n"
 )
 PY
 }
@@ -119,23 +96,15 @@ expect_reject() {
   local mutation="$1"
   local description="$2"
 
-  local config_fixture="$TMP/${mutation}-config.json"
-  local evidence_fixture="$TMP/${mutation}-evidence.json"
+  local c="$TMP/${mutation}-config.json"
+  local e="$TMP/${mutation}-evidence.json"
 
-  make_fixture \
-    "$config_fixture" \
-    "$evidence_fixture" \
-    "$mutation"
+  make_fixture "$c" "$e" "$mutation"
 
   echo
   echo "TEST: $description"
 
-  if python3 \
-    "$VALIDATOR" \
-    "$config_fixture" \
-    "$evidence_fixture" \
-    >/dev/null 2>&1
-  then
+  if python3 "$VALIDATOR" "$c" "$e" >/dev/null 2>&1; then
     echo "FAIL: validator accepted forbidden fixture."
     exit 1
   fi
@@ -145,25 +114,25 @@ expect_reject() {
 
 expect_reject \
   "premature-role" \
-  "Directory role assigned before strong-authentication validation"
+  "Directory role assigned before Feature 5 role gate"
 
 expect_reject \
   "evidence-role" \
-  "Provisioning evidence reports a premature role"
+  "Historical Feature 5C2 evidence contains a role"
 
 expect_reject \
   "license" \
-  "Unexpected license assigned to privileged identity"
+  "Historical Feature 5C2 evidence contains a license"
 
 expect_reject \
   "ga-baseline" \
-  "Global Administrator baseline unexpectedly increased"
+  "Historical Global Administrator baseline changed"
 
 expect_reject \
-  "premature-auth" \
-  "Strong authentication marked validated before 5C3/5C4"
+  "state-mismatch" \
+  "Current authentication/provisioning state is inconsistent"
 
 echo
 echo "=================================================="
-echo "ALL FEATURE 5C2 ADVERSARIAL TESTS PASSED"
+echo "ALL FEATURE 5C2 PROGRESSION TESTS PASSED"
 echo "=================================================="

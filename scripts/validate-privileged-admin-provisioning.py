@@ -31,87 +31,88 @@ evidence_raw = evidence_path.read_text()
 config = json.loads(config_raw)
 evidence = json.loads(evidence_raw)
 
-privileged = (
-    config["principals"]["privileged_admin_01"]
-)
+principal = config["principals"]["privileged_admin_01"]
 
-if (
-    privileged["logical_id"]
-    != "PRIVILEGED_ADMIN_01"
-):
+if principal["logical_id"] != "PRIVILEGED_ADMIN_01":
     fail("unexpected logical identity")
 
-if (
-    privileged["provisioning_state"]
-    != "created-unprivileged-auth-pending"
-):
-    fail("unexpected provisioning state")
-
-if privileged["current_directory_role"] is not None:
+if principal["current_directory_role"] is not None:
     fail(
-        "directory role exists before "
-        "strong-authentication validation"
+        "privileged identity has a directory role before "
+        "Feature 5 role-assignment gate"
     )
 
 if (
-    privileged["strong_authentication_state"]
-    != "pending-first-sign-in-registration"
-):
-    fail(
-        "strong-authentication state must remain pending"
-    )
-
-if privileged["initial_sign_in_complete"] is not False:
-    fail(
-        "initial sign-in must remain incomplete in 5C2"
-    )
-
-if (
-    privileged["initial_feature5_role"]
+    principal["initial_feature5_role"]
     != "Privileged Role Administrator"
 ):
     fail("future target role changed unexpectedly")
+
+state = principal["provisioning_state"]
+auth_state = principal["strong_authentication_state"]
+initial_sign_in = principal["initial_sign_in_complete"]
+
+allowed_states = {
+    "created-unprivileged-auth-pending",
+    "created-unprivileged-auth-ready",
+}
+
+if state not in allowed_states:
+    fail("unexpected privileged-admin provisioning state")
+
+if state == "created-unprivileged-auth-pending":
+    if auth_state != "pending-first-sign-in-registration":
+        fail("pending provisioning/authentication state mismatch")
+
+    if initial_sign_in is not False:
+        fail("pending identity cannot have completed initial sign-in")
+
+if state == "created-unprivileged-auth-ready":
+    if (
+        auth_state
+        != "validated-authenticator-and-device-bound-passkey"
+    ):
+        fail("ready provisioning/authentication state mismatch")
+
+    if initial_sign_in is not True:
+        fail("ready identity must have completed initial sign-in")
 
 if evidence["feature"] != "5":
     fail("unexpected evidence feature")
 
 if evidence["phase"] != "5C2":
-    fail("unexpected evidence phase")
+    fail("unexpected historical evidence phase")
 
 provisioning = evidence["provisioning"]
 
 if provisioning["identity_created"] is not True:
-    fail("identity creation not validated")
+    fail("Feature 5C2 identity creation not validated")
 
 if provisioning["read_back_complete"] is not True:
-    fail("identity read-back not validated")
+    fail("Feature 5C2 read-back not validated")
 
 if provisioning["license_count"] != 0:
-    fail("privileged identity must remain unlicensed")
+    fail("Feature 5C2 identity unexpectedly licensed")
 
 if provisioning["group_membership_count"] != 0:
-    fail(
-        "privileged identity has unexpected group membership"
-    )
+    fail("Feature 5C2 unexpected group membership")
 
 if provisioning["directory_role_assignment_count"] != 0:
-    fail(
-        "privileged identity has premature directory role"
-    )
+    fail("Feature 5C2 contained premature directory role")
 
 if provisioning["initial_sign_in_completed"] is not False:
-    fail("initial sign-in cannot be complete in 5C2")
+    fail("Feature 5C2 initial sign-in historical state changed")
 
 if (
     provisioning["strong_authentication_state"]
     != "pending-first-sign-in-registration"
 ):
-    fail("unexpected strong-authentication state")
+    fail("Feature 5C2 historical authentication state changed")
 
 guardrail = evidence["role_guardrail"]
 
 if guardrail["role_assigned_during_5c2"] is not False:
-    fail("role assignment occurred during 5C2")
+    fail("role assignment occurred during Feature 5C2")
 
 if (
     guardrail[
@@ -119,30 +120,24 @@ if (
     ]
     is not False
 ):
-    fail(
-        "new identity must not receive Global Administrator"
-    )
+    fail("Feature 5C2 assigned Global Administrator")
 
 if guardrail["pim_configured"] is not False:
-    fail("PIM cannot be configured during 5C2")
+    fail("PIM was configured during Feature 5C2")
 
 baseline = evidence["baseline_after"]
 
 if baseline["global_administrator_assignment_count"] != 1:
-    fail(
-        "Global Administrator baseline changed"
-    )
+    fail("Feature 5C2 Global Administrator baseline changed")
 
 if (
     baseline["bootstrap_global_administrator_changed"]
     is not False
 ):
-    fail("bootstrap Global Administrator changed")
+    fail("Feature 5C2 bootstrap assignment changed")
 
-if any(
-    evidence["unchanged_controls"].values()
-):
-    fail("a protected control changed during 5C2")
+if any(evidence["unchanged_controls"].values()):
+    fail("Feature 5C2 protected control changed")
 
 credentials = evidence["credential_handling"]
 
@@ -153,13 +148,13 @@ for key in (
     "temporary_password_in_chat",
 ):
     if credentials[key] is not False:
-        fail(f"unsafe credential handling: {key}")
+        fail(f"unsafe Feature 5C2 credential handling: {key}")
 
 if credentials["password_manager_used"] is not True:
-    fail("password-manager confirmation missing")
+    fail("Feature 5C2 password-manager confirmation missing")
 
 if any(evidence["privacy"].values()):
-    fail("privacy control violation")
+    fail("Feature 5C2 privacy control violation")
 
 email_pattern = re.compile(
     r"[A-Za-z0-9._%+-]+@"
@@ -181,20 +176,14 @@ for name, raw in (
     ("evidence", evidence_raw),
 ):
     if email_pattern.search(raw):
-        fail(
-            f"complete email/UPN detected in {name}"
-        )
+        fail(f"complete email/UPN detected in {name}")
 
     if guid_pattern.search(raw):
-        fail(
-            f"GUID detected in {name}"
-        )
+        fail(f"GUID detected in {name}")
 
-print("PASS: Feature 5C2 provisioning state valid.")
-print("PASS: PRIVILEGED_ADMIN_01 exists but remains unprivileged.")
-print("PASS: directory-role assignment count remains zero.")
-print("PASS: license count remains zero.")
-print("PASS: group-membership count remains zero.")
-print("PASS: Global Administrator baseline remains one.")
-print("PASS: strong authentication remains pending.")
-print("PASS: Feature 5C2 contains no tenant identifier or secret.")
+print("PASS: Feature 5C2 historical provisioning evidence valid.")
+print("PASS: current privileged-admin progression state is valid.")
+print("PASS: current directory role remains none.")
+print("PASS: Feature 5C2 historical role count remains zero.")
+print("PASS: Feature 5C2 Global Administrator baseline remains one.")
+print("PASS: no tenant identifier or secret detected.")

@@ -134,3 +134,25 @@ The existing bootstrap `Global Administrator` assignment remains unchanged.
 The identity must not receive `Privileged Role Administrator` until its first-sign-in flow and strong-authentication readiness are completed and independently validated.
 
 Feature 5C2 does not authorize Feature 5C3, 5C4 or 5C5.
+
+## Feature 5C3/5C4 authentication status
+
+`PRIVILEGED_ADMIN_01` completed its initial sign-in and the temporary credential was transitioned to a unique operational password stored outside the repository.
+
+Strong-authentication readiness was established before any directory role assignment:
+
+- Microsoft Authenticator registered and validated.
+- One device-bound passkey registered.
+- Passwordless sign-in with the passkey successfully tested.
+- Initial sign-in complete.
+- No Microsoft Entra directory roles assigned.
+- No group memberships.
+- No license assigned.
+- Existing `Global Administrator` assignment baseline remains one.
+- Security Defaults remains enabled.
+- Conditional Access remains owned by Feature 6.
+- PIM and Identity Protection remain owned by Feature 7.
+
+The identity is now authentication-ready but remains intentionally unprivileged.
+
+`Privileged Role Administrator` must not be assigned until the separate Feature 5C5 authorization gate is approved.
