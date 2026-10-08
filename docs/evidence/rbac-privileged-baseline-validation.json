@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "phase": "feature5a",
+  "evidence_type": "rbac-privileged-baseline-sanitized",
+  "source": "entra-portal-all-roles-bulk-export",
+  "collection_mode": "manual-portal-export",
+  "coverage": {
+    "scope": "all-active-role-assignments",
+    "all_roles_portal_context": true,
+    "individual_role_selected": false,
+    "coverage_basis": "operator-confirmed-all-roles-export",
+    "coverage_inferred_from_row_count": false,
+    "coverage_inferred_from_unique_roles": false
+  },
+  "bootstrap": {
+    "role_portal_verified": "Global Administrator"
+  },
+  "export": {
+    "assignment_row_count": 1,
+    "unique_role_count": 1,
+    "role_column_identified": true,
+    "encoding": "utf-8-sig"
+  },
+  "known_role_assignment_counts": {
+    "Global Administrator": 1
+  },
+  "unknown_or_custom_role_assignment_count": 0,
+  "global_administrator_assignment_count": 1,
+  "tenant_changes": {
+    "role_assignments_changed": false,
+    "security_defaults_changed": false,
+    "conditional_access_changed": false,
+    "pim_changed": false,
+    "oauth_consent_changed": false
+  },
+  "graph": {
+    "resource_get_count": 0,
+    "resource_write_count": 0
+  },
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "role_assignment_id_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false,
+    "raw_principal_rows_published": false,
+    "unknown_custom_role_names_published": false
+  }
+}
