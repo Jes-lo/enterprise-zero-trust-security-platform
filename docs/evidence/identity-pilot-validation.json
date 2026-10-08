@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "identity-provisioning-pilot-validation",
+  "validation_date": "2026-10-07",
+  "account_id": "EMPLOYEE_01",
+  "initial_apply": {
+    "user_created": true,
+    "business_premium_assigned": true,
+    "groups_created": 0,
+    "memberships_created": 0,
+    "credential_output_to_console": false
+  },
+  "live_validation": {
+    "user_found": true,
+    "display_name_matches": true,
+    "alias_matches": true,
+    "usage_location_matches": true,
+    "business_premium_assigned": true,
+    "write_operations_performed": false
+  },
+  "idempotency": {
+    "plan_target_exists": true,
+    "plan_business_premium_assigned": true,
+    "plan_users_to_create": 0,
+    "plan_licenses_to_assign": 0,
+    "repeated_pilot_user_created_this_run": false,
+    "repeated_pilot_license_assigned_this_run": false,
+    "repeated_pilot_groups_created": 0,
+    "repeated_pilot_memberships_created": 0
+  },
+  "license_snapshot": {
+    "business_premium_available_after_pilot": 23
+  },
+  "local_secret_controls": {
+    "local_evidence_directory_mode": "0700",
+    "sensitive_file_mode": "0600",
+    "ignored_by_git": true,
+    "temporary_password_published": false
+  },
+  "privacy": {
+    "tenant_domain_in_artifact": false,
+    "complete_upn_in_artifact": false,
+    "graph_object_id_in_artifact": false,
+    "credential_in_artifact": false
+  }
+}

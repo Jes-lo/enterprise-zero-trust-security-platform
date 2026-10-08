@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "feature": "identity-live-provisioning",
+  "mode": "staged",
+  "expected_live_objects": {
+    "users_to_create": 10,
+    "business_premium_users": 8,
+    "unlicensed_emergency_users": 2,
+    "security_groups": 11
+  },
+  "runtime_inputs": {
+    "tenant_domain": {
+      "source": "auto-detected-from-bootstrap-upn",
+      "store_in_repository": false
+    },
+    "usage_location": {
+      "source": "interactive-local-input",
+      "format": "ISO-3166-1-alpha-2",
+      "store_in_repository": false
+    }
+  },
+  "preflight": {
+    "write_operations_allowed": false,
+    "graph_scopes": [
+      "User.ReadBasic.All",
+      "GroupMember.Read.All",
+      "LicenseAssignment.Read.All"
+    ]
+  },
+  "apply": {
+    "directory_wide_permission_allowed": false,
+    "context_scope": "Process",
+    "idempotent": true,
+    "strategy": "staged",
+    "pilot_account_id": "EMPLOYEE_01",
+    "pilot_graph_scopes": [
+      "User.Create",
+      "User.ReadBasic.All",
+      "LicenseAssignment.Read.All",
+      "LicenseAssignment.ReadWrite.All"
+    ],
+    "full_graph_scopes": [
+      "User.Create",
+      "User.ReadBasic.All",
+      "Group.ReadWrite.All",
+      "GroupMember.ReadWrite.All",
+      "LicenseAssignment.Read.All",
+      "LicenseAssignment.ReadWrite.All"
+    ],
+    "full_apply_requires_explicit_confirmation": true,
+    "pilot_confirmation": "CREATE-EMPLOYEE_01",
+    "pilot_creates_groups": false,
+    "pilot_creates_memberships": false,
+    "pilot_creates_exactly_one_user": true,
+    "pilot_assigns_at_most_one_license": true,
+    "full_confirmation": "CREATE-FEATURE3-IDENTITY-FOUNDATION",
+    "full_plan_graph_scopes": [
+      "User.ReadBasic.All",
+      "GroupMember.Read.All",
+      "LicenseAssignment.Read.All"
+    ],
+    "full_expected_remaining_users": 9,
+    "full_expected_additional_licenses": 7,
+    "full_expected_unlicensed_emergency_users": 2,
+    "full_expected_groups": 11,
+    "full_expected_membership_additions": 16,
+    "standard_accounts_initially_enabled": true,
+    "emergency_accounts_initially_enabled": false,
+    "full_apply_creates_only_live_creation_accounts": true,
+    "full_apply_assigns_license_only_when_policy_is_business_premium": true,
+    "full_apply_creates_all_identity_foundation_groups": true,
+    "full_apply_applies_only_feature3_memberships": true,
+    "full_apply_graph_scopes": [
+      "User.Create",
+      "User.Read.All",
+      "Group.ReadWrite.All",
+      "GroupMember.ReadWrite.All",
+      "LicenseAssignment.Read.All",
+      "LicenseAssignment.ReadWrite.All"
+    ],
+    "full_apply_requires_authoritative_plan": true,
+    "full_apply_requires_zero_conflicts": true,
+    "full_apply_requires_license_capacity": true,
+    "full_apply_supports_resume": true,
+    "full_apply_automatic_rollback": false,
+    "full_apply_operation_evidence": "local-evidence/identity-full-provisioning-operation.json",
+    "full_apply_credentials_directory": "local-evidence/full-credentials",
+    "full_apply_order": [
+      "users",
+      "groups",
+      "licenses",
+      "memberships",
+      "verification"
+    ],
+    "full_apply_expected_post_surfaces": [
+      "/users",
+      "/groups",
+      "/users/{id}/assignLicense",
+      "/groups/{id}/members/$ref"
+    ],
+    "full_apply_requires_exact_plan_delta": true,
+    "full_apply_pins_authoritative_plan_hash": true,
+    "full_apply_atomic_local_evidence": true,
+    "full_apply_single_process_lock": true,
+    "full_apply_reconciles_uncertain_posts": true,
+    "full_apply_rejects_pending_state_on_completion": true,
+    "full_apply_exact_final_membership_verification": true,
+    "full_apply_exact_final_object_verification": true,
+    "full_apply_lock_file": "local-evidence/identity-full-provisioning.lock",
+    "full_apply_user_verification_properties": [
+      "id",
+      "displayName",
+      "userPrincipalName",
+      "accountEnabled",
+      "usageLocation",
+      "userType"
+    ],
+    "full_apply_verifies_enabled_state": true,
+    "full_apply_verifies_usage_location": true,
+    "full_apply_verifies_user_type": true
+  },
+  "credentials": {
+    "generated_locally": true,
+    "repository_storage_allowed": false,
+    "local_storage_directory": "local-evidence",
+    "plaintext_console_output_allowed": false,
+    "force_change_password_next_sign_in": true,
+    "local_directory_mode": "0700",
+    "local_file_mode": "0600",
+    "password_length": 28
+  },
+  "license": {
+    "sku_part_number": "SPB",
+    "minimum_available_units_before_apply": 8,
+    "usage_location_required": true
+  }
+}
