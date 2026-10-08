@@ -59,6 +59,9 @@ jobs:
       - name: Validate identity full apply
         run: ./scripts/validate-identity-full-apply.sh
 
+      - name: Validate authentication and MFA foundation
+        run: ./scripts/validate-authentication-mfa.sh
+
       - name: Run repository security validation
         run: ./scripts/validate-repository.sh
 

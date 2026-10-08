@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "feature": "authentication-mfa-foundation",
+  "control_family": "ZT-AUTH",
+  "rollout_model": "observe_then_pilot_then_expand",
+  "feature_boundaries": {
+    "authentication_method_policy": "feature4",
+    "mfa_registration_foundation": "feature4",
+    "privileged_role_assignment": "feature5",
+    "conditional_access_enforcement": "feature6",
+    "pim_and_identity_protection": "feature7",
+    "device_compliance": "feature9"
+  },
+  "readiness": {
+    "mode": "read_only",
+    "graph_scopes": [
+      "Policy.Read.All"
+    ],
+    "graph_requests": [
+      {
+        "method": "GET",
+        "resource": "/policies/authenticationMethodsPolicy"
+      },
+      {
+        "method": "GET",
+        "resource": "/policies/identitySecurityDefaultsEnforcementPolicy"
+      }
+    ],
+    "expected_resource_get_count": 2,
+    "resource_writes_allowed": false
+  },
+  "security_defaults": {
+    "feature4a_action": "observe_only",
+    "disable_in_feature4a": false,
+    "preserve_until_replacement_controls_are_validated": true
+  },
+  "method_strategy": {
+    "microsoft_authenticator": {
+      "target_state": "enabled",
+      "rollout": "pilot_then_workforce",
+      "purpose": [
+        "mfa",
+        "passwordless"
+      ]
+    },
+    "fido2_passkeys": {
+      "target_state": "enabled",
+      "rollout": "pilot_then_workforce",
+      "purpose": [
+        "phishing_resistant_authentication",
+        "passwordless"
+      ]
+    },
+    "temporary_access_pass": {
+      "target_state": "enabled_restricted",
+      "rollout": "controlled_onboarding_and_recovery",
+      "preferred_default_lifetime_minutes": 60,
+      "preferred_default_length": 12,
+      "preferred_one_time_use": true
+    },
+    "software_oath": {
+      "target_state": "evaluate_as_fallback",
+      "rollout": "not_changed_in_feature4a"
+    },
+    "sms": {
+      "target_state": "remove_as_primary_mfa",
+      "rollout": "do_not_disable_before_registration_readiness"
+    },
+    "voice": {
+      "target_state": "disabled",
+      "rollout": "do_not_change_in_feature4a"
+    }
+  },
+  "emergency_identity_policy": {
+    "current_feature3_state": "disabled_and_unlicensed",
+    "automatic_enablement_in_feature4": false,
+    "ordinary_workforce_rollout_target": false
+  },
+  "safety": {
+    "no_authentication_policy_writes_in_feature4a": true,
+    "no_security_defaults_changes_in_feature4a": true,
+    "no_conditional_access_changes_in_feature4a": true,
+    "no_role_assignment_changes_in_feature4a": true,
+    "no_user_authentication_method_deletion_in_feature4a": true
+  }
+}

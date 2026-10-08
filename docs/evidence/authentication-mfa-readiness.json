@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "authentication-mfa-readiness",
+  "validation_date": "2026-10-08",
+  "feature": "authentication-mfa-foundation",
+  "collection_mode": "read_only",
+  "graph": {
+    "requested_scopes": [
+      "Policy.Read.All"
+    ],
+    "resource_get_count": 2,
+    "resource_write_count": 0
+  },
+  "security_defaults": {
+    "enabled": true,
+    "modified": false
+  },
+  "authentication_methods_policy": {
+    "policy_migration_state": null,
+    "registration_campaign_state": "default",
+    "system_credential_preferences_state": null,
+    "method_configuration_count": 10,
+    "methods": [
+      {
+        "configuration_type": "fido2AuthenticationMethodConfiguration",
+        "state": "enabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "microsoftAuthenticatorAuthenticationMethodConfiguration",
+        "state": "enabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "smsAuthenticationMethodConfiguration",
+        "state": "disabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "temporaryAccessPassAuthenticationMethodConfiguration",
+        "state": "enabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "softwareOathAuthenticationMethodConfiguration",
+        "state": "enabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "voiceAuthenticationMethodConfiguration",
+        "state": "disabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "emailAuthenticationMethodConfiguration",
+        "state": "enabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "x509CertificateAuthenticationMethodConfiguration",
+        "state": "disabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "verifiableCredentialsAuthenticationMethodConfiguration",
+        "state": "disabled",
+        "include_target_count": 0,
+        "exclude_target_count": 0
+      },
+      {
+        "configuration_type": "qrCodePinAuthenticationMethodConfiguration",
+        "state": "disabled",
+        "include_target_count": 1,
+        "exclude_target_count": 0
+      }
+    ]
+  },
+  "feature4a_assertions": {
+    "authentication_policy_modified": false,
+    "security_defaults_modified": false,
+    "conditional_access_modified": false,
+    "privileged_roles_modified": false,
+    "user_authentication_methods_modified": false
+  },
+  "privacy": {
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "complete_upn_present": false,
+    "graph_object_id_present": false,
+    "credential_secret_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}
