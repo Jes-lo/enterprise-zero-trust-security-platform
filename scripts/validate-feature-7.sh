@@ -106,13 +106,30 @@ then
   exit 1
 fi
 
-if grep -RniE \
+set +e
+
+grep -RniE \
+  -- \
   '-----BEGIN ((OPENSSH|RSA|EC|DSA) )?PRIVATE[[:space:]]+KEY-----|Bearer[[:space:]]+[A-Za-z0-9._-]{20,}' \
   "${required[@]}"
-then
-  echo "FAIL: credential material detected."
-  exit 1
-fi
+
+credential_scan_rc=$?
+
+set -e
+
+case "$credential_scan_rc" in
+  0)
+    echo "FAIL: credential material detected."
+    exit 1
+    ;;
+  1)
+    echo "PASS: no credential/private-key material detected."
+    ;;
+  *)
+    echo "FAIL: credential scan failed unexpectedly."
+    exit 1
+    ;;
+esac
 
 echo "FEATURE_7_VALIDATION=PASS"
 echo "FEATURE_7_IMPLEMENTATION_MODE=LICENSE_DEFERRED"
