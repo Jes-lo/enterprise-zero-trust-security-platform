@@ -188,3 +188,44 @@ Conditional Access enforcement and Security Defaults cutover remain
 blocked because the emergency identities are intentionally
 nonoperational and do not currently provide an independent,
 phishing-resistant recovery path.
+
+## Feature 6D — Closure and readiness decision
+
+Feature 6 closes with a validated Conditional Access baseline in
+`Report-only`.
+
+The four baseline policies have been:
+
+- designed;
+- created in the tenant;
+- corrected where tenant resource availability differed from the
+  original design;
+- validated with Conditional Access What If;
+- corroborated through report-only sign-in evidence;
+- tested for privileged access, regular workforce access, legacy
+  authentication, Microsoft administrative portal access, and
+  emergency-account exclusions.
+
+The tenant remains in the following state:
+
+- four Conditional Access policies exist;
+- all four policies remain `Report-only`;
+- zero Conditional Access policies are `On`;
+- Security Defaults remains enabled;
+- `PLAB-CA-Pilot` remains empty;
+- CA-004 targets `Microsoft Admin Portals`.
+
+Feature 6 intentionally does not perform the Security Defaults to
+Conditional Access enforcement cutover.
+
+The blocker is operational recovery readiness.
+
+The two emergency identities remain intentionally nonoperational and do
+not currently provide an independent phishing-resistant emergency
+recovery path.
+
+Feature 6 therefore establishes a validated Conditional Access
+foundation without making an unsafe enforcement claim.
+
+A future cutover requires a separate reviewed design, explicit tenant
+write authorization, and an operational emergency-access mechanism.

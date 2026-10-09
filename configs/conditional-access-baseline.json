@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "feature": "6",
-  "phase": "6C",
+  "phase": "6D",
   "name": "Conditional Access Baseline Foundation",
   "current_state": {
     "security_defaults_enabled": true,
@@ -171,5 +171,30 @@
     "enforcement_blocker": "emergency-access-identities-remain-nonoperational",
     "policy_enforcement_authorized": false,
     "security_defaults_cutover_authorized": false
+  },
+  "feature6_closure": {
+    "completed": true,
+    "closure_state": "validated-report-only-baseline-enforcement-deferred",
+    "tenant_configuration_writes": 0,
+    "conditional_access_policy_count": 4,
+    "report_only_policy_count": 4,
+    "enabled_policy_count": 0,
+    "security_defaults_enabled": true,
+    "policy_logic_validated": true,
+    "what_if_validation_completed": true,
+    "real_sign_in_validation_completed": true,
+    "emergency_exclusions_validated": true,
+    "current_ca004_target": "Microsoft Admin Portals",
+    "enforcement_ready": false,
+    "enforcement_performed": false,
+    "policy_enforcement_authorized": false,
+    "security_defaults_cutover_authorized": false,
+    "enforcement_blocker": "emergency-access-identities-remain-nonoperational",
+    "emergency_access_operational": false,
+    "weaker_emergency_auth_fallback_permitted": false,
+    "bootstrap_reduction_authorized": false,
+    "cumulative_feature6_tenant_writes": 5,
+    "next_feature": "7",
+    "next_feature_scope": "privileged-identity-management-and-identity-protection"
   }
 }

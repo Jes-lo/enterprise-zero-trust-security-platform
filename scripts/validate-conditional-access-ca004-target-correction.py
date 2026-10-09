@@ -34,7 +34,7 @@ correction = json.loads(correction_raw)
 if config["feature"] != "6":
     fail("unexpected feature")
 
-if config["phase"] not in {"6B-R1", "6C"}:
+if config["phase"] not in {"6B-R1", "6C", "6D"}:
     fail("Feature 6 lifecycle is earlier than 6B-R1")
 
 

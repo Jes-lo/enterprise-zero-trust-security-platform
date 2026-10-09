@@ -104,3 +104,33 @@ Access enforcement.
 
 A future enforcement decision requires a separately reviewed recovery
 design and a new explicit tenant-write gate.
+
+## Feature 6 closure security posture
+
+Feature 6 is complete from a design, deployment, and report-only
+validation perspective.
+
+It is not complete as an enforced Conditional Access migration.
+
+The accepted closure state is:
+
+`validated-report-only-baseline-enforcement-deferred`
+
+This distinction is intentional.
+
+The project must not represent the report-only policy set as an
+operationally enforced control.
+
+Security Defaults remains enabled while all four custom Conditional
+Access policies remain `Report-only`.
+
+Enforcement remains blocked because the emergency-access identities do
+not currently provide an independent phishing-resistant recovery path.
+
+The project must not weaken the emergency-access design to password,
+SMS, TOTP, or another lower-assurance mechanism merely to permit a
+Conditional Access cutover.
+
+Bootstrap privilege reduction also remains unauthorized.
+
+A future enforcement transition requires a new explicit safety gate.

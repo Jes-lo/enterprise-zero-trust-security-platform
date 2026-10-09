@@ -26,7 +26,7 @@ evidence_raw = evidence_path.read_text()
 config = json.loads(config_raw)
 evidence = json.loads(evidence_raw)
 
-if config["feature"] != "6" or config["phase"] not in {"6B", "6B-R1", "6C"}:
+if config["feature"] != "6" or config["phase"] not in {"6B", "6B-R1", "6C", "6D"}:
     fail("unexpected Feature 6 lifecycle state")
 
 current = config["current_state"]

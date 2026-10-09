@@ -30,8 +30,8 @@ evidence = json.loads(evidence_raw)
 if config["feature"] != "6":
     fail("unexpected feature")
 
-if config["phase"] != "6C":
-    fail("Feature 6 lifecycle is not 6C")
+if config["phase"] not in {"6C", "6D"}:
+    fail("Feature 6 lifecycle is earlier than 6C")
 
 
 current = config["current_state"]
