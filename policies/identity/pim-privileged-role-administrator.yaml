@@ -1,0 +1,33 @@
+schema_version: 1
+feature: 7
+control: privileged_identity_management
+implementation_state: license_deferred_not_implemented
+
+license:
+  current_baseline: microsoft_entra_id_p1
+  additional_license_acquisition: false
+  microsoft_entra_id_p2_acquired: false
+  microsoft_entra_id_governance_acquired: false
+
+tenant_state:
+  eligible_assignment_created: false
+  activation_performed: false
+  standing_p1_compatible_role_preserved: true
+
+desired_future_design:
+  identity_alias: PRIVILEGED_ADMIN_01
+  role: Privileged Role Administrator
+  assignment:
+    type: eligible
+    duration_days: 7
+  activation:
+    maximum_duration_hours: 1
+    require_mfa: true
+    require_justification: true
+    require_ticket_information: false
+    require_approval: false
+
+safety:
+  preserve_bootstrap_global_administrator: true
+  emergency_accounts_participate: false
+  do_not_claim_pim_implementation: true
