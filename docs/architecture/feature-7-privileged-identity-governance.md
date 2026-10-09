@@ -2,110 +2,102 @@
 
 ## Purpose
 
-Feature 7 extends the lab from standing privileged access toward controlled,
-time-bound privileged access and identity-risk-aware controls.
+Feature 7 evaluates privileged identity governance and identity-risk controls
+for the Enterprise Zero Trust Security Platform.
 
-The implementation is intentionally staged. Microsoft Entra ID P1 remains the
-current verified baseline. P2-dependent controls must not be enabled until a
-valid Microsoft Entra ID P2 entitlement is explicitly activated and verified.
+The project intentionally does not acquire Microsoft Entra ID P2 or any
+additional Microsoft license for this feature.
 
-## Established baseline
+Microsoft Entra ID P1 remains the licensed identity baseline.
 
-The following state is inherited from completed Features 4–6 and is not
-revalidated by this document:
+## Established tenant baseline
 
-- Security Defaults remains enabled.
-- Four Conditional Access policies exist in Report-only.
-- `PLAB-CA-Pilot` has zero members.
-- `PLAB-CA-004` targets Microsoft Admin Portals.
-- `BOOTSTRAP_ADMIN` is the expected Global Administrator.
-- `PRIVILEGED_ADMIN_01` is the expected Privileged Role Administrator.
-- Emergency identities remain disabled and are not operational dependencies.
-- Microsoft Entra ID P1 is present.
-- Microsoft Entra ID P2 and Entra ID Governance are not currently established.
+The established baseline inherited from prior completed features remains:
 
-## PIM pilot target
+- Security Defaults enabled.
+- Four Conditional Access policies in Report-only.
+- `PLAB-CA-Pilot` with zero members.
+- `PLAB-CA-004` targeting Microsoft Admin Portals.
+- `BOOTSTRAP_ADMIN` as the expected Global Administrator.
+- `PRIVILEGED_ADMIN_01` as the expected Privileged Role Administrator.
+- Emergency identities disabled and outside normal operations.
+- Microsoft Entra ID P1 available.
+- Microsoft Entra ID P2 not acquired.
+- Microsoft Entra ID Governance not acquired.
 
-The controlled PIM pilot is limited to:
+## PIM design
+
+A least-privilege PIM design was produced for a potential future environment:
 
 - Identity: `PRIVILEGED_ADMIN_01`
 - Role: Privileged Role Administrator
-- Eligible assignment duration: 7 days
-- Maximum activation duration: 1 hour
+- Assignment type: Eligible
+- Eligibility duration: 7 days
+- Maximum activation: 1 hour
 - MFA on activation: required
-- Justification on activation: required
+- Justification: required
 - Ticket information: not required
-- Approval: not required for this single-operator lab
-- Permanent active role after successful PIM transition: not retained during
-  the licensed pilot
-- Emergency identities: excluded from the PIM pilot
+- Approval: not required for the isolated single-operator lab
 
-Approval is intentionally not enabled because this isolated lab does not have
-two independent approvers. Creating an artificial self-approval dependency
-would add lockout risk without adding meaningful separation of duties.
+This design was not deployed because the project does not acquire the
+additional entitlement required for PIM.
 
-## Safe transition sequence
+No eligible PIM assignment was created and the existing P1-compatible
+privileged administration baseline remains the operational state.
 
-The permanent Privileged Role Administrator assignment is never removed first.
+## Identity Protection design
 
-The implementation sequence is:
-
-1. Verify the P2 entitlement.
-2. Configure PIM role settings.
-3. Create the eligible assignment for `PRIVILEGED_ADMIN_01`.
-4. Confirm the eligible assignment is visible.
-5. Perform a successful controlled activation.
-6. Confirm the activated role is usable.
-7. Only then remove the pre-existing standing active PRA assignment.
-8. Allow the activation to expire and verify the identity is no longer active.
-9. Preserve `BOOTSTRAP_ADMIN` as the administrative recovery path during the
-   pilot.
-
-## Identity Protection pilot
-
-Identity Protection implementation is also P2-gated.
-
-The minimum portfolio pilot is one Conditional Access policy:
+A risk-aware Conditional Access design was also produced:
 
 `PLAB-CA-005 - Require MFA for risky sign-ins`
 
-Design:
+Desired design:
 
-- State: Report-only
-- Included identity: `EMPLOYEE_01`
-- Excluded identities:
-  - `EMERGENCY_ADMIN_01`
-  - `EMERGENCY_ADMIN_02`
-- Sign-in risk: medium and high
-- Grant control: require multifactor authentication
-- No enforcement cutover in Feature 7
+- `EMPLOYEE_01` as pilot identity.
+- Emergency identities excluded.
+- Medium and high sign-in risk.
+- MFA grant control.
+- Report-only state.
 
-The purpose of CA-005 is to demonstrate risk-aware access design without
-introducing production-style enforcement into the portfolio lab.
+The policy was not created because risk-based Conditional Access depends on
+capabilities outside the licensed P1 baseline selected for this project.
+
+## Portfolio interpretation
+
+Feature 7 demonstrates:
+
+- capability and license assessment;
+- privileged-access architecture;
+- just-in-time administration design;
+- risk-aware Conditional Access design;
+- safe license-gating;
+- avoidance of unsupported or falsely claimed implementation;
+- explicit fallback to the licensed P1 control plane.
+
+PIM and Identity Protection are documented as future architecture rather than
+implemented controls.
 
 ## Explicit non-goals
 
 Feature 7 does not:
 
+- acquire Microsoft Entra ID P2;
+- acquire Microsoft Entra ID Governance;
+- deploy PIM;
+- create a PIM eligible assignment;
+- create `PLAB-CA-005`;
+- enable risk-based Conditional Access;
 - disable Security Defaults;
-- enable the existing Conditional Access baseline;
-- make emergency identities dependent on PIM;
-- add PIM to Global Administrator;
-- add permanent new privileged administrators;
+- enable CA-001 through CA-004;
+- weaken emergency access;
 - create authentication secrets or certificates;
-- rely on the temporary audit helper as a project artifact;
-- enable risk-based Conditional Access without verified P2 entitlement.
+- retain temporary audit-helper access.
 
-## Exit criteria
+## Closure state
 
-Feature 7 is complete only when:
+Feature 7 is closed as:
 
-- the repository design and validation artifacts pass;
-- P2-dependent implementation is either successfully validated or explicitly
-  documented as license-deferred;
-- the PIM activation and expiration lifecycle is tested if P2 is activated;
-- risk-based CA remains Report-only;
-- no emergency account is weakened;
-- trial-expiry cleanup has been completed before loss of P2 entitlement;
-- temporary helper access is removed;
-- the repository is clean and all regression tests pass.
+`validated-license-deferred-p1-baseline-preserved`
+
+This is an intentional architecture and licensing decision, not a failed
+implementation.

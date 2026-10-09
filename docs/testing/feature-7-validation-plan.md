@@ -1,58 +1,46 @@
 # Feature 7 — Validation Plan
 
+## Final implementation mode
+
+Feature 7 closes in license-deferred mode.
+
+P2-dependent controls are design artifacts and are not deployed.
+
 ## Repository validation
 
-The repository must verify:
+Validation must confirm:
 
-- PIM pilot targets only `PRIVILEGED_ADMIN_01`.
-- The PIM target role is Privileged Role Administrator.
-- Activation maximum duration is one hour.
-- MFA and justification are required.
-- Approval is disabled for the isolated lab pilot.
-- Eligible assignment duration is seven days.
-- Identity Protection policy remains Report-only.
-- Emergency identities are excluded from the risk pilot.
-- No P2-dependent enforcement is declared.
+- PIM implementation state is `license_deferred_not_implemented`.
+- No PIM tenant assignment is claimed.
+- The PIM desired state still requires MFA and justification.
+- The risk policy implementation state is
+  `license_deferred_not_implemented`.
+- No CA-005 tenant deployment is claimed.
+- CA-005 desired state remains Report-only.
+- Emergency identities remain excluded from the desired risk design.
+- No additional-license acquisition is declared.
 - No credential material is introduced.
 
-## Tenant validation when P2 is activated
+## Tenant closure expectations
 
-### PIM
+The final Feature 7 tenant state is:
 
-Validate in this order:
-
-1. P2 entitlement is active.
-2. PRA role settings match the declared configuration.
-3. `PRIVILEGED_ADMIN_01` becomes eligible.
-4. Eligible assignment has the intended expiration.
-5. Activation requires MFA.
-6. Activation requires justification.
-7. Activation is limited to one hour.
-8. Activated PRA functionality is confirmed.
-9. The previous standing active PRA assignment is removed only after the prior
-   steps succeed.
-10. The activation expires.
-11. The identity is no longer active after expiration.
-
-### Identity Protection
-
-Validate:
-
-1. Identity Protection becomes available only after P2 is established.
-2. CA-005 exists only if the P2 pilot is authorized.
-3. CA-005 state is Report-only.
-4. `EMPLOYEE_01` is the pilot target.
-5. Both emergency identities are excluded.
-6. Medium and high sign-in risk are selected.
-7. MFA is the grant control.
-8. No enforcement cutover occurs.
+- no P2 acquisition;
+- no PIM eligible assignment created by Feature 7;
+- no PIM activation performed by Feature 7;
+- no CA-005 created;
+- no risk-based Conditional Access enforcement;
+- existing P1 security baseline preserved;
+- temporary audit-helper access removed.
 
 ## Regression validation
 
-Feature 7 completion requires:
+Feature 7 closure requires:
 
-- repository validation PASS;
-- Feature 7 validation PASS;
-- adversarial repository tests PASS;
-- clean working tree before merge;
-- clean main after merge.
+- Feature 7 validator PASS;
+- Feature 7 adversarial tests PASS;
+- repository security validation PASS;
+- repository adversarial validation PASS;
+- no whitespace errors;
+- no staged credential material;
+- clean working tree after commit and merge.

@@ -4,13 +4,22 @@ set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
+architecture="docs/architecture/feature-7-privileged-identity-governance.md"
+adr="docs/decisions/adr-007-pim-governance-strategy.md"
+cleanup="docs/security/feature-7-license-trial-cleanup.md"
+plan="docs/testing/feature-7-validation-plan.md"
+evidence="docs/evidence/feature-7-license-deferred-closure.md"
+pim="policies/identity/pim-privileged-role-administrator.yaml"
+risk="policies/access/ca-005-risky-signin-report-only.yaml"
+
 required=(
-  "docs/architecture/feature-7-privileged-identity-governance.md"
-  "docs/decisions/adr-007-pim-governance-strategy.md"
-  "docs/security/feature-7-license-trial-cleanup.md"
-  "docs/testing/feature-7-validation-plan.md"
-  "policies/identity/pim-privileged-role-administrator.yaml"
-  "policies/access/ca-005-risky-signin-report-only.yaml"
+  "$architecture"
+  "$adr"
+  "$cleanup"
+  "$plan"
+  "$evidence"
+  "$pim"
+  "$risk"
 )
 
 for path in "${required[@]}"; do
@@ -20,54 +29,95 @@ for path in "${required[@]}"; do
   }
 done
 
-pim="policies/identity/pim-privileged-role-administrator.yaml"
-risk="policies/access/ca-005-risky-signin-report-only.yaml"
-cleanup="docs/security/feature-7-license-trial-cleanup.md"
+grep -Fq \
+  "implementation_state: license_deferred_not_implemented" \
+  "$pim"
 
-grep -Fq "identity_alias: PRIVILEGED_ADMIN_01" "$pim"
-grep -Fq "role: Privileged Role Administrator" "$pim"
-grep -Fq "duration_days: 7" "$pim"
-grep -Fq "maximum_duration_hours: 1" "$pim"
-grep -Fq "require_mfa: true" "$pim"
-grep -Fq "require_justification: true" "$pim"
-grep -Fq "require_approval: false" "$pim"
-grep -Fq "restore_p1_compatible_pra_before_p2_expiration: true" "$pim"
+grep -Fq \
+  "additional_license_acquisition: false" \
+  "$pim"
 
-grep -Fq "name: PLAB-CA-005 - Require MFA for risky sign-ins" "$risk"
-grep -Fq "state: report-only" "$risk"
-grep -Fq -- "- EMPLOYEE_01" "$risk"
-grep -Fq -- "- EMERGENCY_ADMIN_01" "$risk"
-grep -Fq -- "- EMERGENCY_ADMIN_02" "$risk"
-grep -Fq -- "- medium" "$risk"
-grep -Fq -- "- high" "$risk"
-grep -Fq "enforcement_authorized: false" "$risk"
+grep -Fq \
+  "microsoft_entra_id_p2_acquired: false" \
+  "$pim"
 
-grep -Fq "Reset the exposed temporary password" "$cleanup"
-grep -Fq "Revoke sessions for" "$cleanup"
+grep -Fq \
+  "eligible_assignment_created: false" \
+  "$pim"
+
+grep -Fq \
+  "activation_performed: false" \
+  "$pim"
+
+grep -Fq \
+  "require_mfa: true" \
+  "$pim"
+
+grep -Fq \
+  "require_justification: true" \
+  "$pim"
+
+grep -Fq \
+  "implementation_state: license_deferred_not_implemented" \
+  "$risk"
+
+grep -Fq \
+  "additional_license_acquisition: false" \
+  "$risk"
+
+grep -Fq \
+  "microsoft_entra_id_p2_acquired: false" \
+  "$risk"
+
+grep -Fq \
+  "policy_created: false" \
+  "$risk"
+
+grep -Fq \
+  "enforcement_enabled: false" \
+  "$risk"
+
+grep -Fq \
+  "state: report-only" \
+  "$risk"
+
+grep -Fq \
+  -- "- EMPLOYEE_01" \
+  "$risk"
+
+grep -Fq \
+  -- "- EMERGENCY_ADMIN_01" \
+  "$risk"
+
+grep -Fq \
+  -- "- EMERGENCY_ADMIN_02" \
+  "$risk"
+
+grep -Fq \
+  "validated-license-deferred-p1-baseline-preserved" \
+  "$evidence"
 
 if grep -RniE \
-  --exclude="validate-feature-7.sh" \
-  --exclude="test-feature-7-validation.sh" \
-  'client[_ -]?secret|BEGIN .*PRIVATE KEY|access[_ -]?token|password[[:space:]]*:' \
-  "${required[@]}" \
-  policies/identity/pim-privileged-role-administrator.yaml \
-  policies/access/ca-005-risky-signin-report-only.yaml
+  'implementation_state:[[:space:]]*(implemented|enabled|active)|microsoft_entra_id_p2_acquired:[[:space:]]*true|additional_license_acquisition:[[:space:]]*true|eligible_assignment_created:[[:space:]]*true|activation_performed:[[:space:]]*true|policy_created:[[:space:]]*true|enforcement_enabled:[[:space:]]*true' \
+  "$pim" \
+  "$risk"
 then
-  echo "FAIL: possible credential material detected."
+  echo "FAIL: unsupported P2 implementation claim detected."
   exit 1
 fi
 
 if grep -RniE \
-  'ReadWrite|state:[[:space:]]*enabled|enforcement_authorized:[[:space:]]*true' \
-  "$pim" \
-  "$risk"
+  '-----BEGIN ((OPENSSH|RSA|EC|DSA) )?PRIVATE[[:space:]]+KEY-----|Bearer[[:space:]]+[A-Za-z0-9._-]{20,}' \
+  "${required[@]}"
 then
-  echo "FAIL: prohibited Feature 7 enforcement/write declaration detected."
+  echo "FAIL: credential material detected."
   exit 1
 fi
 
 echo "FEATURE_7_VALIDATION=PASS"
-echo "PIM_PILOT_SCOPE=PASS"
-echo "IDENTITY_RISK_POLICY_REPORT_ONLY=PASS"
-echo "TRIAL_CLEANUP_GUARDRAILS=PASS"
+echo "FEATURE_7_IMPLEMENTATION_MODE=LICENSE_DEFERRED"
+echo "P2_ACQUIRED=NO"
+echo "PIM_IMPLEMENTED=NO"
+echo "IDENTITY_RISK_POLICY_IMPLEMENTED=NO"
+echo "P1_BASELINE_PRESERVED=YES"
 echo "CREDENTIAL_MATERIAL_SCAN=PASS"

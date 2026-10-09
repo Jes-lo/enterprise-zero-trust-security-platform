@@ -1,79 +1,56 @@
-# Feature 7 — License and Trial Cleanup Guardrails
+# Feature 7 — License and Temporary Access Cleanup
 
-## Purpose
+## Final licensing decision
 
-Feature 7 can temporarily depend on Microsoft Entra ID P2. This document
-defines the mandatory safety conditions for activation and cleanup.
+The project does not activate or acquire:
 
-## Before activating P2
+- Microsoft Entra ID P2;
+- Microsoft Entra ID Governance;
+- any additional Microsoft license specifically for Feature 7.
 
-Confirm that:
+No P2 trial-expiration dependency therefore exists.
 
-- Feature 7 repository design is already validated.
-- Security Defaults remains enabled.
-- Existing Conditional Access policies remain Report-only.
-- `BOOTSTRAP_ADMIN` remains the recovery administrator.
-- Emergency identities remain unchanged.
-- The exact trial expiration date is recorded locally.
-- Cleanup is scheduled before the trial expiration date.
+## Controls not deployed
 
-## During the P2 pilot
+The following P2-dependent designs remain documentation-only:
 
-Allowed P2-dependent scope is limited to:
+- PIM eligible assignment for `PRIVILEGED_ADMIN_01`;
+- PIM activation workflow;
+- Identity Protection operational assessment;
+- `PLAB-CA-005 - Require MFA for risky sign-ins`.
 
-- PIM for the Privileged Role Administrator pilot.
-- Identity Protection assessment.
-- One Report-only risky-sign-in Conditional Access pilot.
+## Temporary audit-helper cleanup
 
-No production-style enforcement is authorized.
+The temporary Feature 7 audit mechanism is not part of the portfolio
+implementation.
 
-## Mandatory pre-expiration cleanup
+Final cleanup requires:
 
-Complete cleanup before P2 entitlement expires.
+1. Remove the temporary Global Reader assignment from `AUDIT_READER_01`.
+2. Revoke its active sessions.
+3. Disable the temporary identity.
+4. Remove the temporary identity after it is no longer required.
+5. Remove any temporary isolated Graph application if it was created.
+6. Remove temporary local collector files.
 
-Required sequence:
+The shared Microsoft Graph Command Line Tools enterprise application is not
+modified because its historical permissions are outside the provenance of this
+feature.
 
-1. Confirm no PIM activation is currently active.
-2. Restore the intended P1-compatible permanent PRA assignment if the pilot
-   removed the standing assignment.
-3. Verify `PRIVILEGED_ADMIN_01` has the expected fallback role.
-4. Remove the eligible PIM PRA assignment.
-5. Remove `PLAB-CA-005` while P2-dependent Conditional Access configuration is
-   still editable.
-6. Verify the original four Conditional Access policies remain Report-only.
-7. Leave Security Defaults enabled.
-8. Remove the temporary `Global Reader` role from `AUDIT_READER_01`.
-9. Revoke sessions for `AUDIT_READER_01`.
-10. Reset the exposed temporary password before any further account use.
-11. Disable and then remove `AUDIT_READER_01` when no longer needed.
-12. Remove temporary local collector files.
-13. Do not revoke unrelated historical permissions from the shared Microsoft
-    Graph Command Line Tools enterprise application unless their provenance is
-    independently established.
+## Preserved tenant state
 
-## Failure prevention
+Feature 7 does not intentionally change:
 
-Do not allow the P2 trial to expire while a time-bound privileged assignment is
-active.
+- Security Defaults;
+- CA-001 through CA-004;
+- emergency identities;
+- `BOOTSTRAP_ADMIN`;
+- the established P1-compatible privileged administration baseline.
 
-Do not rely on eligible PIM assignments as the only path to required
-administrative access when the P2 entitlement is about to end.
+## Evidence rules
 
-Do not leave P2-only Conditional Access configuration as an unmanaged
-post-trial dependency.
+Only sanitized state summaries belong in the repository.
 
-## Evidence
-
-Portfolio evidence should contain sanitized state summaries only.
-
-Do not commit:
-
-- UPNs;
-- tenant identifiers;
-- object identifiers;
-- authentication tokens;
-- passwords;
-- MFA values;
-- temporary client identifiers;
-- raw device/login codes;
-- unredacted portal screenshots.
+Do not commit tenant identifiers, object identifiers, UPNs, credentials,
+authentication tokens, MFA values, client identifiers or unredacted portal
+screenshots.

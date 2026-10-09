@@ -2,63 +2,62 @@
 
 ## Status
 
-Accepted for Feature 7 implementation.
+Accepted — license-deferred implementation.
 
 ## Context
 
-The lab currently has a dedicated Privileged Role Administrator with a
-standing active assignment. The portfolio objective is to demonstrate
-just-in-time privileged access without making a temporary P2 entitlement a
-long-term operational dependency.
+The lab uses Microsoft Entra ID P1 through its existing Microsoft 365
+subscription.
 
-Microsoft Entra PIM requires Microsoft Entra ID P2 or Microsoft Entra ID
-Governance licensing. The current verified tenant baseline is P1.
+The project evaluated Privileged Identity Management and Identity Protection,
+but completing those controls would require additional licensing outside the
+selected project baseline.
 
 ## Decision
 
-When P2 is explicitly activated and verified:
+No Microsoft Entra ID P2 or Microsoft Entra ID Governance license will be
+acquired for this project.
 
-- only `PRIVILEGED_ADMIN_01` enters the initial PIM pilot;
-- only Privileged Role Administrator is placed under the pilot;
-- eligibility is time-bound to seven days;
-- role activation is limited to one hour;
-- MFA and justification are required;
-- approval is not enabled in the single-operator lab;
-- the existing active PRA assignment is removed only after successful eligible
-  assignment and activation validation;
-- `BOOTSTRAP_ADMIN` remains outside this PIM pilot;
-- emergency identities remain outside this PIM pilot.
+The PIM and identity-risk configurations remain independently designed
+portfolio artifacts but are not represented as tenant implementations.
 
-Identity Protection is demonstrated independently through a Report-only
-risk-based Conditional Access policy targeting the non-administrative pilot
-identity.
+The operational tenant remains on its existing P1-compatible privileged access
+model.
+
+## Deferred PIM design
+
+A future implementation would use:
+
+- `PRIVILEGED_ADMIN_01`;
+- Privileged Role Administrator;
+- seven-day eligible assignment;
+- one-hour maximum activation;
+- MFA;
+- justification;
+- no artificial self-approval dependency.
+
+No eligible assignment is created in this project.
+
+## Deferred identity-risk design
+
+A future P2-capable environment could deploy
+`PLAB-CA-005 - Require MFA for risky sign-ins` in Report-only.
+
+The policy is not created in the current tenant.
 
 ## Rationale
 
-This design demonstrates reduced standing privilege and activation governance
-while preserving a recovery path.
+The project prioritizes an accurate, reproducible and cost-controlled
+implementation over claiming controls that are unavailable under the selected
+license.
 
-Requiring approval in a lab with no independent approver would produce an
-artificial dependency and could cause administrative lockout. MFA,
-justification, one-hour activation, time-bound eligibility, audit evidence,
-and a limited pilot scope provide appropriate compensating controls.
-
-## License-expiry decision
-
-PIM must not remain an operational dependency when the temporary P2 entitlement
-ends.
-
-Before P2 expiration:
-
-- no PIM activation may remain active;
-- the required permanent P1-compatible administrative baseline must be
-  restored;
-- eligible PIM assignments must be removed or allowed to be removed only after
-  the fallback role posture is verified;
-- P2-dependent risk policies must be removed before they become uneditable;
-- temporary Feature 7 access must be removed.
+License-aware architecture is itself part of the Zero Trust design: controls
+must reflect the capabilities that actually exist.
 
 ## Consequences
 
-The repository documents a stronger P2 desired state while the lab remains
-safe to return to its P1 baseline after the temporary evaluation period.
+Feature 7 demonstrates PIM and risk-governance architecture while clearly
+separating desired state from implemented state.
+
+The remaining project work uses capabilities already available in the current
+Microsoft 365 Business Premium baseline.

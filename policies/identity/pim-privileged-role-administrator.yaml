@@ -1,16 +1,20 @@
 schema_version: 1
 feature: 7
 control: privileged_identity_management
-implementation_state: license_gated
+implementation_state: license_deferred_not_implemented
 
-license_gate:
-  required_any:
-    - microsoft_entra_id_p2
-    - microsoft_entra_id_governance
-  current_verified_entitlement: microsoft_entra_id_p1
-  activation_requires_explicit_gate: true
+license:
+  current_baseline: microsoft_entra_id_p1
+  additional_license_acquisition: false
+  microsoft_entra_id_p2_acquired: false
+  microsoft_entra_id_governance_acquired: false
 
-pilot:
+tenant_state:
+  eligible_assignment_created: false
+  activation_performed: false
+  standing_p1_compatible_role_preserved: true
+
+desired_future_design:
   identity_alias: PRIVILEGED_ADMIN_01
   role: Privileged Role Administrator
   assignment:
@@ -24,8 +28,6 @@ pilot:
     require_approval: false
 
 safety:
-  preserve_bootstrap_global_administrator_during_pilot: true
-  remove_standing_pra_only_after_successful_activation_validation: true
+  preserve_bootstrap_global_administrator: true
   emergency_accounts_participate: false
-  restore_p1_compatible_pra_before_p2_expiration: true
-  require_no_active_activation_before_trial_cleanup: true
+  do_not_claim_pim_implementation: true
