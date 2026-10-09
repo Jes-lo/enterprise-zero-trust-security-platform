@@ -1,0 +1,31 @@
+schema_version: 1
+feature: 7
+control: privileged_identity_management
+implementation_state: license_gated
+
+license_gate:
+  required_any:
+    - microsoft_entra_id_p2
+    - microsoft_entra_id_governance
+  current_verified_entitlement: microsoft_entra_id_p1
+  activation_requires_explicit_gate: true
+
+pilot:
+  identity_alias: PRIVILEGED_ADMIN_01
+  role: Privileged Role Administrator
+  assignment:
+    type: eligible
+    duration_days: 7
+  activation:
+    maximum_duration_hours: 1
+    require_mfa: true
+    require_justification: true
+    require_ticket_information: false
+    require_approval: false
+
+safety:
+  preserve_bootstrap_global_administrator_during_pilot: true
+  remove_standing_pra_only_after_successful_activation_validation: true
+  emergency_accounts_participate: false
+  restore_p1_compatible_pra_before_p2_expiration: true
+  require_no_active_activation_before_trial_cleanup: true

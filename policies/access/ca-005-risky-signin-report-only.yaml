@@ -1,0 +1,33 @@
+schema_version: 1
+feature: 7
+control: conditional_access_identity_risk
+implementation_state: license_gated
+
+name: PLAB-CA-005 - Require MFA for risky sign-ins
+state: report-only
+
+license_gate:
+  required: microsoft_entra_id_p2
+  activation_requires_explicit_gate: true
+
+assignments:
+  include_aliases:
+    - EMPLOYEE_01
+  exclude_aliases:
+    - EMERGENCY_ADMIN_01
+    - EMERGENCY_ADMIN_02
+
+conditions:
+  sign_in_risk_levels:
+    - medium
+    - high
+
+grant_controls:
+  operator: OR
+  controls:
+    - multifactor_authentication
+
+safety:
+  enforcement_authorized: false
+  security_defaults_change_authorized: false
+  existing_ca_policy_state_change_authorized: false
