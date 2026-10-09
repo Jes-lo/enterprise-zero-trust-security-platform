@@ -107,3 +107,26 @@ Feature 6 does not implement:
 - endpoint Defender controls.
 
 Those controls remain assigned to later features.
+
+## Feature 6B — Report-only baseline creation
+
+The four baseline Conditional Access policies are now present in the tenant in `Report-only` mode.
+
+The deployed report-only set is:
+
+- `PLAB-CA-001 - Require MFA for all users`
+- `PLAB-CA-002 - Require MFA for privileged administration`
+- `PLAB-CA-003 - Block legacy authentication`
+- `PLAB-CA-004 - Require MFA for Azure management`
+
+The Azure management policy targets the `Windows Azure Service Management API` resource.
+
+Feature 6B does not enforce any Conditional Access policy.
+
+Security Defaults remains enabled.
+
+`PLAB-CA-Pilot` remains empty.
+
+The emergency identities remain modeled as policy exclusions for a possible future operational recovery design, but their presence does not imply that a live break-glass path exists.
+
+Policy enforcement, pilot membership, and Security Defaults cutover require later validation and separate authorization.

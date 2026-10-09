@@ -35,8 +35,10 @@ evidence = json.loads(evidence_raw)
 if config["feature"] != "6":
     fail("unexpected feature")
 
-if config["phase"] != "6A":
+if config["phase"] not in {"6A", "6B"}:
     fail("unexpected phase")
+
+phase = config["phase"]
 
 
 current = config["current_state"]
@@ -44,8 +46,13 @@ current = config["current_state"]
 if current["security_defaults_enabled"] is not True:
     fail("Security Defaults baseline must be enabled")
 
-if current["conditional_access_policy_count"] != 0:
-    fail("Feature 6A baseline expects zero CA policies")
+expected_current_policy_count = 0 if phase == "6A" else 4
+
+if (
+    current["conditional_access_policy_count"]
+    != expected_current_policy_count
+):
+    fail("unexpected current CA policy count for lifecycle phase")
 
 if current["conditional_access_capability_available"] is not True:
     fail("Conditional Access capability missing")
@@ -130,8 +137,19 @@ for policy in policies:
     if policy["planned_initial_mode"] != "report-only":
         fail(f"{policy['id']} must begin report-only")
 
-    if policy["created"] is not False:
-        fail(f"{policy['id']} incorrectly marked created")
+    if phase == "6A":
+        if policy["created"] is not False:
+            fail(f"{policy['id']} incorrectly marked created")
+
+    elif phase == "6B":
+        if policy["created"] is not True:
+            fail(f"{policy['id']} not recorded as created")
+
+        if policy.get("current_mode") != "report-only":
+            fail(f"{policy['id']} not recorded as report-only")
+
+        if not policy.get("tenant_display_name"):
+            fail(f"{policy['id']} tenant display name missing")
 
     if policy["enabled"] is not False:
         fail(f"{policy['id']} incorrectly marked enabled")

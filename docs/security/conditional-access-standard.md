@@ -52,3 +52,21 @@ Feature 6 baseline policies must not silently introduce:
 - authentication-strength requirements not explicitly approved.
 
 These controls require their own design and authorization.
+
+## Feature 6B report-only deployment state
+
+The baseline Conditional Access controls may exist in the tenant before enforcement only when all are configured in `Report-only`.
+
+During this state:
+
+- Security Defaults remains enabled;
+- no Conditional Access policy is `On`;
+- the pilot group remains unchanged;
+- no administrator role is changed;
+- no authentication method is changed;
+- no emergency identity is enabled;
+- no bootstrap privilege is reduced.
+
+The report-only deployment must be validated with policy inspection, What If analysis, and appropriate sign-in evidence before any enforcement decision.
+
+A report-only policy must never be represented as an enforced security control.

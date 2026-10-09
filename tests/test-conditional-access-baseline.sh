@@ -68,11 +68,18 @@ elif mutation == "pilot-member":
     ] = 1
 
 elif mutation == "policy-created":
-    config[
-        "planned_policies"
-    ][0][
-        "created"
-    ] = True
+    if config["phase"] == "6A":
+        config[
+            "planned_policies"
+        ][0][
+            "created"
+        ] = True
+    else:
+        config[
+            "planned_policies"
+        ][0][
+            "created"
+        ] = False
 
 elif mutation == "policy-enabled":
     config[
@@ -175,7 +182,7 @@ expect_reject \
 
 expect_reject \
   "policy-created" \
-  "Conditional Access policy marked created during baseline"
+  "Conditional Access creation state contradicts lifecycle phase"
 
 expect_reject \
   "policy-enabled" \
