@@ -1,0 +1,43 @@
+schema_version: 1
+feature: 8
+control: windows_device_compliance
+implementation_state: tenant_pending
+
+license:
+  additional_license_acquisition: false
+  microsoft_intune_required: true
+  microsoft_entra_id_p1_for_conditional_access: true
+
+pilot:
+  group_alias: PLAB-Device-Pilot
+  initial_membership_count: 0
+  broad_assignment_allowed: false
+
+platform:
+  family: windows
+  profile: windows_10_and_later
+
+device_health:
+  require_bitlocker: true
+  require_secure_boot: true
+  require_code_integrity: true
+
+system_security:
+  require_tpm: true
+  require_firewall: true
+  require_antivirus: true
+  require_antispyware: true
+
+defender_compliance:
+  require_microsoft_defender_antimalware: true
+  require_security_intelligence_up_to_date: true
+  require_real_time_protection: true
+
+noncompliance:
+  mark_noncompliant_after_days: 1
+  destructive_action_authorized: false
+
+safety:
+  assign_to_all_users: false
+  assign_to_all_devices: false
+  personal_primary_workstation_required: false

@@ -1,0 +1,28 @@
+schema_version: 1
+feature: 8
+control: defender_for_business_endpoint_baseline
+implementation_state: tenant_pending
+
+license:
+  additional_license_acquisition: false
+  defender_for_business_required: true
+
+pilot:
+  group_alias: PLAB-Device-Pilot
+  broad_assignment_allowed: false
+
+desired_security_outcomes:
+  real_time_protection: enabled
+  cloud_delivered_protection: enabled
+  behavior_monitoring: enabled
+  potentially_unwanted_applications: block
+  security_intelligence_updates: automatic
+  network_protection: enabled
+  tamper_protection: enabled_where_supported
+
+safety:
+  destructive_remediation_authorized: false
+  device_wipe_authorized: false
+  device_retire_authorized: false
+  autopilot_reset_authorized: false
+  broad_assignment_authorized: false
