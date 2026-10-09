@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "feature": "6",
+  "phase": "6B",
+  "evidence_type": "conditional-access-report-only-creation-sanitized",
+  "collection_mode": "operator-entra-admin-center-write-and-readback",
+  "pre_write_state": {
+    "security_defaults_enabled": true,
+    "conditional_access_policy_count": 0,
+    "ca_pilot_group_member_count": 0
+  },
+  "created_policies": [
+    {
+      "id": "CA-001",
+      "display_name": "PLAB-CA-001 - Require MFA for all users",
+      "mode": "report-only",
+      "enforced": false,
+      "target": "all-users-all-resources",
+      "grant_control": "require-multifactor-authentication",
+      "emergency_exclusions": 2
+    },
+    {
+      "id": "CA-002",
+      "display_name": "PLAB-CA-002 - Require MFA for privileged administration",
+      "mode": "report-only",
+      "enforced": false,
+      "target": "global-administrator-and-privileged-role-administrator",
+      "grant_control": "require-multifactor-authentication",
+      "emergency_exclusions": 2
+    },
+    {
+      "id": "CA-003",
+      "display_name": "PLAB-CA-003 - Block legacy authentication",
+      "mode": "report-only",
+      "enforced": false,
+      "target": "all-users-all-resources",
+      "client_apps": [
+        "exchange-activesync",
+        "other-legacy-clients"
+      ],
+      "grant_control": "block",
+      "emergency_exclusions": 2
+    },
+    {
+      "id": "CA-004",
+      "display_name": "PLAB-CA-004 - Require MFA for Azure management",
+      "mode": "report-only",
+      "enforced": false,
+      "target": "Windows Azure Active Directory",
+      "grant_control": "require-multifactor-authentication",
+      "emergency_exclusions": 2,
+      "historical_accuracy_note": "Windows Azure Active Directory was the actual resource selected during initial CA-004 creation. The original repository claim incorrectly recorded Windows Azure Service Management API. The live target was corrected in Feature 6B-R1."
+    }
+  ],
+  "post_write_state": {
+    "security_defaults_enabled": true,
+    "conditional_access_policy_count": 4,
+    "report_only_policy_count": 4,
+    "enabled_policy_count": 0,
+    "ca_pilot_group_member_count": 0
+  },
+  "protected_state": {
+    "bootstrap_admin_changed": false,
+    "privileged_admin_changed": false,
+    "emergency_identities_changed": false,
+    "roles_changed": false,
+    "licenses_changed": false,
+    "authentication_methods_changed": false
+  },
+  "write_activity": {
+    "tenant_writes": 4,
+    "conditional_access_policy_creations": 4,
+    "conditional_access_policy_modifications_after_creation": 0,
+    "conditional_access_policy_enablements": 0,
+    "security_defaults_modifications": 0,
+    "group_membership_modifications": 0,
+    "role_modifications": 0,
+    "license_modifications": 0,
+    "authentication_method_modifications": 0
+  },
+  "future_authorization": {
+    "policy_enforcement_authorized": false,
+    "security_defaults_disable_authorized": false,
+    "pilot_membership_change_authorized": false,
+    "bootstrap_reduction_authorized": false
+  },
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "group_id_present": false,
+    "conditional_access_policy_object_id_present": false,
+    "authentication_method_id_present": false,
+    "credential_value_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  },
+  "historical_correction": {
+    "required": true,
+    "correction_phase": "6B-R1",
+    "original_repository_claim": "Windows Azure Service Management API",
+    "actual_initial_tenant_selection": "Windows Azure Active Directory",
+    "original_repository_claim_was_inaccurate": true,
+    "current_target": "Microsoft Admin Portals",
+    "current_target_recorded_in_separate_correction_evidence": true
+  }
+}

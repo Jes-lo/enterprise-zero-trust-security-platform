@@ -1,0 +1,231 @@
+# Conditional Access Baseline Architecture
+
+## Purpose
+
+Feature 6 introduces a controlled migration from Microsoft Entra Security Defaults to explicit Conditional Access policies.
+
+The project does not disable Security Defaults during design or baseline discovery.
+
+## Current state
+
+At the beginning of Feature 6:
+
+- Security Defaults is enabled.
+- No Conditional Access policies exist.
+- Microsoft Entra Conditional Access capability is available through the existing Microsoft 365 Business Premium licensing.
+- `PLAB-CA-Pilot` exists and has no members.
+- the dedicated privileged administrator remains `Privileged Role Administrator`;
+- the bootstrap Global Administrator remains retained;
+- emergency-access identities remain disabled and non-operational.
+
+## Migration strategy
+
+The migration follows five safety stages:
+
+1. record the current tenant state;
+2. define the replacement policy set;
+3. create policies in report-only mode under a separate write gate;
+4. validate policy evaluation before enforcement;
+5. perform a separately authorized Security Defaults cutover only after the replacement baseline is ready.
+
+Security Defaults must not be disabled merely to experiment with Conditional Access.
+
+## Planned baseline policies
+
+### CA-001 — Require MFA for all users
+
+Broad MFA coverage intended to replace the general MFA protection currently supplied by Security Defaults.
+
+The two emergency identities remain modeled as exclusions for their future recovery role. They are disabled and non-operational in the current project.
+
+### CA-002 — Require MFA for privileged administration
+
+Explicit MFA coverage for the currently relevant privileged roles:
+
+- Global Administrator;
+- Privileged Role Administrator.
+
+This intentionally overlaps with the broad MFA policy. The overlap provides an independently reviewable administrative control rather than relying only on the general user policy.
+
+### CA-003 — Block legacy authentication
+
+Blocks legacy client authentication paths that cannot satisfy modern authentication controls.
+
+### CA-004 — Require MFA for Azure management
+
+Provides an explicit administrative-management protection layer for Azure management access.
+
+## Report-only requirement
+
+Every planned Conditional Access policy begins in report-only mode.
+
+Before enforcement, the project requires:
+
+- policy configuration review;
+- Conditional Access What If analysis;
+- sign-in log evaluation;
+- pilot validation;
+- administrator lockout analysis;
+- a separate explicit authorization.
+
+## Pilot group
+
+`PLAB-CA-Pilot` is the controlled pilot scope.
+
+It remains empty in Feature 6A.
+
+`EMPLOYEE_01` is the planned first pilot identity, but no pilot membership is added until a separately authorized stage.
+
+## Bootstrap administrator
+
+The bootstrap Global Administrator remains retained.
+
+Feature 6 does not reduce bootstrap privilege.
+
+Because the emergency-access recovery path is not operational, any future Conditional Access enforcement requires explicit lockout-protection review before activation.
+
+## Emergency access
+
+Emergency-access identities remain:
+
+- disabled;
+- unlicensed;
+- unprivileged;
+- outside normal groups;
+- non-operational.
+
+Physical FIDO2/WebAuthn credentials and device-bound passkeys remain documented future options only and are not implemented by Feature 6.
+
+## Feature boundaries
+
+Feature 6 does not implement:
+
+- PIM;
+- Identity Protection;
+- risk-based Conditional Access;
+- device compliance enforcement;
+- endpoint Defender controls.
+
+Those controls remain assigned to later features.
+
+## Feature 6B — Report-only baseline creation
+
+The four baseline Conditional Access policies are now present in the tenant in `Report-only` mode.
+
+The deployed report-only set is:
+
+- `PLAB-CA-001 - Require MFA for all users`
+- `PLAB-CA-002 - Require MFA for privileged administration`
+- `PLAB-CA-003 - Block legacy authentication`
+- `PLAB-CA-004 - Require MFA for Azure management`
+
+The Azure management policy targets `Microsoft Admin Portals` in this tenant.
+
+Feature 6B does not enforce any Conditional Access policy.
+
+Security Defaults remains enabled.
+
+`PLAB-CA-Pilot` remains empty.
+
+The emergency identities remain modeled as policy exclusions for a possible future operational recovery design, but their presence does not imply that a live break-glass path exists.
+
+Policy enforcement, pilot membership, and Security Defaults cutover require later validation and separate authorization.
+
+
+## Feature 6B-R1 — CA-004 target correction
+
+CA-004 was initially created with `Windows Azure Active Directory`.
+
+The tenant resource chooser did not expose the originally planned
+`Windows Azure Service Management API` resource.
+
+The initial `Windows Azure Active Directory` selection was determined
+not to be equivalent to the intended administrative-management target.
+
+CA-004 was corrected to `Microsoft Admin Portals`.
+
+The correction:
+
+- modified only CA-004;
+- preserved `Report-only`;
+- did not enable Conditional Access enforcement;
+- did not disable Security Defaults;
+- did not change pilot membership;
+- did not modify identities, roles, licenses, or authentication methods.
+
+The historical Feature 6B evidence preserves the actual initial
+resource selection. Feature 6B-R1 evidence records the current state.
+
+## Feature 6C — Report-only evaluation
+
+The four Conditional Access baseline policies were evaluated without
+changing tenant configuration.
+
+Validation included:
+
+- Microsoft Entra Conditional Access What If scenarios for workforce,
+  privileged administration, legacy authentication, and Microsoft
+  administrative portal access;
+- emergency-account exclusion validation;
+- a real Azure Portal sign-in reviewed through Conditional Access
+  report-only sign-in results.
+
+The policy logic behaved as designed:
+
+- CA-001 applies to regular workforce access;
+- CA-002 additionally applies to privileged administrator roles;
+- CA-003 identifies legacy-client access and produces the block control;
+- CA-004 applies to an Azure Portal application contained within the
+  Microsoft Admin Portals grouping.
+
+All four policies remain `Report-only`.
+
+Security Defaults remains enabled.
+
+This validation establishes policy-logic correctness, not enforcement.
+
+Conditional Access enforcement and Security Defaults cutover remain
+blocked because the emergency identities are intentionally
+nonoperational and do not currently provide an independent,
+phishing-resistant recovery path.
+
+## Feature 6D — Closure and readiness decision
+
+Feature 6 closes with a validated Conditional Access baseline in
+`Report-only`.
+
+The four baseline policies have been:
+
+- designed;
+- created in the tenant;
+- corrected where tenant resource availability differed from the
+  original design;
+- validated with Conditional Access What If;
+- corroborated through report-only sign-in evidence;
+- tested for privileged access, regular workforce access, legacy
+  authentication, Microsoft administrative portal access, and
+  emergency-account exclusions.
+
+The tenant remains in the following state:
+
+- four Conditional Access policies exist;
+- all four policies remain `Report-only`;
+- zero Conditional Access policies are `On`;
+- Security Defaults remains enabled;
+- `PLAB-CA-Pilot` remains empty;
+- CA-004 targets `Microsoft Admin Portals`.
+
+Feature 6 intentionally does not perform the Security Defaults to
+Conditional Access enforcement cutover.
+
+The blocker is operational recovery readiness.
+
+The two emergency identities remain intentionally nonoperational and do
+not currently provide an independent phishing-resistant emergency
+recovery path.
+
+Feature 6 therefore establishes a validated Conditional Access
+foundation without making an unsafe enforcement claim.
+
+A future cutover requires a separate reviewed design, explicit tenant
+write authorization, and an operational emergency-access mechanism.

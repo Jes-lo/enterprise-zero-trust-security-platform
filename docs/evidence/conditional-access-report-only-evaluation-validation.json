@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "feature": "6",
+  "phase": "6C",
+  "evidence_type": "conditional-access-report-only-evaluation-sanitized",
+  "collection_mode": "entra-what-if-and-report-only-sign-in-log-readback",
+
+  "tenant_state": {
+    "security_defaults_enabled": true,
+    "conditional_access_policy_count": 4,
+    "report_only_policy_count": 4,
+    "enabled_policy_count": 0,
+    "ca_pilot_group_member_count": 0,
+    "tenant_configuration_writes": 0
+  },
+
+  "what_if": {
+    "scenario_count": 5,
+    "scenarios": [
+      {
+        "id": "WIF-001",
+        "identity": "EMPLOYEE_01",
+        "resource": "Office 365 SharePoint Online",
+        "device_platform": "Windows",
+        "client_app": "Browser",
+        "expected_plab_applicable": [
+          "CA-001"
+        ],
+        "validated": true
+      },
+      {
+        "id": "WIF-002",
+        "identity": "PRIVILEGED_ADMIN_01",
+        "resource": "Office 365 SharePoint Online",
+        "device_platform": "Windows",
+        "client_app": "Browser",
+        "expected_plab_applicable": [
+          "CA-001",
+          "CA-002"
+        ],
+        "validated": true
+      },
+      {
+        "id": "WIF-003",
+        "identity": "BOOTSTRAP_ADMIN",
+        "resource": "Office 365 SharePoint Online",
+        "device_platform": "Windows",
+        "client_app": "Browser",
+        "expected_plab_applicable": [
+          "CA-001",
+          "CA-002"
+        ],
+        "validated": true
+      },
+      {
+        "id": "WIF-004",
+        "identity": "EMPLOYEE_01",
+        "resource": "Office 365 Exchange Online",
+        "device_platform": "Windows",
+        "client_app": "Other clients",
+        "expected_plab_applicable": [
+          "CA-001",
+          "CA-003"
+        ],
+        "expected_ca003_control": "block",
+        "validated": true
+      },
+      {
+        "id": "WIF-005",
+        "identity": "EMPLOYEE_01",
+        "resource": "Azure Portal underlying Microsoft Admin Portals application",
+        "device_platform": "Windows",
+        "client_app": "Browser",
+        "expected_plab_applicable": [
+          "CA-001",
+          "CA-004"
+        ],
+        "validated": true
+      }
+    ]
+  },
+
+  "emergency_exclusion_validation": {
+    "method": "what-if",
+    "both_emergency_identities_excluded": true,
+    "validated": true
+  },
+
+  "real_sign_in_validation": {
+    "identity": "BOOTSTRAP_ADMIN",
+    "scenario": "fresh Azure Portal browser sign-in",
+    "ca001_applied": true,
+    "ca002_applied": true,
+    "ca003_applied": false,
+    "ca004_applied": true,
+    "report_only_evaluation_confirmed": true
+  },
+
+  "decision": {
+    "policy_logic_validated": true,
+    "safe_to_claim_enforcement": false,
+    "enforcement_ready": false,
+    "reason": "emergency-access-identities-remain-nonoperational",
+    "policy_enforcement_authorized": false,
+    "security_defaults_cutover_authorized": false
+  },
+
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "group_id_present": false,
+    "conditional_access_policy_object_id_present": false,
+    "authentication_method_id_present": false,
+    "credential_value_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "feature": "6",
+  "phase": "6D",
+  "evidence_type": "conditional-access-feature6-closure-sanitized",
+
+  "closure": {
+    "completed": true,
+    "state": "validated-report-only-baseline-enforcement-deferred",
+    "tenant_configuration_writes": 0
+  },
+
+  "tenant_state": {
+    "security_defaults_enabled": true,
+    "conditional_access_policy_count": 4,
+    "report_only_policy_count": 4,
+    "enabled_policy_count": 0,
+    "ca_pilot_group_member_count": 0
+  },
+
+  "validated_controls": {
+    "ca001_broad_mfa_logic": true,
+    "ca002_privileged_mfa_logic": true,
+    "ca003_legacy_authentication_block_logic": true,
+    "ca004_microsoft_admin_portals_logic": true,
+    "what_if_validation": true,
+    "real_sign_in_report_only_validation": true,
+    "emergency_exclusions": true
+  },
+
+  "ca004": {
+    "current_target": "Microsoft Admin Portals",
+    "mode": "report-only",
+    "enforced": false
+  },
+
+  "enforcement_decision": {
+    "ready": false,
+    "performed": false,
+    "authorized": false,
+    "security_defaults_cutover_authorized": false,
+    "reason": "emergency-access-identities-remain-nonoperational"
+  },
+
+  "emergency_access": {
+    "identity_count": 2,
+    "operational": false,
+    "independent_phishing_resistant_recovery_path": false,
+    "weak_auth_fallback_permitted": false
+  },
+
+  "bootstrap": {
+    "privilege_reduction_authorized": false
+  },
+
+  "write_accounting": {
+    "feature6a": 0,
+    "feature6b_policy_creations": 4,
+    "feature6b_r1_ca004_correction": 1,
+    "feature6c": 0,
+    "feature6d": 0,
+    "cumulative_feature6_tenant_writes": 5
+  },
+
+  "next_feature": {
+    "id": "7",
+    "scope": "privileged-identity-management-and-identity-protection"
+  },
+
+  "privacy": {
+    "complete_upn_present": false,
+    "tenant_domain_present": false,
+    "tenant_id_present": false,
+    "principal_id_present": false,
+    "group_id_present": false,
+    "conditional_access_policy_object_id_present": false,
+    "authentication_method_id_present": false,
+    "credential_value_present": false,
+    "password_present": false,
+    "oauth_token_present": false,
+    "device_login_code_present": false
+  }
+}
