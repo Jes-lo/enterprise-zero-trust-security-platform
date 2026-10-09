@@ -35,7 +35,7 @@ evidence = json.loads(evidence_raw)
 if config["feature"] != "6":
     fail("unexpected feature")
 
-if config["phase"] not in {"6A", "6B"}:
+if config["phase"] not in {"6A", "6B", "6B-R1"}:
     fail("unexpected phase")
 
 phase = config["phase"]

@@ -119,7 +119,7 @@ The deployed report-only set is:
 - `PLAB-CA-003 - Block legacy authentication`
 - `PLAB-CA-004 - Require MFA for Azure management`
 
-The Azure management policy targets the `Windows Azure Service Management API` resource.
+The Azure management policy targets `Microsoft Admin Portals` in this tenant.
 
 Feature 6B does not enforce any Conditional Access policy.
 
@@ -130,3 +130,28 @@ Security Defaults remains enabled.
 The emergency identities remain modeled as policy exclusions for a possible future operational recovery design, but their presence does not imply that a live break-glass path exists.
 
 Policy enforcement, pilot membership, and Security Defaults cutover require later validation and separate authorization.
+
+
+## Feature 6B-R1 — CA-004 target correction
+
+CA-004 was initially created with `Windows Azure Active Directory`.
+
+The tenant resource chooser did not expose the originally planned
+`Windows Azure Service Management API` resource.
+
+The initial `Windows Azure Active Directory` selection was determined
+not to be equivalent to the intended administrative-management target.
+
+CA-004 was corrected to `Microsoft Admin Portals`.
+
+The correction:
+
+- modified only CA-004;
+- preserved `Report-only`;
+- did not enable Conditional Access enforcement;
+- did not disable Security Defaults;
+- did not change pilot membership;
+- did not modify identities, roles, licenses, or authentication methods.
+
+The historical Feature 6B evidence preserves the actual initial
+resource selection. Feature 6B-R1 evidence records the current state.

@@ -26,7 +26,7 @@ evidence_raw = evidence_path.read_text()
 config = json.loads(config_raw)
 evidence = json.loads(evidence_raw)
 
-if config["feature"] != "6" or config["phase"] != "6B":
+if config["feature"] != "6" or config["phase"] not in {"6B", "6B-R1"}:
     fail("unexpected Feature 6 lifecycle state")
 
 current = config["current_state"]
@@ -80,11 +80,17 @@ for policy in policies:
 
 by_id = {p["id"]: p for p in policies}
 
+expected_current_ca004_target = (
+    "Windows Azure Service Management API"
+    if config["phase"] == "6B"
+    else "Microsoft Admin Portals"
+)
+
 if (
     by_id["CA-004"]["target_resource_display_name"]
-    != "Windows Azure Service Management API"
+    != expected_current_ca004_target
 ):
-    fail("CA-004 resource changed")
+    fail("CA-004 current resource changed")
 
 if (
     by_id["CA-003"]["client_app_condition"]
@@ -151,6 +157,10 @@ for item in created:
 
     if item["display_name"] != expected[pid]:
         fail(f"{pid} evidence display name changed")
+
+    if pid == "CA-004":
+        if item["target"] != "Windows Azure Active Directory":
+            fail("historical CA-004 initial target is inaccurate")
 
     if item["mode"] != "report-only":
         fail(f"{pid} evidence not report-only")

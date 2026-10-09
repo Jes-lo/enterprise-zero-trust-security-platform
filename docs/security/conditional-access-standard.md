@@ -70,3 +70,16 @@ During this state:
 The report-only deployment must be validated with policy inspection, What If analysis, and appropriate sign-in evidence before any enforcement decision.
 
 A report-only policy must never be represented as an enforced security control.
+
+
+## CA-004 administrative target correction
+
+CA-004 was initially created with
+`Windows Azure Active Directory`.
+
+The current target is `Microsoft Admin Portals`.
+
+The policy remains `Report-only`.
+
+This correction does not constitute policy enforcement or a
+Security Defaults cutover.
