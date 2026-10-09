@@ -83,3 +83,24 @@ The policy remains `Report-only`.
 
 This correction does not constitute policy enforcement or a
 Security Defaults cutover.
+
+## Feature 6C enforcement decision
+
+Report-only evaluation validated the intended Conditional Access policy
+logic through What If simulation and sign-in-log evidence.
+
+No policy is considered an enforced control while its state remains
+`Report-only`.
+
+The validated policy set must remain report-only while Security Defaults
+is enabled.
+
+Enforcement is not currently approved or considered operationally safe
+because the emergency-access identities remain nonoperational.
+
+No downgrade to password-only, TOTP-only, SMS, or another weaker
+emergency recovery mechanism is permitted merely to unblock Conditional
+Access enforcement.
+
+A future enforcement decision requires a separately reviewed recovery
+design and a new explicit tenant-write gate.

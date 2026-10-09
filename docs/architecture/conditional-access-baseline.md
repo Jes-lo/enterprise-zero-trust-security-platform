@@ -155,3 +155,36 @@ The correction:
 
 The historical Feature 6B evidence preserves the actual initial
 resource selection. Feature 6B-R1 evidence records the current state.
+
+## Feature 6C — Report-only evaluation
+
+The four Conditional Access baseline policies were evaluated without
+changing tenant configuration.
+
+Validation included:
+
+- Microsoft Entra Conditional Access What If scenarios for workforce,
+  privileged administration, legacy authentication, and Microsoft
+  administrative portal access;
+- emergency-account exclusion validation;
+- a real Azure Portal sign-in reviewed through Conditional Access
+  report-only sign-in results.
+
+The policy logic behaved as designed:
+
+- CA-001 applies to regular workforce access;
+- CA-002 additionally applies to privileged administrator roles;
+- CA-003 identifies legacy-client access and produces the block control;
+- CA-004 applies to an Azure Portal application contained within the
+  Microsoft Admin Portals grouping.
+
+All four policies remain `Report-only`.
+
+Security Defaults remains enabled.
+
+This validation establishes policy-logic correctness, not enforcement.
+
+Conditional Access enforcement and Security Defaults cutover remain
+blocked because the emergency identities are intentionally
+nonoperational and do not currently provide an independent,
+phishing-resistant recovery path.

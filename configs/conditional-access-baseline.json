@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "feature": "6",
-  "phase": "6B-R1",
+  "phase": "6C",
   "name": "Conditional Access Baseline Foundation",
   "current_state": {
     "security_defaults_enabled": true,
@@ -154,5 +154,22 @@
     "policy_remained_report_only": true,
     "security_defaults_remained_enabled": true,
     "total_feature6_tenant_writes_through_6B_R1": 5
+  },
+  "report_only_evaluation": {
+    "completed": true,
+    "tenant_configuration_writes": 0,
+    "what_if_scenarios_passed": 5,
+    "real_sign_in_log_validation_passed": true,
+    "emergency_exclusion_validation_method": "what-if",
+    "security_defaults_remained_enabled": true,
+    "conditional_access_policy_count": 4,
+    "report_only_policy_count": 4,
+    "enabled_policy_count": 0,
+    "pilot_group_remained_empty": true,
+    "policy_logic_validated": true,
+    "enforcement_ready": false,
+    "enforcement_blocker": "emergency-access-identities-remain-nonoperational",
+    "policy_enforcement_authorized": false,
+    "security_defaults_cutover_authorized": false
   }
 }

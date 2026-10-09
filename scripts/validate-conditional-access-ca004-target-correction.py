@@ -34,8 +34,8 @@ correction = json.loads(correction_raw)
 if config["feature"] != "6":
     fail("unexpected feature")
 
-if config["phase"] != "6B-R1":
-    fail("Feature 6 lifecycle is not 6B-R1")
+if config["phase"] not in {"6B-R1", "6C"}:
+    fail("Feature 6 lifecycle is earlier than 6B-R1")
 
 
 policies = {
