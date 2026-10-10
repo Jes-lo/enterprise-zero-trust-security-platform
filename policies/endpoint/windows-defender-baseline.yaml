@@ -1,0 +1,48 @@
+schema_version: 1
+feature: 8
+control: defender_for_business_endpoint_baseline
+implementation_state: tenant_implemented_validated
+
+license:
+  additional_license_acquisition: false
+  defender_for_business_required: true
+
+pilot:
+  group_alias: PLAB-Device-Pilot
+  validated_membership_count: 0
+  broad_assignment_allowed: false
+
+tenant_validation:
+  antivirus_policy_count: 1
+  antivirus_setting_count: 6
+  antivirus_assignment_scope: PLAB-Device-Pilot
+  tamper_policy_count: 1
+  tamper_setting_count: 1
+  tamper_assignment_scope: PLAB-Device-Pilot
+  edr_policy_count: 0
+
+validated_security_outcomes:
+  behavior_monitoring: enabled
+  cloud_delivered_protection: enabled
+  real_time_protection: enabled
+  potentially_unwanted_applications: block
+  network_protection: block
+  security_intelligence_update_interval_hours: 4
+  tamper_protection: on
+  controlled_configuration: not_selected
+
+edr_onboarding:
+  implementation_state: connector_deferred
+  mde_connector_count: 0
+  policy_created: false
+
+endpoint_validation:
+  state: environment_deferred
+  dedicated_test_endpoint_required: true
+
+safety:
+  destructive_remediation_authorized: false
+  device_wipe_authorized: false
+  device_retire_authorized: false
+  autopilot_reset_authorized: false
+  broad_assignment_authorized: false

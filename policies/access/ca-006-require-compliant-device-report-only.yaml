@@ -1,0 +1,37 @@
+schema_version: 1
+feature: 8
+control: conditional_access_device_compliance
+implementation_state: tenant_implemented_validated
+
+name: PLAB-CA-006 - Require compliant device
+state: report-only
+
+license:
+  additional_license_acquisition: false
+  microsoft_entra_id_p1_required: true
+
+tenant_validation:
+  policy_count: 1
+  report_only_validated: true
+  pilot_target_only_validated: true
+  all_resources_validated: true
+  compliant_device_grant_validated: true
+
+assignments:
+  include_groups:
+    - PLAB-Device-Pilot
+  validated_pilot_membership_count: 0
+  broad_user_assignment: false
+
+target_resources:
+  scope: all_resources
+
+grant_controls:
+  operator: OR
+  controls:
+    - require_compliant_device
+
+safety:
+  enforcement_authorized: false
+  existing_ca_policy_state_change_authorized: false
+  security_defaults_change_authorized: false
