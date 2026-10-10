@@ -2,57 +2,106 @@
 
 ## Repository validation
 
-Validate that:
+The repository validator must confirm:
 
-- no additional license is required;
+- no additional Microsoft license is required;
+- Phase A is represented as tenant implemented and validated;
 - the pilot group is `PLAB-Device-Pilot`;
-- broad assignment is prohibited;
-- Windows compliance requires the selected security controls;
-- Defender security controls are declared;
-- CA-006 is Report-only;
-- CA-006 requires device compliance;
-- destructive device operations are prohibited;
-- existing Conditional Access controls are not modified.
+- the validated pilot membership count is zero;
+- broad assignment remains prohibited;
+- Windows compliance security requirements remain enabled;
+- noncompliance uses one block action with a 24-hour grace period;
+- Defender Antivirus contains exactly six validated settings;
+- network protection is block;
+- the security intelligence update interval is 4 hours;
+- Tamper Protection is On;
+- Controlled Configuration is not selected;
+- CA-006 remains Report-only;
+- CA-006 requires a compliant device;
+- destructive device operations remain prohibited;
+- EDR remains connector-deferred while its prerequisite connector is absent;
+- endpoint execution remains environment-deferred;
+- evidence contains no tenant-specific identifiers or credentials.
 
-## Tenant policy validation
+## Completed tenant validation
 
-After tenant implementation, verify:
+The final Phase A reconciliation used Microsoft Graph GET operations only.
 
-- `PLAB-Device-Pilot` exists;
-- its initial membership is zero;
-- one Windows compliance policy exists for the pilot;
-- one Defender endpoint baseline exists for the pilot;
-- assignments are limited to `PLAB-Device-Pilot`;
-- CA-006 exists in Report-only;
-- CA-006 targets the pilot group;
-- no Feature 8 policy is broadly assigned.
+Validated results:
+
+- `PLAB-Device-Pilot`: exactly one group;
+- pilot membership: zero;
+- Windows compliance policy count: one;
+- compliance assignment: pilot only;
+- compliance required settings: pass;
+- noncompliance rule count: one;
+- noncompliance action count: one;
+- action: block;
+- grace period: 24 hours;
+- Defender Antivirus policy count: one;
+- Defender Antivirus setting count: six;
+- Defender Antivirus assignment: pilot only;
+- behavior monitoring: enabled;
+- cloud protection: enabled;
+- real-time protection: enabled;
+- network protection: block;
+- PUA protection: block;
+- security intelligence update interval: 4 hours;
+- Tamper Protection policy count: one;
+- Tamper setting count: one;
+- Tamper Protection: On;
+- Controlled Configuration: not selected;
+- CA-006 policy count: one;
+- CA-006 state: Report-only;
+- CA-006 target: pilot only;
+- CA-006 resources: all resources;
+- CA-006 grant: compliant device;
+- EDR policy count: zero;
+- prerequisite connector count: zero.
 
 ## Endpoint validation
 
-When a dedicated test endpoint is available:
+Endpoint execution remains `environment-deferred`.
 
-1. Enroll exactly one pilot Windows endpoint.
-2. Confirm Intune inventory.
-3. Confirm compliance policy evaluation.
-4. Confirm BitLocker/Secure Boot/code-integrity evaluation.
-5. Confirm Firewall and Defender health evaluation.
-6. Confirm Defender endpoint visibility where available.
-7. Confirm CA-006 remains Report-only.
-8. Record only sanitized evidence.
+When a dedicated test endpoint becomes available:
+
+1. enroll exactly one authorized Windows lab endpoint;
+2. add only the intended pilot identity/device;
+3. confirm Intune inventory;
+4. confirm compliance-policy evaluation;
+5. confirm BitLocker, Secure Boot and code-integrity evaluation;
+6. confirm Firewall and Defender health evaluation;
+7. confirm Defender endpoint visibility where licensed and available;
+8. confirm CA-006 remains Report-only;
+9. record sanitized evidence only.
+
+The current Feature 8 closure must not claim those endpoint observations as
+completed.
 
 ## Adversarial validation
 
-Repository tests must detect:
+Tests must reject at least:
 
 - CA-006 changed from Report-only to enabled;
-- broad all-user assignment;
+- broad user assignment;
+- weakened BitLocker compliance;
 - destructive device action authorization;
-- weakened compliance requirements.
+- Defender network protection changed away from block;
+- security intelligence interval changed away from 4 hours;
+- Controlled Configuration selected;
+- Phase A implementation regressed to tenant pending;
+- EDR falsely represented as created;
+- nonzero pilot membership in the repository state.
 
 ## Completion
 
-Feature 8 is complete when its implemented state is represented accurately.
+Feature 8 Phase A is complete when:
 
-A missing physical/virtual test endpoint may be documented as
-environment-deferred, but tenant-side controls must not be falsely represented
-as endpoint-validated.
+- tenant-side controls are accurately represented;
+- exact Defender and Tamper values are validated;
+- CA-006 remains Report-only;
+- pilot membership remains zero;
+- EDR and endpoint limitations are explicitly deferred;
+- repository/adversarial/security validation passes.
+
+Phase A completion does not equal endpoint-enforcement completion.

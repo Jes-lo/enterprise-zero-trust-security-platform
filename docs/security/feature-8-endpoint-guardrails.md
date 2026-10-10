@@ -5,26 +5,65 @@
 Feature 8 uses only capabilities already available in the current Microsoft 365
 Business Premium subscription.
 
-No additional Microsoft license or trial is authorized.
+No additional Microsoft license, add-on or trial is authorized.
 
 ## Tenant isolation
 
-Initial implementation must use:
+Feature 8 uses:
 
 `PLAB-Device-Pilot`
 
-The group starts with zero members.
+Validated Phase A membership count:
 
-Do not initially assign endpoint or compliance policies to:
+`0`
 
-- all users;
-- all devices;
-- emergency identities;
-- unrelated administrative identities.
+Compliance, Defender Antivirus, Tamper Protection and CA-006 are scoped to the
+pilot boundary.
+
+Broad Feature 8 assignment is prohibited.
+
+## Conditional Access
+
+`PLAB-CA-006 - Require compliant device` must remain Report-only during the
+current Feature 8 state.
+
+Enforcement is not authorized until:
+
+- a dedicated pilot endpoint exists;
+- enrollment succeeds;
+- device compliance is understood;
+- Defender posture is evaluated;
+- access impact is reviewed;
+- emergency access remains unaffected.
+
+## Endpoint security
+
+Validated tenant-side security posture includes:
+
+- behavior monitoring enabled;
+- cloud-delivered protection enabled;
+- real-time protection enabled;
+- network protection in block mode;
+- PUA protection in block mode;
+- security intelligence update interval of 4 hours;
+- Tamper Protection On;
+- Controlled Configuration not selected.
+
+## EDR
+
+Defender for Endpoint onboarding is `connector-deferred`.
+
+Current validated state:
+
+- prerequisite connector count: zero;
+- EDR policy count: zero.
+
+The project must not manufacture an EDR-complete claim while that prerequisite
+is absent.
 
 ## Device safety
 
-The project does not authorize:
+Feature 8 does not authorize:
 
 - device wipe;
 - retire;
@@ -35,23 +74,11 @@ The project does not authorize:
 - BitLocker recovery-key deletion;
 - removal of existing local recovery access.
 
-A dedicated test endpoint is preferred over the user's primary workstation.
-
-## Conditional Access safety
-
-`PLAB-CA-006 - Require compliant device` must initially remain Report-only.
-
-Do not enable CA-006 until:
-
-- a pilot endpoint is enrolled;
-- its compliance state is understood;
-- Defender posture is validated;
-- impact is reviewed;
-- emergency access remains unaffected.
+A dedicated lab endpoint is preferred over the primary personal workstation.
 
 ## Existing tenant controls
 
-Feature 8 does not intentionally modify:
+Feature 8 is not authorized to intentionally modify:
 
 - Security Defaults;
 - CA-001;
@@ -65,15 +92,24 @@ Feature 8 does not intentionally modify:
 
 Do not commit:
 
-- UPNs;
+- real UPNs;
+- tenant domains;
+- tenant identifiers;
+- object identifiers;
+- device identifiers;
 - device serial numbers;
 - hardware hashes;
-- tenant identifiers;
-- device identifiers;
-- recovery keys;
-- tokens;
+- BitLocker recovery keys;
+- access or refresh tokens;
 - credentials;
 - raw diagnostic bundles;
 - unredacted screenshots.
 
 Use aliases and sanitized state summaries only.
+
+## Final Phase A rule
+
+The controlled Feature 8 writer must not be rerun after the validated Phase A
+state.
+
+Further tenant changes require a new explicitly scoped implementation phase.

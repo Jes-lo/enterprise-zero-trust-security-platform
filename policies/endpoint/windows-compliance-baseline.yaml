@@ -1,7 +1,7 @@
 schema_version: 1
 feature: 8
 control: windows_device_compliance
-implementation_state: tenant_pending
+implementation_state: tenant_implemented_validated
 
 license:
   additional_license_acquisition: false
@@ -10,8 +10,15 @@ license:
 
 pilot:
   group_alias: PLAB-Device-Pilot
-  initial_membership_count: 0
+  validated_group_count: 1
+  validated_membership_count: 0
   broad_assignment_allowed: false
+
+tenant_validation:
+  policy_count: 1
+  assignment_count: 1
+  assignment_scope: PLAB-Device-Pilot
+  default_scope_tag_validated: true
 
 platform:
   family: windows
@@ -34,10 +41,19 @@ defender_compliance:
   require_real_time_protection: true
 
 noncompliance:
-  mark_noncompliant_after_days: 1
+  scheduled_rule_count: 1
+  scheduled_action_count: 1
+  action: block
+  grace_period_hours: 24
+  graph_rule_name_readback: omitted
   destructive_action_authorized: false
+
+endpoint_validation:
+  state: environment_deferred
+  dedicated_test_endpoint_required: true
+  personal_primary_workstation_required: false
 
 safety:
   assign_to_all_users: false
   assign_to_all_devices: false
-  personal_primary_workstation_required: false
+  destructive_remediation_authorized: false

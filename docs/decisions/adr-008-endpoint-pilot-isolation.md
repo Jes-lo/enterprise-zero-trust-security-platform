@@ -2,56 +2,72 @@
 
 ## Status
 
-Accepted for Feature 8.
+Accepted and validated for Feature 8 Phase A.
 
 ## Context
 
-Endpoint management can change device configuration and can affect access to
-Microsoft 365 resources.
+Endpoint-management controls can change device configuration and can influence
+access to Microsoft 365 resources.
 
-The project therefore requires a controlled deployment model that demonstrates
-Intune and Defender without unintentionally managing or blocking unrelated
-devices.
+The project therefore needs a deployment boundary that demonstrates realistic
+Intune, Defender and Conditional Access integration without broadly managing
+unrelated devices or users.
 
 ## Decision
 
-Feature 8 uses a dedicated security group:
+Feature 8 uses the dedicated security group:
 
 `PLAB-Device-Pilot`
 
-The group starts empty.
+Tenant-side controls are scoped only to that pilot population.
 
-Windows compliance, Defender configuration and device-based Conditional Access
-are scoped only to this pilot population during validation.
+The final Phase A audit validated that the group exists and contains zero
+members.
 
 CA-006 remains Report-only.
 
-No policy is initially assigned to all users or all devices.
+No Feature 8 policy is intentionally assigned to all users or all devices.
+
+## Tenant-side implementation
+
+The validated Phase A tenant state includes:
+
+- one Windows compliance policy assigned to the pilot;
+- one Defender Antivirus policy assigned to the pilot;
+- one Tamper Protection policy assigned to the pilot;
+- one CA-006 policy in Report-only;
+- zero EDR onboarding policies because the required connector is unavailable.
 
 ## Pilot endpoint
 
-A dedicated lab endpoint is preferred.
+A dedicated lab endpoint remains the preferred validation target.
 
-A primary personal workstation is not automatically enrolled for portfolio
-purposes.
+The primary personal workstation is not required for portfolio evidence.
 
-If no suitable endpoint is available, the project can still validate the
-tenant-side policy architecture and record device enrollment as
-environment-deferred rather than misrepresenting it as completed.
+Because no suitable dedicated endpoint has been introduced into the pilot,
+device enrollment and endpoint telemetry remain `environment-deferred`.
 
 ## Rationale
 
-This approach limits blast radius while preserving a realistic Zero Trust
-design:
+This structure limits blast radius while preserving the intended Zero Trust
+relationship:
 
 - identity establishes who is requesting access;
-- Intune establishes device compliance;
-- Defender establishes endpoint protection posture;
+- Intune defines device-compliance requirements;
+- Defender defines endpoint-protection posture;
 - Conditional Access consumes the compliance signal.
+
+Configuration and enforcement are intentionally separated.
 
 ## Consequences
 
-Enforcement is deliberately separated from policy creation.
+The empty pilot group means the tenant-side configuration can be validated
+without applying the controls to a production or personal endpoint.
 
-A successful Feature 8 implementation does not require broad production-style
-rollout.
+CA-006 must not be enabled merely to make the portfolio appear more complete.
+
+EDR onboarding remains `connector-deferred` rather than being simulated or
+misrepresented.
+
+A future dedicated pilot endpoint can be introduced without redesigning the
+Feature 8 isolation model.
