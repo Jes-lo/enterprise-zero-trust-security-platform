@@ -51,15 +51,28 @@ Validated tenant-side security posture includes:
 
 ## EDR
 
-Defender for Endpoint onboarding is `connector-deferred`.
+The original Phase A EDR state was `connector-deferred`. The controlled
+follow-up later validated the prerequisite connector and created the
+tenant-side onboarding configuration.
 
-Current validated state:
+Current sanitized state:
 
-- prerequisite connector count: zero;
-- EDR policy count: zero.
+- prerequisite connector count: one;
+- connector enabled for Windows: yes;
+- EDR policy count: one;
+- EDR setting count: two;
+- direct assignment relationship count: one;
+- assignment scope: `PLAB-Device-Pilot`;
+- assignment filter: none;
+- All Devices assignment: absent;
+- validated pilot membership count: zero.
 
-The project must not manufacture an EDR-complete claim while that prerequisite
-is absent.
+The beta policy `isAssigned` status remained inconsistent with the populated
+direct `assignments` relationship during follow-up reconciliation. This must
+be documented as an API-readback limitation, not corrected by repeating the
+writer.
+
+No further EDR assignment or rollback retry is authorized by Feature 8.
 
 ## Device safety
 
@@ -107,9 +120,13 @@ Do not commit:
 
 Use aliases and sanitized state summaries only.
 
-## Final Phase A rule
+## Final Feature 8 rule
 
-The controlled Feature 8 writer must not be rerun after the validated Phase A
-state.
+The original Phase A writers and the later controlled EDR assignment writer
+must not be rerun.
+
+The current EDR assignment relationship is intentionally limited to the empty
+`PLAB-Device-Pilot` group. A stale or inconsistent beta readback field does not
+authorize another `/assign` call or rollback attempt.
 
 Further tenant changes require a new explicitly scoped implementation phase.

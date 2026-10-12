@@ -9,6 +9,7 @@ adr="docs/decisions/adr-008-endpoint-pilot-isolation.md"
 guardrails="docs/security/feature-8-endpoint-guardrails.md"
 plan="docs/testing/feature-8-validation-plan.md"
 evidence="docs/evidence/feature-8-phase-a-validation.md"
+edr_followup="docs/evidence/feature-8-edr-assignment-follow-up-validation.md"
 
 compliance="${FEATURE8_COMPLIANCE_FILE:-policies/endpoint/windows-compliance-baseline.yaml}"
 defender="${FEATURE8_DEFENDER_FILE:-policies/endpoint/windows-defender-baseline.yaml}"
@@ -20,6 +21,7 @@ required=(
   "$guardrails"
   "$plan"
   "$evidence"
+  "$edr_followup"
   "$compliance"
   "$defender"
   "$ca"
@@ -136,7 +138,10 @@ require_literal "$defender" \
   "tamper_setting_count: 1"
 
 require_literal "$defender" \
-  "edr_policy_count: 0"
+  "edr_policy_count: 1"
+
+require_literal "$defender" \
+  "edr_setting_count: 2"
 
 require_literal "$defender" \
   "behavior_monitoring: enabled"
@@ -163,13 +168,61 @@ require_literal "$defender" \
   "controlled_configuration: not_selected"
 
 require_literal "$defender" \
-  "implementation_state: connector_deferred"
+  "implementation_state: tenant_configured_pilot_relationship_validated"
 
 require_literal "$defender" \
-  "mde_connector_count: 0"
+  "mde_connector_count: 1"
 
 require_literal "$defender" \
-  "policy_created: false"
+  "connector_partner_state: enabled"
+
+require_literal "$defender" \
+  "connector_windows_enabled: true"
+
+require_literal "$defender" \
+  "policy_created: true"
+
+require_literal "$defender" \
+  "policy_count: 1"
+
+require_literal "$defender" \
+  "setting_count: 2"
+
+require_literal "$defender" \
+  "package_source: connector_managed"
+
+require_literal "$defender" \
+  "sample_sharing: all"
+
+require_literal "$defender" \
+  "assignment_relationship_count: 1"
+
+require_literal "$defender" \
+  "assignment_scope: PLAB-Device-Pilot"
+
+require_literal "$defender" \
+  "assignment_filter: none"
+
+require_literal "$defender" \
+  "all_devices_assignment: false"
+
+require_literal "$defender" \
+  "direct_pilot_membership_count: 0"
+
+require_literal "$defender" \
+  "transitive_pilot_membership_count: 0"
+
+require_literal "$defender" \
+  "beta_is_assigned_readback: false"
+
+require_literal "$defender" \
+  "beta_status_consistency: inconsistent"
+
+require_literal "$defender" \
+  "assignment_retry_authorized: false"
+
+require_literal "$defender" \
+  "rollback_retry_authorized: false"
 
 require_literal "$defender" \
   "state: environment_deferred"
@@ -243,8 +296,38 @@ require_literal "$evidence" \
 require_literal "$evidence" \
   "environment-deferred"
 
+require_literal "$edr_followup" \
+  "FEATURE8_EDR_FOLLOWUP=TENANT_CONFIGURED_PILOT_RELATIONSHIP_VALIDATED_WITH_BETA_READBACK_INCONSISTENCY"
+
+require_literal "$edr_followup" \
+  "policy assignment relationship count: 1"
+
+require_literal "$edr_followup" \
+  'target: `PLAB-Device-Pilot`'
+
+require_literal "$edr_followup" \
+  "assignment filter: none"
+
+require_literal "$edr_followup" \
+  "All Devices target: absent"
+
+require_literal "$edr_followup" \
+  "pilot direct membership: 0"
+
+require_literal "$edr_followup" \
+  "pilot transitive membership: 0"
+
+require_literal "$edr_followup" \
+  "FEATURE8_ENDPOINT_EXECUTION=ENVIRONMENT_DEFERRED"
+
+require_literal "$edr_followup" \
+  "FEATURE8_EDR_ASSIGNMENT_RETRY_AUTHORIZED=NO"
+
+require_literal "$edr_followup" \
+  "FEATURE8_EDR_ROLLBACK_RETRY_AUTHORIZED=NO"
+
 require_literal "$guardrails" \
-  "The controlled Feature 8 writer must not be rerun"
+  "The original Phase A writers and the later controlled EDR assignment writer"
 
 require_literal "$plan" \
   "Endpoint execution remains \`environment-deferred\`"
@@ -297,7 +380,15 @@ echo "SIGNATURE_UPDATE_INTERVAL_HOURS=4"
 echo "TAMPER_PROTECTION=TAMPER_PROTECTION_ON"
 echo "CONTROLLED_CONFIGURATION=NOT_SELECTED"
 echo "CA006_REPORT_ONLY=PASS"
-echo "EDR_STATE=CONNECTOR_DEFERRED"
+echo "EDR_STATE=TENANT_CONFIGURED_PILOT_RELATIONSHIP_VALIDATED"
+echo "EDR_POLICY_COUNT=1"
+echo "EDR_SETTING_COUNT=2"
+echo "EDR_ASSIGNMENT_RELATIONSHIP_COUNT=1"
+echo "EDR_ASSIGNMENT_SCOPE=PLAB_DEVICE_PILOT"
+echo "EDR_ALL_DEVICES_ASSIGNMENT=NO"
+echo "EDR_BETA_STATUS_CONSISTENCY=INCONSISTENT"
+echo "EDR_ASSIGNMENT_RETRY_ALLOWED=NO"
+echo "EDR_ROLLBACK_RETRY_ALLOWED=NO"
 echo "ENDPOINT_VALIDATION=ENVIRONMENT_DEFERRED"
 echo "ADDITIONAL_LICENSES_REQUIRED=NO"
 echo "FEATURE8_WRITER_RERUN_ALLOWED=NO"

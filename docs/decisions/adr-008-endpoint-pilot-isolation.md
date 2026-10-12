@@ -36,7 +36,13 @@ The validated Phase A tenant state includes:
 - one Defender Antivirus policy assigned to the pilot;
 - one Tamper Protection policy assigned to the pilot;
 - one CA-006 policy in Report-only;
-- zero EDR onboarding policies because the required connector is unavailable.
+- zero EDR onboarding policies at the original Phase A closure because the
+  required connector was unavailable.
+
+A later EDR follow-up preserved the same isolation decision: after the
+connector became available, the EDR policy was created and its direct
+assignment relationship was limited to `PLAB-Device-Pilot`, which remained
+empty.
 
 ## Pilot endpoint
 
@@ -66,8 +72,13 @@ without applying the controls to a production or personal endpoint.
 
 CA-006 must not be enabled merely to make the portfolio appear more complete.
 
-EDR onboarding remains `connector-deferred` rather than being simulated or
-misrepresented.
+EDR onboarding was initially `connector-deferred` rather than simulated or
+misrepresented. The later tenant-side EDR configuration does not change the
+endpoint-execution boundary: no device enrollment, endpoint telemetry or
+enforcement result is claimed without a dedicated test endpoint.
+
+The observed beta `isAssigned` inconsistency does not change the isolation
+decision and does not authorize assignment retries.
 
 A future dedicated pilot endpoint can be introduced without redesigning the
 Feature 8 isolation model.
