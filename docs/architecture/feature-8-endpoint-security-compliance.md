@@ -46,11 +46,14 @@ Validated state:
 - Defender Antivirus policy: implemented and assigned to the pilot group;
 - Tamper Protection policy: implemented and assigned to the pilot group;
 - CA-006: implemented in Report-only and scoped to the pilot group;
-- Defender for Endpoint onboarding policy: not created because the required
-  Defender/Intune connector is not present;
+- Defender for Endpoint onboarding policy: deferred during the original
+  Phase A because the Defender/Intune connector was not yet present;
 - pilot group membership: zero.
 
-No further Feature 8 tenant write is required for Phase A.
+Phase A completed without fabricating the missing EDR prerequisite. A later,
+separately gated EDR follow-up enabled the existing Defender/Intune integration,
+created the EDR onboarding configuration and established an assignment
+relationship only to the still-empty pilot group.
 
 ## Windows compliance baseline
 
@@ -135,19 +138,39 @@ evaluated and its access impact is reviewed.
 
 ## Defender for Endpoint onboarding
 
-The planned policy is:
+The policy is:
 
 `PLAB-WIN-EDR-001 - Defender for Endpoint onboarding`
 
-Phase A records this control as `connector-deferred`.
+The original Phase A state was `connector-deferred`. The subsequent controlled
+EDR follow-up validated the prerequisite integration and then created the
+tenant-side policy.
 
-The final read-only audit found:
+Current sanitized tenant observations:
 
-- Defender/Intune mobile threat-defense connector count: zero;
-- EDR policy count: zero.
+- Defender/Intune mobile threat-defense connector count: one;
+- connector partner state: enabled;
+- Windows connector state: enabled;
+- EDR policy count: one;
+- EDR setting count: two;
+- onboarding package source: connector-managed;
+- sample sharing: all samples;
+- assignment relationship count: one;
+- assignment target: `PLAB-Device-Pilot` only;
+- assignment filter: none;
+- pilot direct membership: zero;
+- pilot transitive membership: zero;
+- All Devices target: absent.
 
-Feature 8 does not fabricate an onboarding policy when the prerequisite
-connector is unavailable.
+The beta configuration-policy `assignments` relationship repeatedly returned
+the exact pilot assignment. During the same observations, the policy
+`isAssigned` property remained `false`, and an expanded assignments readback
+did not consistently reproduce the relationship. These beta-API status
+differences are recorded as an observed readback inconsistency rather than
+being hidden or treated as permission to repeat the assignment operation.
+
+The assignment writer must not be rerun. No further EDR tenant write is
+required by the current Feature 8 closure.
 
 ## Endpoint validation
 
@@ -191,9 +214,15 @@ Feature 8 Phase A status:
 
 `tenant-implemented-and-validated`
 
-Deferred states:
+Current closure state:
 
+- tenant-side EDR configuration: implemented;
+- EDR pilot assignment relationship: observed and validated against the direct
+  assignments relationship;
+- broad EDR assignment: absent;
 - dedicated endpoint validation: `environment-deferred`;
-- Defender for Endpoint onboarding: `connector-deferred`.
+- real endpoint onboarding/telemetry claim: not made.
 
-The final audit was read-only and performed no tenant mutation.
+The original Phase A final audit was read-only. The later EDR follow-up used
+controlled tenant writes followed by read-only reconciliation. The final
+repository closure performs no tenant mutation.

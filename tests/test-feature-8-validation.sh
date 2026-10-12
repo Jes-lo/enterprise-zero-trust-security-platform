@@ -165,17 +165,73 @@ expect_rejected \
   ./scripts/validate-feature-8.sh
 
 sed \
-  's/policy_created: false/policy_created: true/' \
+  's/policy_created: true/policy_created: false/' \
   "$TMP/defender.yaml" \
-  > "$TMP/defender-false-edr.yaml"
+  > "$TMP/defender-edr-policy-regression.yaml"
 
 grep -Fq \
-  'policy_created: true' \
-  "$TMP/defender-false-edr.yaml"
+  'policy_created: false' \
+  "$TMP/defender-edr-policy-regression.yaml"
 
 expect_rejected \
-  "false-edr-completion" \
-  env FEATURE8_DEFENDER_FILE="$TMP/defender-false-edr.yaml" \
+  "edr-policy-regression" \
+  env FEATURE8_DEFENDER_FILE="$TMP/defender-edr-policy-regression.yaml" \
+  ./scripts/validate-feature-8.sh
+
+sed \
+  's/assignment_scope: PLAB-Device-Pilot/assignment_scope: all_devices/' \
+  "$TMP/defender.yaml" \
+  > "$TMP/defender-broad-edr.yaml"
+
+grep -Fq \
+  'assignment_scope: all_devices' \
+  "$TMP/defender-broad-edr.yaml"
+
+expect_rejected \
+  "edr-broad-assignment" \
+  env FEATURE8_DEFENDER_FILE="$TMP/defender-broad-edr.yaml" \
+  ./scripts/validate-feature-8.sh
+
+sed \
+  's/all_devices_assignment: false/all_devices_assignment: true/' \
+  "$TMP/defender.yaml" \
+  > "$TMP/defender-all-devices.yaml"
+
+grep -Fq \
+  'all_devices_assignment: true' \
+  "$TMP/defender-all-devices.yaml"
+
+expect_rejected \
+  "edr-all-devices" \
+  env FEATURE8_DEFENDER_FILE="$TMP/defender-all-devices.yaml" \
+  ./scripts/validate-feature-8.sh
+
+sed \
+  's/assignment_retry_authorized: false/assignment_retry_authorized: true/' \
+  "$TMP/defender.yaml" \
+  > "$TMP/defender-retry.yaml"
+
+grep -Fq \
+  'assignment_retry_authorized: true' \
+  "$TMP/defender-retry.yaml"
+
+expect_rejected \
+  "edr-assignment-retry" \
+  env FEATURE8_DEFENDER_FILE="$TMP/defender-retry.yaml" \
+  ./scripts/validate-feature-8.sh
+
+sed \
+  's/rollback_retry_authorized: false/rollback_retry_authorized: true/' \
+  "$TMP/defender.yaml" \
+  > "$TMP/defender-rollback-retry.yaml"
+
+grep -Fq \
+  'rollback_retry_authorized: true' \
+  "$TMP/defender-rollback-retry.yaml"
+
+expect_rejected \
+  "edr-rollback-retry" \
+  env FEATURE8_DEFENDER_FILE="$TMP/defender-rollback-retry.yaml" \
   ./scripts/validate-feature-8.sh
 
 echo

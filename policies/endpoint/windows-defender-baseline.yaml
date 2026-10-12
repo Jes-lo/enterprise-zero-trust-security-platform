@@ -19,7 +19,8 @@ tenant_validation:
   tamper_policy_count: 1
   tamper_setting_count: 1
   tamper_assignment_scope: PLAB-Device-Pilot
-  edr_policy_count: 0
+  edr_policy_count: 1
+  edr_setting_count: 2
 
 validated_security_outcomes:
   behavior_monitoring: enabled
@@ -32,9 +33,25 @@ validated_security_outcomes:
   controlled_configuration: not_selected
 
 edr_onboarding:
-  implementation_state: connector_deferred
-  mde_connector_count: 0
-  policy_created: false
+  implementation_state: tenant_configured_pilot_relationship_validated
+  mde_connector_count: 1
+  connector_partner_state: enabled
+  connector_windows_enabled: true
+  policy_created: true
+  policy_count: 1
+  setting_count: 2
+  package_source: connector_managed
+  sample_sharing: all
+  assignment_relationship_count: 1
+  assignment_scope: PLAB-Device-Pilot
+  assignment_filter: none
+  all_devices_assignment: false
+  direct_pilot_membership_count: 0
+  transitive_pilot_membership_count: 0
+  beta_is_assigned_readback: false
+  beta_status_consistency: inconsistent
+  assignment_retry_authorized: false
+  rollback_retry_authorized: false
 
 endpoint_validation:
   state: environment_deferred
