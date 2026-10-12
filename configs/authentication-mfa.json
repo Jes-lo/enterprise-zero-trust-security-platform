@@ -9,7 +9,7 @@
     "privileged_role_assignment": "feature5",
     "conditional_access_enforcement": "feature6",
     "pim_and_identity_protection": "feature7",
-    "device_compliance": "feature9"
+    "device_compliance": "feature8"
   },
   "readiness": {
     "mode": "read_only",
