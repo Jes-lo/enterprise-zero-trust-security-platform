@@ -1,0 +1,58 @@
+metadata:
+  feature: feature9
+  phase: feature9a-foundation
+  name: enterprise-application-permission-baseline
+  implementation_state: design_ready_read_only_discovery_pending
+
+inventory:
+  service_principal_inventory_required: true
+  tenant_owned_application_inventory_required: true
+  owner_presence_inventory_required: true
+  application_permission_inventory_required: true
+  delegated_permission_inventory_required: true
+
+permission_governance:
+  least_privilege_required: true
+  delegated_permissions_default: deny_unless_justified
+  application_permissions_default: deny_unless_justified
+  admin_consent_default: deny
+  permission_expansion_requires_review: true
+  delegated_and_application_permissions_must_be_distinguished: true
+  business_justification_required: true
+
+ownership:
+  tenant_owned_application_owner_required: true
+  ownerless_application_requires_review: true
+  shared_admin_identity_as_owner_default: prohibited
+
+credentials:
+  client_secret_creation_authorized: false
+  certificate_credential_creation_authorized: false
+  private_key_material_in_repository: prohibited
+  client_secret_material_in_repository: prohibited
+
+assignment:
+  broad_user_assignment_default: deny
+  broad_group_assignment_default: deny
+  all_users_assignment_authorized: false
+
+tenant_mutation:
+  application_registration_creation_authorized: false
+  service_principal_mutation_authorized: false
+  permission_grant_creation_authorized: false
+  permission_grant_removal_authorized: false
+  admin_consent_authorized: false
+  service_principal_deletion_authorized: false
+
+discovery:
+  stage1_scope: Application.Read.All
+  stage1_method: GET_ONLY
+  stage1_execution_authorized: false
+  stage2_scope: Directory.Read.All
+  stage2_method: GET_ONLY
+  stage2_execution_authorized: false
+
+endpoint_and_identity_boundaries:
+  device_compliance_owner: feature8
+  privileged_identity_governance_owner: feature7
+  conditional_access_owner: feature6

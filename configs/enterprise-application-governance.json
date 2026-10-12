@@ -1,0 +1,76 @@
+{
+  "feature": "feature9",
+  "title": "Enterprise Application and Permission Governance",
+  "phase": "feature9a-foundation",
+  "implementation_state": "design_ready_read_only_discovery_pending",
+  "scope": {
+    "enterprise_applications": true,
+    "service_principals": true,
+    "delegated_permissions": true,
+    "application_permissions": true,
+    "administrative_consent": true,
+    "application_credentials": true
+  },
+  "authorization": {
+    "tenant_writes": false,
+    "application_registration_creation": false,
+    "service_principal_mutation": false,
+    "credential_creation": false,
+    "credential_rotation": false,
+    "permission_grant_creation": false,
+    "permission_grant_removal": false,
+    "admin_consent": false,
+    "user_assignment_changes": false,
+    "service_principal_deletion": false
+  },
+  "graph_discovery": {
+    "stage1": {
+      "name": "enterprise_application_inventory",
+      "graph_surface": "v1.0",
+      "scope": "Application.Read.All",
+      "http_methods": [
+        "GET"
+      ],
+      "execution_authorized": false,
+      "purpose": [
+        "service_principal_inventory",
+        "tenant_owned_application_inventory",
+        "service_principal_owner_presence",
+        "application_permission_assignment_counts"
+      ]
+    },
+    "stage2": {
+      "name": "delegated_permission_grant_inventory",
+      "graph_surface": "v1.0",
+      "scope": "Directory.Read.All",
+      "http_methods": [
+        "GET"
+      ],
+      "execution_authorized": false,
+      "purpose": [
+        "delegated_permission_grant_inventory",
+        "tenant_owned_application_grant_counts",
+        "organization_wide_consent_counts"
+      ]
+    }
+  },
+  "governance": {
+    "least_privilege_required": true,
+    "delegated_and_application_permissions_separated": true,
+    "permission_business_justification_required": true,
+    "owner_accountability_required": true,
+    "admin_consent_requires_separate_gate": true,
+    "permission_expansion_requires_separate_review": true,
+    "broad_tenant_assignment_prohibited_by_default": true,
+    "first_party_service_principal_mutation_prohibited": true
+  },
+  "privacy": {
+    "repository_contains_object_ids": false,
+    "repository_contains_tenant_ids": false,
+    "repository_contains_real_upns": false,
+    "repository_contains_tokens": false,
+    "repository_contains_client_secrets": false,
+    "repository_contains_private_keys": false,
+    "sanitized_aggregate_evidence_only": true
+  }
+}
