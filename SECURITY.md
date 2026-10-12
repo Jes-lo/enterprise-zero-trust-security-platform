@@ -2,84 +2,167 @@
 
 ## Scope
 
-This repository is a controlled security-engineering portfolio project.
+This repository is a controlled security-engineering portfolio and
+demonstration project for Zero Trust practices across Microsoft 365,
+Microsoft Entra ID, Microsoft Intune, Microsoft Defender for Endpoint,
+Microsoft Graph, and PowerShell automation.
 
-Testing must be restricted to systems, tenants, accounts, devices, and
-data that the project owner is explicitly authorized to use.
+Testing must be restricted to systems, tenants, accounts, applications,
+devices, and data that the project owner is explicitly authorized to use.
 
-## Prohibited repository content
+This repository is not a production security product, production
+deployment, or authorization to test third-party systems.
 
-Never commit:
+## Reporting a security issue
 
-- Passwords
-- Client secrets
-- Refresh tokens
-- Access tokens
-- Session cookies
-- Private keys
-- PFX or P12 files
-- Authentication caches
-- Recovery codes
-- Real personally identifiable information
-- Employer-confidential data
-- Customer data
-- Unsanitized tenant exports
-- Sensitive tenant identifiers when disclosure is unnecessary
+Do not publish credentials, secrets, tokens, private keys, tenant-sensitive
+information, personal information, or other confidential material in a
+public issue.
 
-## Evidence handling
+When GitHub Private Vulnerability Reporting is available for this
+repository, use that mechanism for security-sensitive reports.
 
-Evidence intended for the public repository must be sanitized before
-commit.
+Otherwise, contact the repository owner privately before disclosing
+sensitive details publicly.
 
-Screenshots and exported configuration must be reviewed for:
+## Credentials and secrets
 
-- Tenant names
-- Tenant IDs
-- Subscription IDs
-- User principal names
-- Email addresses
-- Device identifiers
-- IP addresses
-- Object IDs
-- Application IDs
-- Internal domains
-- Tokens or secrets
-- Personal information
+This repository must not contain:
 
-Only information required to demonstrate a control or test should be
-published.
+- passwords;
+- client secrets;
+- access tokens;
+- refresh tokens;
+- session cookies;
+- recovery codes;
+- private SSH or TLS keys;
+- PFX or P12 files containing private keys;
+- authentication caches;
+- production credentials;
+- real customer data;
+- employer-confidential information;
+- authentication or authorization headers;
+- credentials introduced solely to simplify testing.
 
-## Authentication material
+Secrets required during an authorized laboratory operation must be supplied
+at runtime through appropriate local or CI secret storage and must never be
+hard-coded in committed source code or configuration.
 
-Secrets must be supplied at runtime through approved local or CI secret
-storage.
+## Tenant, identity, and evidence privacy
 
-Secrets must never be hard-coded in source files or configuration
-committed to Git.
+Microsoft 365 and Microsoft Entra evidence must be treated as potentially
+sensitive operational data.
 
-## Security testing boundary
+Evidence intended for this repository must be sanitized before commit.
+
+Screenshots, command output, configuration exports, JSON, logs, and other
+evidence must be reviewed for unnecessary disclosure of:
+
+- tenant names;
+- tenant IDs;
+- user principal names;
+- email addresses;
+- object IDs;
+- group IDs;
+- application or service-principal IDs;
+- device identifiers;
+- internal domains;
+- IP addresses;
+- authentication-method identifiers that are tenant-specific;
+- tokens, secrets, or session material;
+- personal information.
+
+Only information required to demonstrate the engineering control or
+validation result should be retained.
+
+Raw or unsanitized tenant exports must not be committed.
+
+## Authentication and authorization changes
+
+Identity and access changes must follow least-privilege principles.
+
+Authentication, Conditional Access, role assignment, consent, application
+permission, endpoint-security, and device-compliance changes should be
+limited to the explicitly defined laboratory scope.
+
+Broader permissions or additional licenses must not be requested solely to
+produce stronger-looking portfolio evidence.
+
+Where read-only access is sufficient to validate a requirement, write
+permissions should not be introduced.
+
+## Microsoft Graph and PowerShell automation
+
+Microsoft Graph and PowerShell automation must use the minimum permissions
+required for the documented operation.
+
+Automation that can modify tenant state should use explicit validation,
+bounded target selection, and fail-closed safety checks where practical.
+
+Scripts must not silently expand from pilot or laboratory targets to
+organization-wide targets.
+
+Tenant identifiers, authentication material, and raw responses containing
+sensitive information must not be written to tracked repository paths.
+
+## Controlled security testing
 
 Security tests must not target:
 
-- Third-party tenants
-- Public services without authorization
-- Production environments
-- Employer infrastructure
-- Customer infrastructure
-- Accounts not owned or explicitly authorized for testing
+- third-party tenants;
+- public services without authorization;
+- production environments;
+- employer infrastructure;
+- customer infrastructure;
+- accounts, applications, or devices not owned or explicitly authorized
+  for testing.
 
-## Responsible handling
+Destructive endpoint actions, credential attacks, privilege escalation
+outside the laboratory scope, or attempts to bypass security controls on
+unauthorized systems are outside this repository's scope.
 
-A vulnerability discovered in a third-party product should be reported
-through that vendor's appropriate security-response process rather than
-published as an exploit in this repository.
+## Endpoint and Conditional Access safety
 
-## Incident response
+Endpoint, compliance, Microsoft Defender for Endpoint, and Conditional
+Access testing must preserve documented pilot boundaries.
 
-If a secret is accidentally committed:
+Policies intended for staged or report-only validation must not be
+represented as production enforcement.
+
+Changes that broaden assignments, enable destructive actions, or expand
+access beyond the documented laboratory targets require explicit review
+before execution.
+
+## Security findings
+
+Security findings produced by automated validation or security tooling
+should be reviewed individually.
+
+Suppressions or exceptions should include a documented technical
+justification rather than disabling security controls globally.
+
+If a credential or secret is accidentally exposed:
 
 1. Revoke or rotate the affected credential immediately.
-2. Remove the exposed material from the repository.
-3. Review Git history for exposure.
-4. Assess whether history rewriting is required.
+2. Remove the exposed material from the maintained repository state.
+3. Review Git history, GitHub Actions logs, artifacts, releases, issues,
+   and pull-request content for additional exposure.
+4. Rewrite history only when required to remediate the exposure.
 5. Document the incident without preserving the secret itself.
+
+If tenant-sensitive or personal information is unintentionally published,
+the affected material should be removed or sanitized and the disclosure
+scope assessed.
+
+## Third-party vulnerabilities
+
+A vulnerability discovered in a third-party product or service should be
+reported through that vendor's appropriate security-response process rather
+than published as an exploit in this repository.
+
+## Supported versions
+
+This repository represents a portfolio project rather than a versioned
+production software product.
+
+Only the current `main` branch is considered maintained.
