@@ -192,3 +192,33 @@ additional privilege is not justified solely for portfolio evidence.
 `FEATURE9_TENANT_RESOURCE_WRITES_BY_COLLECTOR=0`
 
 `FEATURE9_CREDENTIAL_CREATION_AUTHORIZED=NO`
+
+## Feature 9D — synthetic application decision
+
+The Stage 1 inventory found no tenant-owned service principals.
+
+Feature 9 therefore does not manufacture a tenant-owned application merely to
+exercise a write path.
+
+A complete synthetic enterprise-application implementation would expand the
+authorization boundary beyond the read-only state already validated. The
+additional write permission, administrative-role dependency and credential
+risk are not justified solely for portfolio demonstration.
+
+The final Feature 9 state is:
+
+- enterprise-application inventory: validated;
+- application-permission inventory for tenant-owned applications: validated
+  with zero observed assignments;
+- consent boundary: validated and documented;
+- delegated-permission-grant discovery: deferred by privilege minimization;
+- synthetic application creation: deferred by privilege minimization;
+- new application-management write permission: not authorized;
+- new administrative role: not authorized;
+- new credential: not authorized.
+
+`FEATURE9_CLOSURE=VALIDATED_PRIVILEGE_MINIMIZATION`
+
+`FEATURE9_ADDITIONAL_TENANT_WRITE_REQUIRED=NO`
+
+`FEATURE9_SYNTHETIC_APPLICATION_CREATION_AUTHORIZED=NO`

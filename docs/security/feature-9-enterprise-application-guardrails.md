@@ -127,3 +127,20 @@ The Feature 9B collector must not be rerun automatically.
 The project does not authorize `Directory.Read.All` for Feature 9C at this
 stage. Avoiding another broad directory permission is the preferred
 least-privilege outcome.
+
+## Feature 9 final write boundary
+
+Feature 9 closes without requesting an application-management write
+permission.
+
+Do not request `Application.ReadWrite.All` or `Directory.ReadWrite.All` merely
+to create a synthetic portfolio application.
+
+Do not assign a Microsoft Entra administrative role solely to satisfy a
+synthetic application test.
+
+Do not create a client secret or certificate credential solely for Feature 9
+demonstration.
+
+A future tenant-owned application requires a new independently justified
+security design and explicit write authorization.

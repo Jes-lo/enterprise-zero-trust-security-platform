@@ -74,3 +74,19 @@ feature9b_validation:
   stage2_scope: Directory.Read.All
   stage2_execution_authorized: false
   stage2_execution_completed: false
+
+feature9_closure:
+  status: validated_privilege_minimization
+  enterprise_application_inventory: validated
+  delegated_permission_grant_inventory: deferred_privilege_minimization
+  synthetic_application_status: deferred_privilege_minimization
+  synthetic_application_creation_authorized: false
+  service_principal_creation_authorized: false
+  application_readwrite_all_authorized: false
+  directory_readwrite_all_authorized: false
+  new_admin_role_authorized: false
+  credential_creation_authorized: false
+  additional_consent_authorized: false
+  tenant_owned_service_principals_observed: 0
+  tenant_owned_application_permission_assignments_observed: 0
+  closure_classification: validated-no-additional-tenant-write-required

@@ -108,3 +108,26 @@ Sanitized inventory result:
 Feature 9C is closed as `deferred_privilege_minimization` for the current
 project iteration because delegated-grant inventory would require the broader
 `Directory.Read.All` permission and another administrator-consent decision.
+
+## Feature 9D closure criteria
+
+Feature 9 is portfolio-complete when validation confirms:
+
+- Stage 1 enterprise-application inventory remains validated;
+- Stage 1 rerun remains unauthorized;
+- Feature 9C remains deferred by privilege minimization;
+- synthetic application creation remains unauthorized;
+- service-principal creation remains unauthorized;
+- `Application.ReadWrite.All` remains unauthorized;
+- `Directory.ReadWrite.All` remains unauthorized;
+- no new administrative role is authorized;
+- no new application credential is authorized;
+- no additional consent is authorized;
+- the observed tenant-owned service-principal count remains zero in the
+  sanitized Feature 9B evidence;
+- all Feature 9 adversarial validation passes;
+- prior Feature 8 validation remains intact;
+- repository security validation passes.
+
+This closure does not prevent a future separately justified tenant-owned
+application project.
