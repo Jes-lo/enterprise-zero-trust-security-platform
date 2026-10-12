@@ -1,0 +1,73 @@
+{
+  "project": "enterprise-zero-trust-security-platform",
+  "portfolio_status": "complete",
+  "closure_classification": "validated-portfolio-complete",
+  "pre_closure_main_checkpoint": "ecf6cb0608a069a93797d82e0d0a1829d2c88445",
+  "scope": {
+    "features_1_through_9": "completed_or_explicitly_deferred",
+    "production_deployment_claimed": false,
+    "production_certification_claimed": false,
+    "production_data_used": false,
+    "production_credentials_used": false
+  },
+  "feature_status": {
+    "feature1": "completed",
+    "feature2": "completed",
+    "feature3": "completed",
+    "feature4": "completed",
+    "feature5": "completed_with_documented_operational_boundaries",
+    "feature6": "validated_report_only_enforcement_deferred",
+    "feature7": "validated_license_deferred",
+    "feature8": "tenant_configured_runtime_environment_deferred",
+    "feature9": "validated_privilege_minimization"
+  },
+  "intentional_deferred_boundaries": {
+    "conditional_access_enforcement": {
+      "owner": "feature6",
+      "status": "deferred"
+    },
+    "pim_and_identity_protection_live_implementation": {
+      "owner": "feature7",
+      "status": "license_deferred"
+    },
+    "endpoint_runtime_and_device_telemetry": {
+      "owner": "feature8",
+      "status": "environment_deferred"
+    },
+    "delegated_permission_grant_inventory": {
+      "owner": "feature9",
+      "status": "deferred_privilege_minimization"
+    },
+    "synthetic_enterprise_application": {
+      "owner": "feature9",
+      "status": "deferred_privilege_minimization"
+    }
+  },
+  "feature9_application_read_all_cleanup": {
+    "permission": "Application.Read.All",
+    "permission_type": "delegated",
+    "consent_type": "admin_consent",
+    "cleanup_method": "selective_revoke_via_entra_admin_center",
+    "status": "operator_confirmed_revoked",
+    "repository_reauthentication_performed": false,
+    "graph_revalidation_performed": false,
+    "additional_graph_permission_requested_for_cleanup": false,
+    "reason_graph_revalidation_not_performed": "Avoid expanding Microsoft Graph privilege solely to verify removal of a permission that was already selectively revoked through the administrator portal."
+  },
+  "closure_safety": {
+    "additional_tenant_write_required": false,
+    "additional_license_required": false,
+    "additional_consent_required": false,
+    "synthetic_application_required": false,
+    "branch_deletion_required": false
+  },
+  "privacy": {
+    "tenant_identifiers_committed": false,
+    "object_identifiers_committed": false,
+    "real_upns_committed": false,
+    "tokens_committed": false,
+    "secrets_committed": false,
+    "private_keys_committed": false,
+    "raw_graph_responses_committed": false
+  }
+}

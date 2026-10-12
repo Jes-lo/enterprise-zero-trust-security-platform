@@ -85,29 +85,49 @@ The project follows these principles:
 
 ## Current status
 
-Feature 2 — Tenant bootstrap and licensing validation.
+**Status: Portfolio implementation complete.**
 
-Completed foundations include:
+The repository contains the completed and validated implementation track from
+Feature 1 through Feature 9.
 
-- Repository security and governance
-- Synthetic organization model
-- Identity personas and privilege classes
-- Zero Trust access-decision architecture
-- Threat model
-- Security control objectives
-- Architecture Decision Records
-- Automated repository and architecture validation
+Validated project progression:
 
-Feature 2 includes the tenant-bootstrap contract, licensing boundaries,
-trial safeguards, least-privilege Microsoft Graph discovery automation,
-live Business Premium capability validation, and sanitized repository
-evidence.
+- **Feature 1 — Organization and Zero Trust Architecture:** completed.
+- **Feature 2 — Tenant Bootstrap and Licensing Validation:** completed.
+- **Feature 3 — Identity Foundation:** completed with sanitized live validation
+  and idempotent provisioning evidence.
+- **Feature 4 — Authentication and MFA Foundation:** completed with staged
+  readiness and controlled authentication-method pilot validation.
+- **Feature 5 — RBAC and Privileged Administration:** completed with documented
+  operational boundaries.
+- **Feature 6 — Conditional Access Baseline:** completed in validated
+  report-only mode; enforcement remains deliberately deferred.
+- **Feature 7 — Privileged Identity Governance:** closed as
+  `VALIDATED-LICENSE-DEFERRED` because the current laboratory does not justify
+  acquiring additional P2/Governance licensing solely for portfolio evidence.
+- **Feature 8 — Endpoint Security and Device Compliance:** tenant configuration
+  validated; real endpoint runtime/device telemetry remains
+  `ENVIRONMENT_DEFERRED`.
+- **Feature 9 — Enterprise Application and Permission Governance:** completed
+  with validated read-only inventory, consent-boundary evidence, adversarial
+  permission-expansion controls, and privilege-minimization closure.
 
-The live laboratory validated Microsoft Entra ID P1, Microsoft Intune
-Plan 1, Microsoft Defender for Business, and Microsoft Defender for
-Office 365 Plan 1 without publishing tenant identifiers.
+The Feature 9 `Application.Read.All` delegated administrator consent used for
+the controlled inventory was selectively revoked through the Microsoft Entra
+admin center after Feature 9 completion. The cleanup is operator-confirmed from
+the portal. It was intentionally not revalidated by requesting additional
+Microsoft Graph directory permissions solely for cleanup verification.
 
-No production Microsoft 365 environment is used by this project.
+Intentional deferred boundaries are documented rather than represented as
+implemented controls. They do not prevent the repository from being complete
+for its portfolio scope.
+
+This project is a controlled laboratory implementation and portfolio artifact.
+It is not a production deployment, production certification, or substitute for
+organization-specific security assessment.
+
+No production Microsoft 365 environment, production data, or production
+credentials are used by this project.
 
 ## Intellectual property
 
@@ -140,32 +160,3 @@ This is an independent portfolio project.
 
 It is not an official Microsoft product and is not sponsored, endorsed,
 certified, or maintained by Microsoft.
-
-## Feature 3 — Identity Foundation
-
-Status: in progress.
-
-Feature 3 defines the shared synthetic identity foundation for the portfolio
-laboratory.
-
-The current offline model includes:
-
-- neutral Portfolio Lab tenant naming;
-- 14 modeled identities;
-- 8 planned Business Premium workforce identities;
-- separate bootstrap and permanent privileged-administrator personas;
-- two cloud-only emergency-access identities;
-- complete organizational department coverage;
-- 11 security groups with deterministic naming and membership ownership;
-- deferred guest and workload identities;
-- repository privacy and evidence boundaries.
-
-Live provisioning status:
-
-- `EMPLOYEE_01` has been created as the controlled Feature 3 pilot;
-- Microsoft 365 Business Premium was assigned successfully;
-- live display name, alias, usage location, and license state were verified;
-- repeated Plan execution converges to zero changes;
-- repeated Pilot execution performs zero duplicate writes;
-- temporary credential material remains outside Git under protected local evidence;
-- the remaining nine planned live identities and all eleven security groups have not yet been provisioned.
