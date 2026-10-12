@@ -1,18 +1,24 @@
 # Copyright
 
-Copyright (c) 2026 Jesus Osvaldo Lopez Rodriguez. All rights reserved.
+Copyright (c) 2026 Jesus Lopez. All Rights Reserved.
 
-The original architecture, source code, documentation, diagrams, policy
-models, test scenarios, automation, and other original material created
-for this repository are protected by applicable copyright law.
+The original architecture, source code, configuration, security policies,
+documentation, diagrams, test scenarios, automation, and other original
+material created specifically for this repository are protected by
+applicable copyright law.
 
-No permission is granted to copy, modify, redistribute, sublicense, sell,
-republish, or create derivative works from the original project material
-except where explicitly authorized in writing by the copyright holder or
-where applicable law provides otherwise.
+No license or permission is granted to copy, reproduce, redistribute,
+republish, modify, adapt, sublicense, sell, incorporate into another work,
+or create derivative works from repository-specific original material,
+except as stated in `LICENSE`, as required or permitted by applicable law,
+or with prior written permission from the copyright holder.
 
-Third-party software, product names, APIs, services, specifications, and
-other third-party materials remain subject to their respective owners'
-rights and license terms.
+Third-party software, product names, APIs, services, specifications,
+documentation, and other third-party materials remain subject to their
+respective owners' rights, licenses, and terms.
 
-See `THIRD_PARTY_NOTICES.md` and `TRADEMARKS.md`.
+See:
+
+- `LICENSE`
+- `THIRD_PARTY_NOTICES.md`
+- `TRADEMARKS.md`
