@@ -1,0 +1,35 @@
+{
+  "evidence_type": "project-final-closure-sanitized",
+  "project": "enterprise-zero-trust-security-platform",
+  "pre_closure_main_checkpoint": "ecf6cb0608a069a93797d82e0d0a1829d2c88445",
+  "portfolio_status": "complete",
+  "features_1_through_9_accounted_for": true,
+  "feature9_merged_and_validated_before_closure": true,
+  "repository_clean_before_closure": true,
+  "open_pull_requests_before_closure": 0,
+  "application_read_all_cleanup": {
+    "historical_consent_event_preserved": true,
+    "selective_portal_revocation_performed": true,
+    "operator_confirmed_revoked": true,
+    "graph_revalidation_performed": false,
+    "new_graph_consent_requested_for_cleanup": false,
+    "additional_tenant_write_by_repository_closure": false
+  },
+  "deferred_boundaries_preserved": {
+    "feature6_enforcement_deferred": true,
+    "feature7_license_deferred": true,
+    "feature8_environment_deferred": true,
+    "feature9_privilege_minimization_deferred": true
+  },
+  "privacy": {
+    "tenant_ids_committed": false,
+    "application_ids_committed": false,
+    "object_ids_committed": false,
+    "assignment_ids_committed": false,
+    "real_upns_committed": false,
+    "tokens_committed": false,
+    "client_secrets_committed": false,
+    "private_keys_committed": false,
+    "raw_graph_responses_committed": false
+  }
+}
