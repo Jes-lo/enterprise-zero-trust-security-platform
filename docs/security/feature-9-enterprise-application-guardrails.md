@@ -112,3 +112,18 @@ Do not commit:
 `APPLICATION_CREATION_AUTHORIZED=NO`
 
 `CREDENTIAL_CREATION_AUTHORIZED=NO`
+
+## Feature 9B consent-boundary finding
+
+Feature 9B demonstrated that an otherwise GET-only workflow can still change
+tenant authorization state during interactive OAuth consent.
+
+Future live discovery must therefore treat a newly presented consent prompt as
+a tenant authorization write boundary even when every Microsoft Graph resource
+request is GET-only.
+
+The Feature 9B collector must not be rerun automatically.
+
+The project does not authorize `Directory.Read.All` for Feature 9C at this
+stage. Avoiding another broad directory permission is the preferred
+least-privilege outcome.

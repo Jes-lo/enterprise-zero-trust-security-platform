@@ -1,0 +1,48 @@
+{
+  "evidence_type": "feature9b-enterprise-application-inventory-sanitized",
+  "feature": "feature9",
+  "phase": "feature9b-read-only-inventory",
+  "graph_surface": "v1.0",
+  "requested_delegated_permission": "Application.Read.All",
+  "graph_method": "GET_ONLY",
+  "authenticated_identity_validated": true,
+  "summary": {
+    "total_service_principals": 193,
+    "tenant_owned_service_principals": 0,
+    "tenant_owned_disabled_service_principals": 0,
+    "tenant_owned_ownerless_service_principals": 0,
+    "tenant_owned_application_permission_assignments": 0,
+    "tenant_owned_apps_with_application_permissions": 0
+  },
+  "collector_execution": {
+    "graph_mutation_http_methods": 0,
+    "tenant_resource_writes": 0,
+    "identifiers_emitted": false
+  },
+  "authentication_consent_event": {
+    "consent_prompt_presented": true,
+    "consent_prompt_accepted_by_operator": true,
+    "requested_permission_requires_admin_consent": true,
+    "tenant_authorization_state_changed": true,
+    "exact_oauth2_permission_grant_consent_type": "not_independently_verified",
+    "tenant_wide_consent": "not_independently_verified"
+  },
+  "post_execution_authorization": {
+    "stage1_rerun_authorized": false,
+    "stage2_execution_authorized": false
+  },
+  "stage2_decision": {
+    "status": "deferred_privilege_minimization",
+    "requested_scope_if_executed": "Directory.Read.All",
+    "reason": "Listing delegated OAuth2 permission grants requires a broad directory read permission that also requires administrator consent. Additional privilege is not justified solely for portfolio evidence after the validated Stage 1 inventory."
+  },
+  "privacy": {
+    "tenant_ids_committed": false,
+    "application_ids_committed": false,
+    "object_ids_committed": false,
+    "real_upns_committed": false,
+    "tokens_committed": false,
+    "secrets_committed": false,
+    "raw_graph_responses_committed": false
+  }
+}

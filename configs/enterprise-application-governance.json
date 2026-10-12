@@ -72,5 +72,31 @@
     "repository_contains_client_secrets": false,
     "repository_contains_private_keys": false,
     "sanitized_aggregate_evidence_only": true
+  },
+  "live_validation": {
+    "stage1": {
+      "status": "validated",
+      "graph_surface": "v1.0",
+      "scope": "Application.Read.All",
+      "graph_method": "GET_ONLY",
+      "execution_completed": true,
+      "collector_graph_mutation_http_methods": 0,
+      "collector_tenant_resource_writes": 0,
+      "consent_prompt_presented": true,
+      "consent_prompt_accepted_by_operator": true,
+      "requested_permission_requires_admin_consent": true,
+      "tenant_authorization_state_changed": true,
+      "exact_oauth2_permission_grant_consent_type": "not_independently_verified",
+      "tenant_wide_consent": "not_independently_verified",
+      "rerun_authorized": false,
+      "evidence": "docs/evidence/feature-9b-enterprise-application-inventory-validation.json"
+    },
+    "stage2": {
+      "status": "deferred_privilege_minimization",
+      "scope": "Directory.Read.All",
+      "execution_authorized": false,
+      "execution_completed": false,
+      "new_consent_authorized": false
+    }
   }
 }

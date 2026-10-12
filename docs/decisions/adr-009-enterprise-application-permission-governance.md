@@ -69,3 +69,25 @@ using a high-impact live change to make the portfolio appear more complete.
 
 A later implementation can build on this foundation without weakening the
 default-deny posture.
+
+## Feature 9B execution finding
+
+Stage 1 successfully completed with `Application.Read.All` and GET-only
+resource requests.
+
+The interactive authentication flow presented a consent request and the
+operator accepted it. This is classified separately from the collector's
+resource-call behavior:
+
+- collector Graph mutation methods: zero;
+- collector tenant-resource writes: zero;
+- authentication consent event: accepted;
+- tenant authorization state changed: yes;
+- exact OAuth2 grant consent type: not independently verified.
+
+The project will not request `Directory.Read.All` merely to determine whether
+the resulting delegated grant is `Principal` or `AllPrincipals`.
+
+Feature 9C is therefore deferred under the least-privilege principle rather
+than expanding the Graph permission set solely to produce additional
+portfolio evidence.

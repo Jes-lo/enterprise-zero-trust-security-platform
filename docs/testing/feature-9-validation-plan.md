@@ -80,3 +80,31 @@ Feature 9A is complete when:
 
 Feature 9A completion does not equal live tenant discovery or tenant
 implementation.
+
+## Feature 9B actual validated outcome
+
+Stage 1 completed successfully with:
+
+- Graph surface: v1.0;
+- delegated permission: `Application.Read.All`;
+- Graph resource method classification: GET-only;
+- collector Graph mutation methods: zero;
+- collector tenant-resource writes: zero;
+- sanitized identifier emission: none;
+- authentication consent prompt: presented and accepted;
+- tenant authorization state change: yes;
+- exact OAuth2 grant consent type: not independently verified;
+- Stage 1 rerun authorization: no.
+
+Sanitized inventory result:
+
+- total service principals: 193;
+- tenant-owned service principals: 0;
+- disabled tenant-owned service principals: 0;
+- ownerless tenant-owned service principals: 0;
+- tenant-owned application-permission assignments: 0;
+- tenant-owned apps with application permissions: 0.
+
+Feature 9C is closed as `deferred_privilege_minimization` for the current
+project iteration because delegated-grant inventory would require the broader
+`Directory.Read.All` permission and another administrator-consent decision.

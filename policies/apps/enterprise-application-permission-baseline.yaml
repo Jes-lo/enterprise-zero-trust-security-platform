@@ -56,3 +56,21 @@ endpoint_and_identity_boundaries:
   device_compliance_owner: feature8
   privileged_identity_governance_owner: feature7
   conditional_access_owner: feature6
+
+feature9b_validation:
+  stage1_status: validated
+  stage1_scope: Application.Read.All
+  stage1_graph_method: GET_ONLY
+  stage1_collector_graph_mutation_http_methods: 0
+  stage1_collector_tenant_resource_writes: 0
+  stage1_consent_prompt_presented: true
+  stage1_consent_prompt_accepted_by_operator: true
+  stage1_permission_requires_admin_consent: true
+  stage1_tenant_authorization_state_changed: true
+  stage1_exact_oauth2_permission_grant_consent_type: not_independently_verified
+  stage1_tenant_wide_consent: not_independently_verified
+  stage1_rerun_authorized: false
+  stage2_status: deferred_privilege_minimization
+  stage2_scope: Directory.Read.All
+  stage2_execution_authorized: false
+  stage2_execution_completed: false

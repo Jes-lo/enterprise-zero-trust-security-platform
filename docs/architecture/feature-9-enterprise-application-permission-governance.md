@@ -153,12 +153,42 @@ Repository evidence must never contain:
 
 ## Current state
 
-`FEATURE9_PHASE=FOUNDATION`
+Feature 9B completed the Stage 1 enterprise-application inventory using
+delegated `Application.Read.All` and GET-only Microsoft Graph resource calls.
 
-`FEATURE9_TENANT_DISCOVERY=PENDING`
+The collector itself performed zero Graph mutation methods and zero tenant
+resource writes.
 
-`FEATURE9_TENANT_WRITES_AUTHORIZED=NO`
+During authentication, a consent prompt for the requested permission was
+presented and accepted by the operator. Because the requested delegated
+permission requires administrator consent, the authentication event changed
+the tenant authorization state even though the subsequent inventory resource
+calls remained GET-only.
 
-`FEATURE9_ADMIN_CONSENT_AUTHORIZED=NO`
+The exact OAuth2 permission-grant consent type was not independently verified.
+The project therefore does not claim whether the resulting grant is
+user-specific or tenant-wide.
+
+The sanitized inventory reported no tenant-owned service principals in the
+current laboratory state.
+
+Feature 9C delegated-permission-grant discovery is deliberately deferred.
+Its documented Graph surface requires `Directory.Read.All`, a broad directory
+permission that would require another administrator-consent decision. The
+additional privilege is not justified solely for portfolio evidence.
+
+`FEATURE9_PHASE=STAGE1_INVENTORY_VALIDATED`
+
+`FEATURE9_STAGE1_GRAPH_METHOD=GET_ONLY`
+
+`FEATURE9_STAGE1_CONSENT_EVENT=ACCEPTED`
+
+`FEATURE9_STAGE1_TENANT_AUTHORIZATION_STATE_CHANGED=YES`
+
+`FEATURE9_STAGE1_RERUN_AUTHORIZED=NO`
+
+`FEATURE9_STAGE2=DEFERRED_PRIVILEGE_MINIMIZATION`
+
+`FEATURE9_TENANT_RESOURCE_WRITES_BY_COLLECTOR=0`
 
 `FEATURE9_CREDENTIAL_CREATION_AUTHORIZED=NO`
